@@ -1,0 +1,12 @@
+﻿<metadata>
+
+  <attr path="/api/package[@name='com.reteno.core.di.base']/class[@name='Provider']/method[@name='create' and count(parameter)=0]"
+        name="abstract">false</attr>
+
+  <attr path="/api/package[@name='com.reteno.core.di.base']/class[@name='Provider']/method[@name='create' and count(parameter)=0]"
+        name="virtual">true</attr>
+
+<!--  <attr path="/api/package[@name='com.reteno.core.di.provider']/class[@name='RetenoConfigProvider']/method[@name='create' and count(parameter)=0]"-->
+<!--        name="visibility">protected</attr>-->
+
+</metadata>

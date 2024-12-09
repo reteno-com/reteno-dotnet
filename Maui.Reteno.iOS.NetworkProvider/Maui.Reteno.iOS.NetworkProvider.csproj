@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net8.0-ios</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>true</ImplicitUsings>
+        <IsBindingProject>true</IsBindingProject>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ObjcBindingApiDefinition Include="ApiDefinition.cs"/>
+        <ObjcBindingCoreSource Include="StructsAndEnums.cs"/>
+    </ItemGroup>
+    <ItemGroup>
+        <NativeReference Include="RetenoNetworkProvider.xcframework">
+            <Kind>Framework</Kind>
+            <Frameworks></Frameworks>
+        </NativeReference>
+    </ItemGroup>
+    <ItemGroup>
+        <None Update="Reteno.NetworkProvider.MauiBinding.targets">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+</Project>

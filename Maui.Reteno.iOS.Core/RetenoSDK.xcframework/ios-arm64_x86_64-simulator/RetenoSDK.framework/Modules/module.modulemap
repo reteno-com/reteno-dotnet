@@ -1,0 +1,4 @@
+framework module RetenoSDK {
+  header "RetenoSDK-Swift.h"
+  requires objc
+}

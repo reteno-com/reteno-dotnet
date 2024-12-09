@@ -1,0 +1,538 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.10 (swiftlang-5.10.0.13 clang-1500.3.9.4)
+// swift-module-flags: -target arm64-apple-ios14.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-bare-slash-regex -module-name RetenoSDK
+import AdSupport
+import AppTrackingTransparency
+import Foundation
+import Swift
+import SwiftUI
+import UIKit
+import UserNotifications
+import UserNotificationsUI
+import WebKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+@objc @_inheritsConvenienceInitializers public class JSONConverterHelper : ObjectiveC.NSObject {
+  @objc public static func convertJSONToString(_ json: Any) -> Swift.String?
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers final public class Recommendations : ObjectiveC.NSObject {
+  final public func getRecoms<T>(recomVariantId: Swift.String, productIds: [Swift.String], categoryId: Swift.String?, filters: [RetenoSDK.RecomFilter]?, fields: [Swift.String]?, completionHandler: @escaping (Swift.Result<[T], any Swift.Error>) -> Swift.Void) where T : RetenoSDK.RecommendableProduct
+  @objc final public func logEvent(recomVariantId: Swift.String, impressions: [RetenoSDK.RecomEvent], clicks: [RetenoSDK.RecomEvent], forcePush: Swift.Bool = false)
+  @objc deinit
+}
+extension RetenoSDK.Recommendations {
+  @available(swift, obsoleted: 1.0)
+  @objc final public func getRecoms(recomVariantId: Swift.String, productIds: [Swift.String], categoryId: Swift.String?, filters: [RetenoSDK.RecomFilter]?, fields: [Swift.String]?, success: @escaping ([Swift.String : Any]) -> Swift.Void, failure: @escaping (any Swift.Error) -> Swift.Void)
+}
+@objc public enum InteractionStatus : Swift.Int {
+  case delivered = 0
+  case opened
+  case clicked
+  case unknown
+  public var stringKey: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+extension RetenoSDK.InteractionStatus : Swift.Codable {
+  public init(from decoder: any Swift.Decoder) throws
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+public protocol ResponseHandler {
+  associatedtype Value
+  func handleResponse(_ responseData: Foundation.Data) throws -> Self.Value
+}
+@objc @_hasMissingDesignatedInitializers final public class Ecommerce : ObjectiveC.NSObject {
+  public enum EventType {
+    case productViewed(product: RetenoSDK.EcommerceProduct, currencyCode: Swift.String?)
+    case productCategoryViewed(category: RetenoSDK.EcommerceProductCategory)
+    case productAddedToWishlist(product: RetenoSDK.EcommerceProduct, currencyCode: Swift.String?)
+    case cartUpdated(cartId: Swift.String, products: [RetenoSDK.EcommerceProductInCart], currencyCode: Swift.String?)
+    case orderCreated(order: RetenoSDK.EcommerceOrder, currencyCode: Swift.String?)
+    case orderUpdated(order: RetenoSDK.EcommerceOrder, currencyCode: Swift.String?)
+    case orderDelivered(externalOrderId: Swift.String)
+    case orderCancelled(externalOrderId: Swift.String)
+    case searchRequest(query: Swift.String, isFound: Swift.Bool? = nil)
+  }
+  final public func logEvent(type: RetenoSDK.Ecommerce.EventType, date: Foundation.Date = Date(), forcePush: Swift.Bool = false)
+  @objc deinit
+}
+@objc extension RetenoSDK.Ecommerce {
+  @available(swift, obsoleted: 1.0)
+  @objc final public func logEvent(type: RetenoSDK.EventObjcType, date: Foundation.Date = Date(), forcePush: Swift.Bool = false)
+}
+@objc public class BoolObjc : ObjectiveC.NSObject {
+  @objc public init(bool: Swift.Bool)
+  @objc deinit
+}
+@objc public class EventObjcType : ObjectiveC.NSObject {
+  @available(swift, obsoleted: 1.0)
+  @objc public static func productViewed(product: RetenoSDK.EcommerceProduct, currencyCode: Swift.String?) -> RetenoSDK.EventObjcType
+  @available(swift, obsoleted: 1.0)
+  @objc public static func productCategoryViewed(category: RetenoSDK.EcommerceProductCategory) -> RetenoSDK.EventObjcType
+  @available(swift, obsoleted: 1.0)
+  @objc public static func productAddedToWishlist(product: RetenoSDK.EcommerceProduct, currencyCode: Swift.String?) -> RetenoSDK.EventObjcType
+  @available(swift, obsoleted: 1.0)
+  @objc public static func cartUpdated(cartId: Swift.String, products: [RetenoSDK.EcommerceProductInCart], currencyCode: Swift.String?) -> RetenoSDK.EventObjcType
+  @available(swift, obsoleted: 1.0)
+  @objc public static func orderCreated(order: RetenoSDK.EcommerceOrder, currencyCode: Swift.String?) -> RetenoSDK.EventObjcType
+  @available(swift, obsoleted: 1.0)
+  @objc public static func orderUpdated(order: RetenoSDK.EcommerceOrder, currencyCode: Swift.String?) -> RetenoSDK.EventObjcType
+  @available(swift, obsoleted: 1.0)
+  @objc public static func orderDelivered(externalOrderId: Swift.String) -> RetenoSDK.EventObjcType
+  @available(swift, obsoleted: 1.0)
+  @objc public static func orderCancelled(externalOrderId: Swift.String) -> RetenoSDK.EventObjcType
+  @available(swift, obsoleted: 1.0)
+  @objc public static func searchRequest(query: Swift.String, isFound: RetenoSDK.BoolObjc?) -> RetenoSDK.EventObjcType
+  public init(key: Swift.String, parameters: [RetenoSDK.EventParameter])
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers public class InAppMessageAction : ObjectiveC.NSObject {
+  @objc final public let isCloseButtonClicked: Swift.Bool
+  @objc final public let isButtonClicked: Swift.Bool
+  @objc final public let isOpenUrlClicked: Swift.Bool
+  @objc deinit
+}
+public enum InAppMessageStatus {
+  case inAppShouldBeDisplayed
+  case inAppIsDisplayed
+  case inAppShouldBeClosed(action: RetenoSDK.InAppMessageAction)
+  case inAppIsClosed(action: RetenoSDK.InAppMessageAction)
+  case inAppReceivedError(error: Swift.String)
+}
+@objc public enum InAppMessageStatusEnum : Swift.Int {
+  case inAppShouldBeDisplayed
+  case inAppIsDisplayed
+  case inAppShouldBeClosed
+  case inAppIsClosed
+  case inAppReceivedError
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc @_hasMissingDesignatedInitializers public class InAppMessageStatusObjc : ObjectiveC.NSObject {
+  final public let status: RetenoSDK.InAppMessageStatusEnum
+  final public let action: RetenoSDK.InAppMessageAction?
+  final public let error: Swift.String?
+  @objc deinit
+}
+public struct DevicePlatformHelper {
+  public static func setDevicePlatform(platorm: Swift.String)
+}
+@objc @_hasMissingDesignatedInitializers final public class AppInbox : ObjectiveC.NSObject {
+  @objc final public var onUnreadMessagesCountChanged: ((Swift.Int) -> Swift.Void)? {
+    @objc get
+    @objc set
+  }
+  final public func downloadMessages(page: Swift.Int? = nil, pageSize: Swift.Int? = nil, completion: @escaping (Swift.Result<(messages: [RetenoSDK.AppInboxMessage], totalPages: Swift.Int?), any Swift.Error>) -> Swift.Void)
+  final public func getUnreadMessagesCount(completion: @escaping (Swift.Result<Swift.Int, any Swift.Error>) -> Swift.Void)
+  final public func markAsOpened(messageIds: [Swift.String], completion: ((Swift.Result<Swift.Void, any Swift.Error>) -> Swift.Void)? = nil)
+  final public func markAllAsOpened(completion: ((Swift.Result<Swift.Void, any Swift.Error>) -> Swift.Void)? = nil)
+  @objc deinit
+}
+@objc extension RetenoSDK.AppInbox {
+  @objc @_hasMissingDesignatedInitializers public class MessagesResult : ObjectiveC.NSObject {
+    @objc deinit
+  }
+  @available(swift, obsoleted: 1.0)
+  @objc final public func downloadMessages(page: Swift.Int, pageSize: Swift.Int, success: @escaping (RetenoSDK.AppInbox.MessagesResult) -> Swift.Void, failure: @escaping (any Swift.Error) -> Swift.Void)
+  @available(swift, obsoleted: 1.0)
+  @objc final public func getUnreadMessagesCount(success: @escaping (Swift.Int) -> Swift.Void, failure: @escaping (any Swift.Error) -> Swift.Void)
+  @available(swift, obsoleted: 1.0)
+  @objc final public func markAsOpened(messageIds: [Swift.String], success: @escaping () -> Swift.Void, failure: @escaping (any Swift.Error) -> Swift.Void)
+  @available(swift, obsoleted: 1.0)
+  @objc final public func markAllAsOpened(success: @escaping () -> Swift.Void, failure: @escaping (any Swift.Error) -> Swift.Void)
+}
+@objc public enum EcommerceOrderStatus : Swift.Int {
+  case INITIALIZED, IN_PROGRESS, DELIVERED, CANCELLED
+  public init?(stringValue: Swift.String)
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public class EcommerceOrder : ObjectiveC.NSObject {
+  public init(externalOrderId: Swift.String, totalCost: Swift.Float, status: RetenoSDK.EcommerceOrderStatus, date: Foundation.Date, cartId: Swift.String? = nil, email: Swift.String? = nil, phone: Swift.String? = nil, firstName: Swift.String? = nil, lastName: Swift.String? = nil, shipping: Swift.Float? = nil, discount: Swift.Float? = nil, taxes: Swift.Float? = nil, restoreUrl: Swift.String? = nil, statusDescription: Swift.String? = nil, storeId: Swift.String? = nil, source: Swift.String? = nil, deliveryMethod: Swift.String? = nil, paymentMethod: Swift.String? = nil, deliveryAddress: Swift.String? = nil, items: [RetenoSDK.EcommerceOrderItem]? = nil, attributes: [Swift.String : [Swift.String : Any]]? = nil)
+  @objc deinit
+}
+@objc extension RetenoSDK.EcommerceOrder {
+  @available(swift, obsoleted: 1.0)
+  @objc convenience dynamic public init(externalOrderId: Swift.String, totalCost: Swift.Float, status: RetenoSDK.EcommerceOrderStatus, date: Foundation.Date, cartId: Swift.String? = nil, email: Swift.String? = nil, phone: Swift.String? = nil, firstName: Swift.String? = nil, lastName: Swift.String? = nil, shipping: Foundation.NSNumber? = nil, discount: Foundation.NSNumber? = nil, taxes: Foundation.NSNumber? = nil, restoreUrl: Swift.String? = nil, statusDescription: Swift.String? = nil, storeId: Swift.String? = nil, source: Swift.String? = nil, deliveryMethod: Swift.String? = nil, paymentMethod: Swift.String? = nil, deliveryAddress: Swift.String? = nil, items: [RetenoSDK.EcommerceOrderItem]? = nil, attributes: [Swift.String : [Swift.String : Any]]? = nil)
+}
+@objc public class RecomFilter : ObjectiveC.NSObject {
+  @objc public init(name: Swift.String, values: [Swift.String])
+  @objc deinit
+}
+@objc public class RecomEvent : ObjectiveC.NSObject, Swift.Codable {
+  @objc public init(date: Foundation.Date, productId: Swift.String)
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+public protocol APIRequest {
+  var path: Swift.String { get }
+  var method: RetenoSDK.HTTPMethod { get }
+  var encoding: any RetenoSDK.ParameterEncoding { get }
+  var parameters: [Swift.String : Any]? { get set }
+  var headers: [Swift.String : Swift.String]? { get set }
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class Reteno : ObjectiveC.NSObject {
+  @available(iOSApplicationExtension, unavailable)
+  @objc public static let userNotificationService: RetenoSDK.UserNotificationService
+  @available(iOSApplicationExtension, unavailable)
+  @objc public static func start(apiKey: Swift.String, configuration: RetenoSDK.RetenoConfiguration = RetenoConfiguration())
+  @available(iOSApplicationExtension, unavailable)
+  @objc public static func delayedStart()
+  @available(iOSApplicationExtension, unavailable)
+  @objc public static func delayedSetup(apiKey: Swift.String, configuration: RetenoSDK.RetenoConfiguration = RetenoConfiguration())
+  @available(iOSApplicationExtension, unavailable)
+  @objc public static func start(apiKey: Swift.String, isAutomaticScreenReportingEnabled: Swift.Bool = false, isDebugMode: Swift.Bool = false, isPausedInAppMessages: Swift.Bool = false, inAppMessagesPauseBehaviour: RetenoSDK.PauseBehaviour = .postponeInApps)
+  @objc public static func logEvent(eventTypeKey: Swift.String, date: Foundation.Date = Date(), parameters: [RetenoSDK.EventParameter], forcePush: Swift.Bool = false)
+  @objc public static func addLinkHandler(_ handler: @escaping (RetenoSDK.LinkHandler) -> Swift.Void)
+  public static func addInAppStatusHandler(_ handler: @escaping (RetenoSDK.InAppMessageStatus) -> Swift.Void)
+  @available(swift, obsoleted: 1.0)
+  @objc public static func addInAppStatusHandler(_ handler: @escaping (RetenoSDK.InAppMessageStatusObjc) -> Swift.Void)
+  @objc public static func updateNotificationInteractionStatus(interactionId: Swift.String, status: RetenoSDK.InteractionStatus, date: Foundation.Date = Date())
+  @objc public static func updateUserAttributes(externalUserId: Swift.String? = nil, userAttributes: RetenoSDK.UserAttributes? = nil, subscriptionKeys: [Swift.String] = [], groupNamesInclude: [Swift.String] = [], groupNamesExclude: [Swift.String] = [])
+  @objc public static func updateAnonymousUserAttributes(userAttributes: RetenoSDK.AnonymousUserAttributes, subscriptionKeys: [Swift.String] = [], groupNamesInclude: [Swift.String] = [], groupNamesExclude: [Swift.String] = [])
+  @objc public static func inbox() -> RetenoSDK.AppInbox
+  @objc public static func recommendations() -> RetenoSDK.Recommendations
+  @objc public static func ecommerce() -> RetenoSDK.Ecommerce
+  @available(iOSApplicationExtension, unavailable)
+  @objc public static func pauseInAppMessages(isPaused: Swift.Bool)
+  @objc public static func setInAppMessagesPauseBehaviour(pauseBehaviour: RetenoSDK.PauseBehaviour)
+  @objc deinit
+}
+@objc public class UserCustomField : ObjectiveC.NSObject, Swift.Codable {
+  @objc public init(key: Swift.String, value: Swift.String)
+  @objc override dynamic public func isEqual(_ object: Any?) -> Swift.Bool
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+@objc @_hasMissingDesignatedInitializers public class LinkHandler : ObjectiveC.NSObject {
+  @objc final public let url: Foundation.URL?
+  @objc final public let customData: [Swift.String : Any]?
+  @objc final public let source: RetenoSDK.LinkSource
+  @objc deinit
+}
+@objc public enum LinkSource : Swift.Int {
+  case pushNotification, inAppMessage
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public protocol RecommendableProduct : RetenoSDK.JSONInitable {
+  var productId: Swift.String { get }
+}
+@objc public class Address : ObjectiveC.NSObject, Swift.Codable {
+  @objc public init(region: Swift.String? = nil, town: Swift.String? = nil, address: Swift.String? = nil, postcode: Swift.String? = nil)
+  @objc override dynamic public func isEqual(_ object: Any?) -> Swift.Bool
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) open class RetenoCarouselNotificationViewController : UIKit.UIViewController {
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func viewDidLoad()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func viewDidLayoutSubviews()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func viewWillDisappear(_ animated: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+extension RetenoSDK.RetenoCarouselNotificationViewController : UserNotificationsUI.UNNotificationContentExtension {
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func didReceive(_ notification: UserNotifications.UNNotification)
+}
+extension RetenoSDK.RetenoCarouselNotificationViewController : UIKit.UICollectionViewDataSource {
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func collectionView(_ collectionView: UIKit.UICollectionView, numberOfItemsInSection section: Swift.Int) -> Swift.Int
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func collectionView(_ collectionView: UIKit.UICollectionView, cellForItemAt indexPath: Foundation.IndexPath) -> UIKit.UICollectionViewCell
+}
+public let ScreenViewEvent: Swift.String
+public let ScreenClass: Swift.String
+public struct ResponseData {
+  public let data: Foundation.Data?
+  public let headers: [Swift.String : Swift.String]
+  public let statusCode: Swift.Int
+}
+@objc @_inheritsConvenienceInitializers open class RetenoNotificationServiceExtension : UserNotifications.UNNotificationServiceExtension {
+  @objc override dynamic open func didReceive(_ request: UserNotifications.UNNotificationRequest, withContentHandler contentHandler: @escaping (UserNotifications.UNNotificationContent) -> Swift.Void)
+  @objc override dynamic open func serviceExtensionTimeWillExpire()
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public class EcommerceProductCategory : ObjectiveC.NSObject {
+  @objc public init(productCategoryId: Swift.String, attributes: [Swift.String : [Swift.String]]? = nil)
+  @objc deinit
+}
+@objc public class RetenoConfiguration : ObjectiveC.NSObject {
+  final public let isAutomaticScreenReportingEnabled: Swift.Bool
+  final public let isAutomaticAppLifecycleReportingEnabled: Swift.Bool
+  final public let isAutomaticPushSubsriptionReportingEnabled: Swift.Bool
+  final public let isAutomaticSessionReportingEnabled: Swift.Bool
+  final public let isPausedInAppMessages: Swift.Bool
+  final public let inAppMessagesPauseBehaviour: RetenoSDK.PauseBehaviour
+  final public let isDebugMode: Swift.Bool
+  @objc public init(isAutomaticScreenReportingEnabled: Swift.Bool = false, isAutomaticAppLifecycleReportingEnabled: Swift.Bool = true, isAutomaticPushSubsriptionReportingEnabled: Swift.Bool = true, isAutomaticSessionReportingEnabled: Swift.Bool = true, isPausedInAppMessages: Swift.Bool = false, inAppMessagesPauseBehaviour: RetenoSDK.PauseBehaviour = .postponeInApps, isDebugMode: Swift.Bool = false)
+  @objc deinit
+}
+@objc public class UserAttributes : ObjectiveC.NSObject, Swift.Codable {
+  @objc public init(phone: Swift.String? = nil, email: Swift.String? = nil, firstName: Swift.String? = nil, lastName: Swift.String? = nil, languageCode: Swift.String? = nil, timeZone: Swift.String? = TimeZone.current.identifier, address: RetenoSDK.Address? = nil, fields: [RetenoSDK.UserCustomField] = [])
+  @objc override dynamic public func isEqual(_ object: Any?) -> Swift.Bool
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+extension RetenoSDK.UserAttributes {
+  public static func == (lhs: RetenoSDK.UserAttributes, rhs: RetenoSDK.UserAttributes) -> Swift.Bool
+}
+public enum HTTPMethod : Swift.String {
+  case options
+  case get
+  case head
+  case post
+  case put
+  case patch
+  case delete
+  case trace
+  case connect
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+@available(iOS 13.0, macOS 10.15, macCatalyst 13.0, tvOS 13.0, *)
+@available(watchOS, unavailable)
+extension SwiftUI.View {
+  public func analyticsScreen(class: Swift.String = "View", extraParameters: [RetenoSDK.EventParameter] = []) -> some SwiftUI.View
+  
+}
+@objc public class AnonymousUserAttributes : ObjectiveC.NSObject, Swift.Codable {
+  @objc public init(firstName: Swift.String? = nil, lastName: Swift.String? = nil, languageCode: Swift.String? = nil, timeZone: Swift.String? = TimeZone.current.identifier, address: RetenoSDK.Address? = nil, fields: [RetenoSDK.UserCustomField] = [])
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+@objc public class AppInboxMessage : ObjectiveC.NSObject, Swift.Codable {
+  public var createdDate: Foundation.Date? {
+    get
+  }
+  @objc final public let id: Swift.String
+  @objc final public let title: Swift.String
+  @objc final public let content: Swift.String?
+  @objc final public let imageURL: Foundation.URL?
+  @objc final public let linkURL: Foundation.URL?
+  @objc final public let isNew: Swift.Bool
+  @objc final public let category: Swift.String?
+  @objc final public let customData: [Swift.String : Any]?
+  @objc final public let expiryDate: Foundation.Date?
+  required public init(from decoder: any Swift.Decoder) throws
+  public func encode(to encoder: any Swift.Encoder) throws
+  @objc deinit
+}
+@objc public class EcommerceProductInCart : ObjectiveC.NSObject {
+  public init(productId: Swift.String, price: Swift.Float, quantity: Swift.Int, discount: Swift.Float? = nil, name: Swift.String? = nil, category: Swift.String? = nil, attributes: [Swift.String : [Swift.String]]? = nil)
+  @objc deinit
+}
+@objc extension RetenoSDK.EcommerceProductInCart {
+  @available(swift, obsoleted: 1.0)
+  @objc convenience dynamic public init(productId: Swift.String, price: Swift.Float, quantity: Swift.Int, discount: Foundation.NSNumber? = nil, name: Swift.String? = nil, category: Swift.String? = nil, attributes: [Swift.String : [Swift.String]]? = nil)
+}
+@objc public class EventParameter : ObjectiveC.NSObject, Swift.Codable {
+  @objc public init(name: Swift.String, value: Swift.String)
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+@objc @_hasMissingDesignatedInitializers public class Event : ObjectiveC.NSObject, Swift.Codable {
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+public protocol JSONInitable : Swift.Decodable {
+  init?(json: [Swift.String : Any]) throws
+}
+extension RetenoSDK.JSONInitable {
+  public init?(json: [Swift.String : Any]) throws
+}
+public struct ErrorEvent : Swift.Codable {
+  public enum LogLevel : Swift.String {
+    case error
+    case info
+    case warning
+    public init?(rawValue: Swift.String)
+    public typealias RawValue = Swift.String
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public protocol URLRequestConvertible {
+  func asURLRequest() throws -> Foundation.URLRequest
+}
+extension RetenoSDK.URLRequestConvertible {
+  public var urlRequest: Foundation.URLRequest? {
+    get
+  }
+}
+extension Foundation.URLRequest : RetenoSDK.URLRequestConvertible {
+  public func asURLRequest() throws -> Foundation.URLRequest
+}
+public typealias Parameters = [Swift.String : Any]
+public protocol ParameterEncoding {
+  func encode(_ urlRequest: any RetenoSDK.URLRequestConvertible, with parameters: RetenoSDK.Parameters?) throws -> Foundation.URLRequest
+}
+public struct URLEncoding : RetenoSDK.ParameterEncoding {
+  public enum Destination {
+    case methodDependent, queryString, httpBody
+    public static func == (a: RetenoSDK.URLEncoding.Destination, b: RetenoSDK.URLEncoding.Destination) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public enum ArrayEncoding {
+    case brackets, noBrackets
+    public static func == (a: RetenoSDK.URLEncoding.ArrayEncoding, b: RetenoSDK.URLEncoding.ArrayEncoding) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public enum BoolEncoding {
+    case numeric, literal
+    public static func == (a: RetenoSDK.URLEncoding.BoolEncoding, b: RetenoSDK.URLEncoding.BoolEncoding) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public static var `default`: RetenoSDK.URLEncoding {
+    get
+  }
+  public static var methodDependent: RetenoSDK.URLEncoding {
+    get
+  }
+  public static var queryString: RetenoSDK.URLEncoding {
+    get
+  }
+  public static var httpBody: RetenoSDK.URLEncoding {
+    get
+  }
+  public let destination: RetenoSDK.URLEncoding.Destination
+  public let arrayEncoding: RetenoSDK.URLEncoding.ArrayEncoding
+  public let boolEncoding: RetenoSDK.URLEncoding.BoolEncoding
+  public init(destination: RetenoSDK.URLEncoding.Destination = .methodDependent, arrayEncoding: RetenoSDK.URLEncoding.ArrayEncoding = .brackets, boolEncoding: RetenoSDK.URLEncoding.BoolEncoding = .numeric)
+  public func encode(_ urlRequest: any RetenoSDK.URLRequestConvertible, with parameters: RetenoSDK.Parameters?) throws -> Foundation.URLRequest
+  public func queryComponents(fromKey key: Swift.String, value: Any) -> [(Swift.String, Swift.String)]
+  public func escape(_ string: Swift.String) -> Swift.String
+}
+public struct JSONEncoding : RetenoSDK.ParameterEncoding {
+  public static var `default`: RetenoSDK.JSONEncoding {
+    get
+  }
+  public static var prettyPrinted: RetenoSDK.JSONEncoding {
+    get
+  }
+  public let options: Foundation.JSONSerialization.WritingOptions
+  public init(options: Foundation.JSONSerialization.WritingOptions = [])
+  public func encode(_ urlRequest: any RetenoSDK.URLRequestConvertible, with parameters: RetenoSDK.Parameters?) throws -> Foundation.URLRequest
+  public func encode(_ urlRequest: any RetenoSDK.URLRequestConvertible, withJSONObject jsonObject: Any? = nil) throws -> Foundation.URLRequest
+}
+public struct PropertyListEncoding : RetenoSDK.ParameterEncoding {
+  public static var `default`: RetenoSDK.PropertyListEncoding {
+    get
+  }
+  public static var xml: RetenoSDK.PropertyListEncoding {
+    get
+  }
+  public static var binary: RetenoSDK.PropertyListEncoding {
+    get
+  }
+  public let format: Foundation.PropertyListSerialization.PropertyListFormat
+  public let options: Foundation.PropertyListSerialization.WriteOptions
+  public init(format: Foundation.PropertyListSerialization.PropertyListFormat = .xml, options: Foundation.PropertyListSerialization.WriteOptions = 0)
+  public func encode(_ urlRequest: any RetenoSDK.URLRequestConvertible, with parameters: RetenoSDK.Parameters?) throws -> Foundation.URLRequest
+}
+@objc public class EcommerceProduct : ObjectiveC.NSObject {
+  @objc public init(productId: Swift.String, price: Swift.Float, isInStock: Swift.Bool, attributes: [Swift.String : [Swift.String]]? = nil)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @available(iOSApplicationExtension, unavailable)
+final public class UserNotificationService : ObjectiveC.NSObject {
+  final public var willPresentNotificationHandler: ((_ notification: UserNotifications.UNNotification) -> UserNotifications.UNNotificationPresentationOptions)?
+  final public var didReceiveNotificationResponseHandler: ((_ response: UserNotifications.UNNotificationResponse) -> Swift.Void)?
+  final public var didReceiveNotificationUserInfo: ((_ userInfo: [Swift.AnyHashable : Any]) -> Swift.Void)?
+  final public var notificationActionHandler: ((_ userInfo: [Swift.AnyHashable : Any], _ action: RetenoSDK.RetenoUserNotificationAction) -> Swift.Void)?
+  public static let shared: RetenoSDK.UserNotificationService
+  final public func registerForRemoteNotifications(with options: UserNotifications.UNAuthorizationOptions = [.sound, .alert, .badge], application: UIKit.UIApplication = UIApplication.shared, userResponse: ((_ granted: Swift.Bool) -> Swift.Void)? = nil)
+  final public func unregisterFromRemoteNotifications(application: UIKit.UIApplication = UIApplication.shared)
+  final public func processRemoteNotificationsToken(_ deviceToken: Swift.String)
+  final public func processOpenedRemoteNotification(_ notification: UserNotifications.UNNotification)
+  final public func processRemoteNotificationResponse(_ response: UserNotifications.UNNotificationResponse)
+  @objc deinit
+}
+@available(iOSApplicationExtension, unavailable)
+extension RetenoSDK.UserNotificationService : UserNotifications.UNUserNotificationCenterDelegate {
+  @objc final public func userNotificationCenter(_ center: UserNotifications.UNUserNotificationCenter, willPresent notification: UserNotifications.UNNotification, withCompletionHandler completionHandler: @escaping (UserNotifications.UNNotificationPresentationOptions) -> Swift.Void)
+  @objc final public func userNotificationCenter(_ center: UserNotifications.UNUserNotificationCenter, didReceive response: UserNotifications.UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Swift.Void)
+}
+public struct RetenoUserNotificationAction {
+  public let actionId: Swift.String
+  public let customData: [Swift.String : Any]?
+  public let link: Foundation.URL?
+}
+@objc public class EcommerceOrderItem : ObjectiveC.NSObject {
+  @objc public init(externalItemId: Swift.String, name: Swift.String, category: Swift.String, quantity: Swift.Double, cost: Swift.Float, url: Swift.String, imageUrl: Swift.String?, description: Swift.String?)
+  @objc deinit
+}
+@objc public enum PauseBehaviour : Swift.Int {
+  case skipInApps
+  case postponeInApps
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+extension RetenoSDK.InteractionStatus : Swift.Equatable {}
+extension RetenoSDK.InteractionStatus : Swift.Hashable {}
+extension RetenoSDK.InteractionStatus : Swift.RawRepresentable {}
+extension RetenoSDK.InAppMessageStatusEnum : Swift.Equatable {}
+extension RetenoSDK.InAppMessageStatusEnum : Swift.Hashable {}
+extension RetenoSDK.InAppMessageStatusEnum : Swift.RawRepresentable {}
+extension RetenoSDK.EcommerceOrderStatus : Swift.Equatable {}
+extension RetenoSDK.EcommerceOrderStatus : Swift.Hashable {}
+extension RetenoSDK.EcommerceOrderStatus : Swift.RawRepresentable {}
+extension RetenoSDK.LinkSource : Swift.Equatable {}
+extension RetenoSDK.LinkSource : Swift.Hashable {}
+extension RetenoSDK.LinkSource : Swift.RawRepresentable {}
+extension RetenoSDK.HTTPMethod : Swift.Equatable {}
+extension RetenoSDK.HTTPMethod : Swift.Hashable {}
+extension RetenoSDK.HTTPMethod : Swift.RawRepresentable {}
+extension RetenoSDK.ErrorEvent.LogLevel : Swift.Equatable {}
+extension RetenoSDK.ErrorEvent.LogLevel : Swift.Hashable {}
+extension RetenoSDK.ErrorEvent.LogLevel : Swift.RawRepresentable {}
+extension RetenoSDK.URLEncoding.Destination : Swift.Equatable {}
+extension RetenoSDK.URLEncoding.Destination : Swift.Hashable {}
+extension RetenoSDK.URLEncoding.ArrayEncoding : Swift.Equatable {}
+extension RetenoSDK.URLEncoding.ArrayEncoding : Swift.Hashable {}
+extension RetenoSDK.URLEncoding.BoolEncoding : Swift.Equatable {}
+extension RetenoSDK.URLEncoding.BoolEncoding : Swift.Hashable {}
+extension RetenoSDK.PauseBehaviour : Swift.Equatable {}
+extension RetenoSDK.PauseBehaviour : Swift.Hashable {}
+extension RetenoSDK.PauseBehaviour : Swift.RawRepresentable {}

@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net8.0-ios</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>true</ImplicitUsings>
+        <IsBindingProject>true</IsBindingProject>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <!-- ApiDefinition.cs for binding API definitions -->
+        <ObjcBindingApiDefinition Include="ApiDefinition.cs" />
+        <!-- StructsAndEnums.cs for enums and structures -->
+        <ObjcBindingCoreSource Include="StructsAndEnums.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <!-- Include the native xcframework -->
+        <NativeReference Include="RetenoSDK.xcframework">
+            <Kind>Framework</Kind>
+            <Frameworks>Foundation UIKit</Frameworks>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <!-- Include any additional build targets -->
+        <None Update="Reteno.Core.MauiBinding.targets">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+</Project>

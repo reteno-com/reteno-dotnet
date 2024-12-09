@@ -1,0 +1,14 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Target Name="BeforeCompile">
+        <ItemGroup>
+            <BindingResources Include="$(MSBuildThisFileDirectory)../content/Maui.Reteno.iOS.Core.resources/**/*.*" />
+        </ItemGroup>
+        <Copy SourceFiles="@(BindingResources)" DestinationFolder="$(TargetDir)/Maui.Reteno.iOS.Core.resources/%(RecursiveDir)" ContinueOnError="false" />
+        <ItemGroup>
+            <NativeReference Include="$(TargetDir)/Maui.Reteno.iOS.Core.resources\RetenoSDK.xcframework">
+                <Kind>Framework</Kind>
+                <SmartLink>False</SmartLink>
+            </NativeReference>
+        </ItemGroup>
+    </Target>
+</Project>

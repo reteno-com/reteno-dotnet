@@ -1,0 +1,2361 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.10 (swiftlang-5.10.0.13 clang-1500.3.9.4)
+// swift-module-flags: -target x86_64-apple-ios12.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-bare-slash-regex -module-name RetenoNetworkProvider
+import Combine
+import Dispatch
+import Foundation
+import MobileCoreServices
+import Security
+import Swift
+import SystemConfiguration
+import UniformTypeIdentifiers
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+import zlib
+open class Session {
+  public static let `default`: RetenoNetworkProvider.Session
+  final public let session: Foundation.URLSession
+  final public let delegate: RetenoNetworkProvider.SessionDelegate
+  final public let rootQueue: Dispatch.DispatchQueue
+  final public let startRequestsImmediately: Swift.Bool
+  final public let requestQueue: Dispatch.DispatchQueue
+  final public let serializationQueue: Dispatch.DispatchQueue
+  final public let interceptor: (any RetenoNetworkProvider.RequestInterceptor)?
+  final public let serverTrustManager: RetenoNetworkProvider.ServerTrustManager?
+  final public let redirectHandler: (any RetenoNetworkProvider.RedirectHandler)?
+  final public let cachedResponseHandler: (any RetenoNetworkProvider.CachedResponseHandler)?
+  final public let eventMonitor: RetenoNetworkProvider.CompositeEventMonitor
+  final public let defaultEventMonitors: [any RetenoNetworkProvider.EventMonitor]
+  public init(session: Foundation.URLSession, delegate: RetenoNetworkProvider.SessionDelegate, rootQueue: Dispatch.DispatchQueue, startRequestsImmediately: Swift.Bool = true, requestQueue: Dispatch.DispatchQueue? = nil, serializationQueue: Dispatch.DispatchQueue? = nil, interceptor: (any RetenoNetworkProvider.RequestInterceptor)? = nil, serverTrustManager: RetenoNetworkProvider.ServerTrustManager? = nil, redirectHandler: (any RetenoNetworkProvider.RedirectHandler)? = nil, cachedResponseHandler: (any RetenoNetworkProvider.CachedResponseHandler)? = nil, eventMonitors: [any RetenoNetworkProvider.EventMonitor] = [])
+  convenience public init(configuration: Foundation.URLSessionConfiguration = URLSessionConfiguration.af.default, delegate: RetenoNetworkProvider.SessionDelegate = SessionDelegate(), rootQueue: Dispatch.DispatchQueue = DispatchQueue(label: "org.alamofire.session.rootQueue"), startRequestsImmediately: Swift.Bool = true, requestQueue: Dispatch.DispatchQueue? = nil, serializationQueue: Dispatch.DispatchQueue? = nil, interceptor: (any RetenoNetworkProvider.RequestInterceptor)? = nil, serverTrustManager: RetenoNetworkProvider.ServerTrustManager? = nil, redirectHandler: (any RetenoNetworkProvider.RedirectHandler)? = nil, cachedResponseHandler: (any RetenoNetworkProvider.CachedResponseHandler)? = nil, eventMonitors: [any RetenoNetworkProvider.EventMonitor] = [])
+  @objc deinit
+  public func withAllRequests(perform action: @escaping (Swift.Set<RetenoNetworkProvider.Request>) -> Swift.Void)
+  public func cancelAllRequests(completingOnQueue queue: Dispatch.DispatchQueue = .main, completion: (() -> Swift.Void)? = nil)
+  public typealias RequestModifier = (inout Foundation.URLRequest) throws -> Swift.Void
+  open func request(_ convertible: any RetenoNetworkProvider.URLConvertible, method: RetenoNetworkProvider.HTTPMethod = .get, parameters: RetenoNetworkProvider.Parameters? = nil, encoding: any RetenoNetworkProvider.ParameterEncoding = URLEncoding.default, headers: RetenoNetworkProvider.HTTPHeaders? = nil, interceptor: (any RetenoNetworkProvider.RequestInterceptor)? = nil, requestModifier: RetenoNetworkProvider.Session.RequestModifier? = nil) -> RetenoNetworkProvider.DataRequest
+  open func request<Parameters>(_ convertible: any RetenoNetworkProvider.URLConvertible, method: RetenoNetworkProvider.HTTPMethod = .get, parameters: Parameters? = nil, encoder: any RetenoNetworkProvider.ParameterEncoder = URLEncodedFormParameterEncoder.default, headers: RetenoNetworkProvider.HTTPHeaders? = nil, interceptor: (any RetenoNetworkProvider.RequestInterceptor)? = nil, requestModifier: RetenoNetworkProvider.Session.RequestModifier? = nil) -> RetenoNetworkProvider.DataRequest where Parameters : Swift.Encodable
+  open func request(_ convertible: any RetenoNetworkProvider.URLRequestConvertible, interceptor: (any RetenoNetworkProvider.RequestInterceptor)? = nil) -> RetenoNetworkProvider.DataRequest
+  open func streamRequest<Parameters>(_ convertible: any RetenoNetworkProvider.URLConvertible, method: RetenoNetworkProvider.HTTPMethod = .get, parameters: Parameters? = nil, encoder: any RetenoNetworkProvider.ParameterEncoder = URLEncodedFormParameterEncoder.default, headers: RetenoNetworkProvider.HTTPHeaders? = nil, automaticallyCancelOnStreamError: Swift.Bool = false, interceptor: (any RetenoNetworkProvider.RequestInterceptor)? = nil, requestModifier: RetenoNetworkProvider.Session.RequestModifier? = nil) -> RetenoNetworkProvider.DataStreamRequest where Parameters : Swift.Encodable
+  open func streamRequest(_ convertible: any RetenoNetworkProvider.URLConvertible, method: RetenoNetworkProvider.HTTPMethod = .get, headers: RetenoNetworkProvider.HTTPHeaders? = nil, automaticallyCancelOnStreamError: Swift.Bool = false, interceptor: (any RetenoNetworkProvider.RequestInterceptor)? = nil, requestModifier: RetenoNetworkProvider.Session.RequestModifier? = nil) -> RetenoNetworkProvider.DataStreamRequest
+  open func streamRequest(_ convertible: any RetenoNetworkProvider.URLRequestConvertible, automaticallyCancelOnStreamError: Swift.Bool = false, interceptor: (any RetenoNetworkProvider.RequestInterceptor)? = nil) -> RetenoNetworkProvider.DataStreamRequest
+  @_spi(WebSocket) @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+  open func webSocketRequest(to url: any RetenoNetworkProvider.URLConvertible, configuration: RetenoNetworkProvider.WebSocketRequest.Configuration = .default, headers: RetenoNetworkProvider.HTTPHeaders? = nil, interceptor: (any RetenoNetworkProvider.RequestInterceptor)? = nil, requestModifier: RetenoNetworkProvider.Session.RequestModifier? = nil) -> RetenoNetworkProvider.WebSocketRequest
+  @_spi(WebSocket) @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+  open func webSocketRequest<Parameters>(to url: any RetenoNetworkProvider.URLConvertible, configuration: RetenoNetworkProvider.WebSocketRequest.Configuration = .default, parameters: Parameters? = nil, encoder: any RetenoNetworkProvider.ParameterEncoder = URLEncodedFormParameterEncoder.default, headers: RetenoNetworkProvider.HTTPHeaders? = nil, interceptor: (any RetenoNetworkProvider.RequestInterceptor)? = nil, requestModifier: RetenoNetworkProvider.Session.RequestModifier? = nil) -> RetenoNetworkProvider.WebSocketRequest where Parameters : Swift.Encodable
+  @_spi(WebSocket) @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+  open func webSocketRequest(performing convertible: any RetenoNetworkProvider.URLRequestConvertible, configuration: RetenoNetworkProvider.WebSocketRequest.Configuration = .default, interceptor: (any RetenoNetworkProvider.RequestInterceptor)? = nil) -> RetenoNetworkProvider.WebSocketRequest
+  open func download(_ convertible: any RetenoNetworkProvider.URLConvertible, method: RetenoNetworkProvider.HTTPMethod = .get, parameters: RetenoNetworkProvider.Parameters? = nil, encoding: any RetenoNetworkProvider.ParameterEncoding = URLEncoding.default, headers: RetenoNetworkProvider.HTTPHeaders? = nil, interceptor: (any RetenoNetworkProvider.RequestInterceptor)? = nil, requestModifier: RetenoNetworkProvider.Session.RequestModifier? = nil, to destination: RetenoNetworkProvider.DownloadRequest.Destination? = nil) -> RetenoNetworkProvider.DownloadRequest
+  open func download<Parameters>(_ convertible: any RetenoNetworkProvider.URLConvertible, method: RetenoNetworkProvider.HTTPMethod = .get, parameters: Parameters? = nil, encoder: any RetenoNetworkProvider.ParameterEncoder = URLEncodedFormParameterEncoder.default, headers: RetenoNetworkProvider.HTTPHeaders? = nil, interceptor: (any RetenoNetworkProvider.RequestInterceptor)? = nil, requestModifier: RetenoNetworkProvider.Session.RequestModifier? = nil, to destination: RetenoNetworkProvider.DownloadRequest.Destination? = nil) -> RetenoNetworkProvider.DownloadRequest where Parameters : Swift.Encodable
+  open func download(_ convertible: any RetenoNetworkProvider.URLRequestConvertible, interceptor: (any RetenoNetworkProvider.RequestInterceptor)? = nil, to destination: RetenoNetworkProvider.DownloadRequest.Destination? = nil) -> RetenoNetworkProvider.DownloadRequest
+  open func download(resumingWith data: Foundation.Data, interceptor: (any RetenoNetworkProvider.RequestInterceptor)? = nil, to destination: RetenoNetworkProvider.DownloadRequest.Destination? = nil) -> RetenoNetworkProvider.DownloadRequest
+  open func upload(_ data: Foundation.Data, to convertible: any RetenoNetworkProvider.URLConvertible, method: RetenoNetworkProvider.HTTPMethod = .post, headers: RetenoNetworkProvider.HTTPHeaders? = nil, interceptor: (any RetenoNetworkProvider.RequestInterceptor)? = nil, fileManager: Foundation.FileManager = .default, requestModifier: RetenoNetworkProvider.Session.RequestModifier? = nil) -> RetenoNetworkProvider.UploadRequest
+  open func upload(_ data: Foundation.Data, with convertible: any RetenoNetworkProvider.URLRequestConvertible, interceptor: (any RetenoNetworkProvider.RequestInterceptor)? = nil, fileManager: Foundation.FileManager = .default) -> RetenoNetworkProvider.UploadRequest
+  open func upload(_ fileURL: Foundation.URL, to convertible: any RetenoNetworkProvider.URLConvertible, method: RetenoNetworkProvider.HTTPMethod = .post, headers: RetenoNetworkProvider.HTTPHeaders? = nil, interceptor: (any RetenoNetworkProvider.RequestInterceptor)? = nil, fileManager: Foundation.FileManager = .default, requestModifier: RetenoNetworkProvider.Session.RequestModifier? = nil) -> RetenoNetworkProvider.UploadRequest
+  open func upload(_ fileURL: Foundation.URL, with convertible: any RetenoNetworkProvider.URLRequestConvertible, interceptor: (any RetenoNetworkProvider.RequestInterceptor)? = nil, fileManager: Foundation.FileManager = .default) -> RetenoNetworkProvider.UploadRequest
+  open func upload(_ stream: Foundation.InputStream, to convertible: any RetenoNetworkProvider.URLConvertible, method: RetenoNetworkProvider.HTTPMethod = .post, headers: RetenoNetworkProvider.HTTPHeaders? = nil, interceptor: (any RetenoNetworkProvider.RequestInterceptor)? = nil, fileManager: Foundation.FileManager = .default, requestModifier: RetenoNetworkProvider.Session.RequestModifier? = nil) -> RetenoNetworkProvider.UploadRequest
+  open func upload(_ stream: Foundation.InputStream, with convertible: any RetenoNetworkProvider.URLRequestConvertible, interceptor: (any RetenoNetworkProvider.RequestInterceptor)? = nil, fileManager: Foundation.FileManager = .default) -> RetenoNetworkProvider.UploadRequest
+  open func upload(multipartFormData: @escaping (RetenoNetworkProvider.MultipartFormData) -> Swift.Void, to url: any RetenoNetworkProvider.URLConvertible, usingThreshold encodingMemoryThreshold: Swift.UInt64 = MultipartFormData.encodingMemoryThreshold, method: RetenoNetworkProvider.HTTPMethod = .post, headers: RetenoNetworkProvider.HTTPHeaders? = nil, interceptor: (any RetenoNetworkProvider.RequestInterceptor)? = nil, fileManager: Foundation.FileManager = .default, requestModifier: RetenoNetworkProvider.Session.RequestModifier? = nil) -> RetenoNetworkProvider.UploadRequest
+  open func upload(multipartFormData: @escaping (RetenoNetworkProvider.MultipartFormData) -> Swift.Void, with request: any RetenoNetworkProvider.URLRequestConvertible, usingThreshold encodingMemoryThreshold: Swift.UInt64 = MultipartFormData.encodingMemoryThreshold, interceptor: (any RetenoNetworkProvider.RequestInterceptor)? = nil, fileManager: Foundation.FileManager = .default) -> RetenoNetworkProvider.UploadRequest
+  open func upload(multipartFormData: RetenoNetworkProvider.MultipartFormData, to url: any RetenoNetworkProvider.URLConvertible, usingThreshold encodingMemoryThreshold: Swift.UInt64 = MultipartFormData.encodingMemoryThreshold, method: RetenoNetworkProvider.HTTPMethod = .post, headers: RetenoNetworkProvider.HTTPHeaders? = nil, interceptor: (any RetenoNetworkProvider.RequestInterceptor)? = nil, fileManager: Foundation.FileManager = .default, requestModifier: RetenoNetworkProvider.Session.RequestModifier? = nil) -> RetenoNetworkProvider.UploadRequest
+  open func upload(multipartFormData: RetenoNetworkProvider.MultipartFormData, with request: any RetenoNetworkProvider.URLRequestConvertible, usingThreshold encodingMemoryThreshold: Swift.UInt64 = MultipartFormData.encodingMemoryThreshold, interceptor: (any RetenoNetworkProvider.RequestInterceptor)? = nil, fileManager: Foundation.FileManager = .default) -> RetenoNetworkProvider.UploadRequest
+}
+extension RetenoNetworkProvider.Session : RetenoNetworkProvider.RequestDelegate {
+  public var sessionConfiguration: Foundation.URLSessionConfiguration {
+    get
+  }
+  public var startImmediately: Swift.Bool {
+    get
+  }
+  public func cleanup(after request: RetenoNetworkProvider.Request)
+  public func retryResult(for request: RetenoNetworkProvider.Request, dueTo error: RetenoNetworkProvider.AFError, completion: @escaping (RetenoNetworkProvider.RetryResult) -> Swift.Void)
+  public func retryRequest(_ request: RetenoNetworkProvider.Request, withDelay timeDelay: Foundation.TimeInterval?)
+}
+public struct AlamofireExtension<ExtendedType> {
+  public var type: ExtendedType {
+    get
+  }
+  public init(_ type: ExtendedType)
+}
+public protocol AlamofireExtended {
+  associatedtype ExtendedType
+  static var af: RetenoNetworkProvider.AlamofireExtension<Self.ExtendedType>.Type { get set }
+  var af: RetenoNetworkProvider.AlamofireExtension<Self.ExtendedType> { get set }
+}
+extension RetenoNetworkProvider.AlamofireExtended {
+  public static var af: RetenoNetworkProvider.AlamofireExtension<Self>.Type {
+    get
+    set
+  }
+  public var af: RetenoNetworkProvider.AlamofireExtension<Self> {
+    get
+    set
+  }
+}
+public typealias Parameters = [Swift.String : Any]
+public protocol ParameterEncoding {
+  func encode(_ urlRequest: any RetenoNetworkProvider.URLRequestConvertible, with parameters: RetenoNetworkProvider.Parameters?) throws -> Foundation.URLRequest
+}
+public struct URLEncoding : RetenoNetworkProvider.ParameterEncoding {
+  public enum Destination {
+    case methodDependent
+    case queryString
+    case httpBody
+    public static func == (a: RetenoNetworkProvider.URLEncoding.Destination, b: RetenoNetworkProvider.URLEncoding.Destination) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public enum ArrayEncoding {
+    case brackets
+    case noBrackets
+    case indexInBrackets
+    case custom((_ key: Swift.String, _ index: Swift.Int) -> Swift.String)
+  }
+  public enum BoolEncoding {
+    case numeric
+    case literal
+    public static func == (a: RetenoNetworkProvider.URLEncoding.BoolEncoding, b: RetenoNetworkProvider.URLEncoding.BoolEncoding) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public static var `default`: RetenoNetworkProvider.URLEncoding {
+    get
+  }
+  public static var queryString: RetenoNetworkProvider.URLEncoding {
+    get
+  }
+  public static var httpBody: RetenoNetworkProvider.URLEncoding {
+    get
+  }
+  public let destination: RetenoNetworkProvider.URLEncoding.Destination
+  public let arrayEncoding: RetenoNetworkProvider.URLEncoding.ArrayEncoding
+  public let boolEncoding: RetenoNetworkProvider.URLEncoding.BoolEncoding
+  public init(destination: RetenoNetworkProvider.URLEncoding.Destination = .methodDependent, arrayEncoding: RetenoNetworkProvider.URLEncoding.ArrayEncoding = .brackets, boolEncoding: RetenoNetworkProvider.URLEncoding.BoolEncoding = .numeric)
+  public func encode(_ urlRequest: any RetenoNetworkProvider.URLRequestConvertible, with parameters: RetenoNetworkProvider.Parameters?) throws -> Foundation.URLRequest
+  public func queryComponents(fromKey key: Swift.String, value: Any) -> [(Swift.String, Swift.String)]
+  public func escape(_ string: Swift.String) -> Swift.String
+}
+public struct JSONEncoding : RetenoNetworkProvider.ParameterEncoding {
+  public enum Error : Swift.Error {
+    case invalidJSONObject
+    public static func == (a: RetenoNetworkProvider.JSONEncoding.Error, b: RetenoNetworkProvider.JSONEncoding.Error) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public static var `default`: RetenoNetworkProvider.JSONEncoding {
+    get
+  }
+  public static var prettyPrinted: RetenoNetworkProvider.JSONEncoding {
+    get
+  }
+  public let options: Foundation.JSONSerialization.WritingOptions
+  public init(options: Foundation.JSONSerialization.WritingOptions = [])
+  public func encode(_ urlRequest: any RetenoNetworkProvider.URLRequestConvertible, with parameters: RetenoNetworkProvider.Parameters?) throws -> Foundation.URLRequest
+  public func encode(_ urlRequest: any RetenoNetworkProvider.URLRequestConvertible, withJSONObject jsonObject: Any? = nil) throws -> Foundation.URLRequest
+}
+extension RetenoNetworkProvider.JSONEncoding.Error {
+  public var localizedDescription: Swift.String {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers final public class DataStreamRequest : RetenoNetworkProvider.Request {
+  public typealias Handler<Success, Failure> = (RetenoNetworkProvider.DataStreamRequest.Stream<Success, Failure>) throws -> Swift.Void where Failure : Swift.Error
+  public struct Stream<Success, Failure> where Failure : Swift.Error {
+    public let event: RetenoNetworkProvider.DataStreamRequest.Event<Success, Failure>
+    public let token: RetenoNetworkProvider.DataStreamRequest.CancellationToken
+    public func cancel()
+  }
+  public enum Event<Success, Failure> where Failure : Swift.Error {
+    case stream(Swift.Result<Success, Failure>)
+    case complete(RetenoNetworkProvider.DataStreamRequest.Completion)
+  }
+  public struct Completion {
+    public let request: Foundation.URLRequest?
+    public let response: Foundation.HTTPURLResponse?
+    public let metrics: Foundation.URLSessionTaskMetrics?
+    public let error: RetenoNetworkProvider.AFError?
+  }
+  public struct CancellationToken {
+    public func cancel()
+  }
+  final public let convertible: any RetenoNetworkProvider.URLRequestConvertible
+  final public let automaticallyCancelOnStreamError: Swift.Bool
+  @discardableResult
+  final public func validate(_ validation: @escaping RetenoNetworkProvider.DataStreamRequest.Validation) -> Self
+  final public func asInputStream(bufferSize: Swift.Int = 1024) -> Foundation.InputStream?
+  @discardableResult
+  @_disfavoredOverload final public func onHTTPResponse(on queue: Dispatch.DispatchQueue = .main, perform handler: @escaping (_ response: Foundation.HTTPURLResponse, _ completionHandler: @escaping (RetenoNetworkProvider.Request.ResponseDisposition) -> Swift.Void) -> Swift.Void) -> Self
+  @discardableResult
+  final public func onHTTPResponse(on queue: Dispatch.DispatchQueue = .main, perform handler: @escaping (Foundation.HTTPURLResponse) -> Swift.Void) -> Self
+  @discardableResult
+  final public func responseStream(on queue: Dispatch.DispatchQueue = .main, stream: @escaping RetenoNetworkProvider.DataStreamRequest.Handler<Foundation.Data, Swift.Never>) -> Self
+  @discardableResult
+  final public func responseStream<Serializer>(using serializer: Serializer, on queue: Dispatch.DispatchQueue = .main, stream: @escaping RetenoNetworkProvider.DataStreamRequest.Handler<Serializer.SerializedObject, RetenoNetworkProvider.AFError>) -> Self where Serializer : RetenoNetworkProvider.DataStreamSerializer
+  @discardableResult
+  final public func responseStreamString(on queue: Dispatch.DispatchQueue = .main, stream: @escaping RetenoNetworkProvider.DataStreamRequest.Handler<Swift.String, Swift.Never>) -> Self
+  @discardableResult
+  final public func responseStreamDecodable<T>(of type: T.Type = T.self, on queue: Dispatch.DispatchQueue = .main, using decoder: any RetenoNetworkProvider.DataDecoder = JSONDecoder(), preprocessor: any RetenoNetworkProvider.DataPreprocessor = PassthroughPreprocessor(), stream: @escaping RetenoNetworkProvider.DataStreamRequest.Handler<T, RetenoNetworkProvider.AFError>) -> Self where T : Swift.Decodable
+  @objc deinit
+}
+extension RetenoNetworkProvider.DataStreamRequest.Stream {
+  public var result: Swift.Result<Success, Failure>? {
+    get
+  }
+  public var value: Success? {
+    get
+  }
+  public var error: Failure? {
+    get
+  }
+  public var completion: RetenoNetworkProvider.DataStreamRequest.Completion? {
+    get
+  }
+}
+public protocol DataStreamSerializer {
+  associatedtype SerializedObject
+  func serialize(_ data: Foundation.Data) throws -> Self.SerializedObject
+}
+public struct DecodableStreamSerializer<T> : RetenoNetworkProvider.DataStreamSerializer where T : Swift.Decodable {
+  public let decoder: any RetenoNetworkProvider.DataDecoder
+  public let dataPreprocessor: any RetenoNetworkProvider.DataPreprocessor
+  public init(decoder: any RetenoNetworkProvider.DataDecoder = JSONDecoder(), dataPreprocessor: any RetenoNetworkProvider.DataPreprocessor = PassthroughPreprocessor())
+  public func serialize(_ data: Foundation.Data) throws -> T
+  public typealias SerializedObject = T
+}
+public struct PassthroughStreamSerializer : RetenoNetworkProvider.DataStreamSerializer {
+  public init()
+  public func serialize(_ data: Foundation.Data) throws -> Foundation.Data
+  public typealias SerializedObject = Foundation.Data
+}
+public struct StringStreamSerializer : RetenoNetworkProvider.DataStreamSerializer {
+  public init()
+  public func serialize(_ data: Foundation.Data) throws -> Swift.String
+  public typealias SerializedObject = Swift.String
+}
+extension RetenoNetworkProvider.DataStreamSerializer {
+  public static func decodable<T>(of type: T.Type, decoder: any RetenoNetworkProvider.DataDecoder = JSONDecoder(), dataPreprocessor: any RetenoNetworkProvider.DataPreprocessor = PassthroughPreprocessor()) -> Self where Self == RetenoNetworkProvider.DecodableStreamSerializer<T>, T : Swift.Decodable
+}
+extension RetenoNetworkProvider.DataStreamSerializer where Self == RetenoNetworkProvider.PassthroughStreamSerializer {
+  public static var passthrough: RetenoNetworkProvider.PassthroughStreamSerializer {
+    get
+  }
+}
+extension RetenoNetworkProvider.DataStreamSerializer where Self == RetenoNetworkProvider.StringStreamSerializer {
+  public static var string: RetenoNetworkProvider.StringStreamSerializer {
+    get
+  }
+}
+extension Foundation.URLSessionConfiguration : RetenoNetworkProvider.AlamofireExtended {
+  public typealias ExtendedType = Foundation.URLSessionConfiguration
+}
+extension RetenoNetworkProvider.AlamofireExtension where ExtendedType : Foundation.URLSessionConfiguration {
+  public static var `default`: Foundation.URLSessionConfiguration {
+    get
+  }
+  public static var ephemeral: Foundation.URLSessionConfiguration {
+    get
+  }
+}
+public let AF: RetenoNetworkProvider.Session
+public enum AFInfo {
+  public static let version: Swift.String
+}
+extension RetenoNetworkProvider.Request {
+  public static let didResumeNotification: Foundation.Notification.Name
+  public static let didSuspendNotification: Foundation.Notification.Name
+  public static let didCancelNotification: Foundation.Notification.Name
+  public static let didFinishNotification: Foundation.Notification.Name
+  public static let didResumeTaskNotification: Foundation.Notification.Name
+  public static let didSuspendTaskNotification: Foundation.Notification.Name
+  public static let didCancelTaskNotification: Foundation.Notification.Name
+  public static let didCompleteTaskNotification: Foundation.Notification.Name
+}
+extension Foundation.Notification {
+  public var request: RetenoNetworkProvider.Request? {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers final public class AlamofireNotifications : RetenoNetworkProvider.EventMonitor {
+  final public func requestDidResume(_ request: RetenoNetworkProvider.Request)
+  final public func requestDidSuspend(_ request: RetenoNetworkProvider.Request)
+  final public func requestDidCancel(_ request: RetenoNetworkProvider.Request)
+  final public func requestDidFinish(_ request: RetenoNetworkProvider.Request)
+  final public func request(_ request: RetenoNetworkProvider.Request, didResumeTask task: Foundation.URLSessionTask)
+  final public func request(_ request: RetenoNetworkProvider.Request, didSuspendTask task: Foundation.URLSessionTask)
+  final public func request(_ request: RetenoNetworkProvider.Request, didCancelTask task: Foundation.URLSessionTask)
+  final public func request(_ request: RetenoNetworkProvider.Request, didCompleteTask task: Foundation.URLSessionTask, with error: RetenoNetworkProvider.AFError?)
+  @objc deinit
+}
+final public class URLEncodedFormEncoder {
+  public enum ArrayEncoding {
+    case brackets
+    case noBrackets
+    case indexInBrackets
+    case custom((_ key: Swift.String, _ index: Swift.Int) -> Swift.String)
+  }
+  public enum BoolEncoding {
+    case numeric
+    case literal
+    public static func == (a: RetenoNetworkProvider.URLEncodedFormEncoder.BoolEncoding, b: RetenoNetworkProvider.URLEncodedFormEncoder.BoolEncoding) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public enum DataEncoding {
+    case deferredToData
+    case base64
+    case custom((Foundation.Data) throws -> Swift.String)
+  }
+  public enum DateEncoding {
+    case deferredToDate
+    case secondsSince1970
+    case millisecondsSince1970
+    case iso8601
+    case formatted(Foundation.DateFormatter)
+    case custom((Foundation.Date) throws -> Swift.String)
+  }
+  public enum KeyEncoding {
+    case useDefaultKeys
+    case convertToSnakeCase
+    case convertToKebabCase
+    case capitalized
+    case uppercased
+    case lowercased
+    case custom((Swift.String) -> Swift.String)
+  }
+  public struct KeyPathEncoding {
+    public static let brackets: RetenoNetworkProvider.URLEncodedFormEncoder.KeyPathEncoding
+    public static let dots: RetenoNetworkProvider.URLEncodedFormEncoder.KeyPathEncoding
+    public init(encoding: @escaping (_ subkey: Swift.String) -> Swift.String)
+  }
+  public struct NilEncoding {
+    public static let dropKey: RetenoNetworkProvider.URLEncodedFormEncoder.NilEncoding
+    public static let dropValue: RetenoNetworkProvider.URLEncodedFormEncoder.NilEncoding
+    public static let null: RetenoNetworkProvider.URLEncodedFormEncoder.NilEncoding
+    public init(encoding: @escaping () -> Swift.String?)
+  }
+  public enum SpaceEncoding {
+    case percentEscaped
+    case plusReplaced
+    public static func == (a: RetenoNetworkProvider.URLEncodedFormEncoder.SpaceEncoding, b: RetenoNetworkProvider.URLEncodedFormEncoder.SpaceEncoding) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public enum Error : Swift.Error {
+    case invalidRootObject(Swift.String)
+  }
+  final public let alphabetizeKeyValuePairs: Swift.Bool
+  final public let arrayEncoding: RetenoNetworkProvider.URLEncodedFormEncoder.ArrayEncoding
+  final public let boolEncoding: RetenoNetworkProvider.URLEncodedFormEncoder.BoolEncoding
+  final public let dataEncoding: RetenoNetworkProvider.URLEncodedFormEncoder.DataEncoding
+  final public let dateEncoding: RetenoNetworkProvider.URLEncodedFormEncoder.DateEncoding
+  final public let keyEncoding: RetenoNetworkProvider.URLEncodedFormEncoder.KeyEncoding
+  final public let keyPathEncoding: RetenoNetworkProvider.URLEncodedFormEncoder.KeyPathEncoding
+  final public let nilEncoding: RetenoNetworkProvider.URLEncodedFormEncoder.NilEncoding
+  final public let spaceEncoding: RetenoNetworkProvider.URLEncodedFormEncoder.SpaceEncoding
+  final public var allowedCharacters: Foundation.CharacterSet
+  public init(alphabetizeKeyValuePairs: Swift.Bool = true, arrayEncoding: RetenoNetworkProvider.URLEncodedFormEncoder.ArrayEncoding = .brackets, boolEncoding: RetenoNetworkProvider.URLEncodedFormEncoder.BoolEncoding = .numeric, dataEncoding: RetenoNetworkProvider.URLEncodedFormEncoder.DataEncoding = .base64, dateEncoding: RetenoNetworkProvider.URLEncodedFormEncoder.DateEncoding = .deferredToDate, keyEncoding: RetenoNetworkProvider.URLEncodedFormEncoder.KeyEncoding = .useDefaultKeys, keyPathEncoding: RetenoNetworkProvider.URLEncodedFormEncoder.KeyPathEncoding = .brackets, nilEncoding: RetenoNetworkProvider.URLEncodedFormEncoder.NilEncoding = .dropKey, spaceEncoding: RetenoNetworkProvider.URLEncodedFormEncoder.SpaceEncoding = .percentEscaped, allowedCharacters: Foundation.CharacterSet = .afURLQueryAllowed)
+  final public func encode(_ value: any Swift.Encodable) throws -> Swift.String
+  final public func encode(_ value: any Swift.Encodable) throws -> Foundation.Data
+  @objc deinit
+}
+extension Foundation.CharacterSet {
+  public static let afURLQueryAllowed: Foundation.CharacterSet
+}
+@_hasMissingDesignatedInitializers open class NetworkReachabilityManager {
+  public enum NetworkReachabilityStatus {
+    case unknown
+    case notReachable
+    case reachable(RetenoNetworkProvider.NetworkReachabilityManager.NetworkReachabilityStatus.ConnectionType)
+    public enum ConnectionType {
+      case ethernetOrWiFi
+      case cellular
+      public static func == (a: RetenoNetworkProvider.NetworkReachabilityManager.NetworkReachabilityStatus.ConnectionType, b: RetenoNetworkProvider.NetworkReachabilityManager.NetworkReachabilityStatus.ConnectionType) -> Swift.Bool
+      public func hash(into hasher: inout Swift.Hasher)
+      public var hashValue: Swift.Int {
+        get
+      }
+    }
+  }
+  public typealias Listener = (RetenoNetworkProvider.NetworkReachabilityManager.NetworkReachabilityStatus) -> Swift.Void
+  public static let `default`: RetenoNetworkProvider.NetworkReachabilityManager?
+  open var isReachable: Swift.Bool {
+    get
+  }
+  open var isReachableOnCellular: Swift.Bool {
+    get
+  }
+  open var isReachableOnEthernetOrWiFi: Swift.Bool {
+    get
+  }
+  final public let reachabilityQueue: Dispatch.DispatchQueue
+  open var flags: SystemConfiguration.SCNetworkReachabilityFlags? {
+    get
+  }
+  open var status: RetenoNetworkProvider.NetworkReachabilityManager.NetworkReachabilityStatus {
+    get
+  }
+  convenience public init?(host: Swift.String)
+  convenience public init?()
+  @objc deinit
+  @discardableResult
+  open func startListening(onQueue queue: Dispatch.DispatchQueue = .main, onUpdatePerforming listener: @escaping RetenoNetworkProvider.NetworkReachabilityManager.Listener) -> Swift.Bool
+  open func stopListening()
+}
+extension RetenoNetworkProvider.NetworkReachabilityManager.NetworkReachabilityStatus : Swift.Equatable {
+  public static func == (a: RetenoNetworkProvider.NetworkReachabilityManager.NetworkReachabilityStatus, b: RetenoNetworkProvider.NetworkReachabilityManager.NetworkReachabilityStatus) -> Swift.Bool
+}
+public protocol AuthenticationCredential {
+  var requiresRefresh: Swift.Bool { get }
+}
+public protocol Authenticator : AnyObject {
+  associatedtype Credential : RetenoNetworkProvider.AuthenticationCredential
+  func apply(_ credential: Self.Credential, to urlRequest: inout Foundation.URLRequest)
+  func refresh(_ credential: Self.Credential, for session: RetenoNetworkProvider.Session, completion: @escaping (Swift.Result<Self.Credential, any Swift.Error>) -> Swift.Void)
+  func didRequest(_ urlRequest: Foundation.URLRequest, with response: Foundation.HTTPURLResponse, failDueToAuthenticationError error: any Swift.Error) -> Swift.Bool
+  func isRequest(_ urlRequest: Foundation.URLRequest, authenticatedWith credential: Self.Credential) -> Swift.Bool
+}
+public enum AuthenticationError : Swift.Error {
+  case missingCredential
+  case excessiveRefresh
+  public static func == (a: RetenoNetworkProvider.AuthenticationError, b: RetenoNetworkProvider.AuthenticationError) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public class AuthenticationInterceptor<AuthenticatorType> : RetenoNetworkProvider.RequestInterceptor where AuthenticatorType : RetenoNetworkProvider.Authenticator {
+  public typealias Credential = AuthenticatorType.Credential
+  public struct RefreshWindow {
+    public let interval: Foundation.TimeInterval
+    public let maximumAttempts: Swift.Int
+    public init(interval: Foundation.TimeInterval = 30.0, maximumAttempts: Swift.Int = 5)
+  }
+  public var credential: RetenoNetworkProvider.AuthenticationInterceptor<AuthenticatorType>.Credential? {
+    get
+    set
+  }
+  public init(authenticator: AuthenticatorType, credential: RetenoNetworkProvider.AuthenticationInterceptor<AuthenticatorType>.Credential? = nil, refreshWindow: RetenoNetworkProvider.AuthenticationInterceptor<AuthenticatorType>.RefreshWindow? = RefreshWindow())
+  public func adapt(_ urlRequest: Foundation.URLRequest, for session: RetenoNetworkProvider.Session, completion: @escaping (Swift.Result<Foundation.URLRequest, any Swift.Error>) -> Swift.Void)
+  public func retry(_ request: RetenoNetworkProvider.Request, for session: RetenoNetworkProvider.Session, dueTo error: any Swift.Error, completion: @escaping (RetenoNetworkProvider.RetryResult) -> Swift.Void)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class Request {
+  public enum State {
+    case initialized
+    case resumed
+    case suspended
+    case cancelled
+    case finished
+    public static func == (a: RetenoNetworkProvider.Request.State, b: RetenoNetworkProvider.Request.State) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  final public let id: Foundation.UUID
+  final public let underlyingQueue: Dispatch.DispatchQueue
+  final public let serializationQueue: Dispatch.DispatchQueue
+  final public let eventMonitor: (any RetenoNetworkProvider.EventMonitor)?
+  final public let interceptor: (any RetenoNetworkProvider.RequestInterceptor)?
+  weak public var delegate: (any RetenoNetworkProvider.RequestDelegate)? {
+    get
+  }
+  public var state: RetenoNetworkProvider.Request.State {
+    get
+  }
+  public var isInitialized: Swift.Bool {
+    get
+  }
+  public var isResumed: Swift.Bool {
+    get
+  }
+  public var isSuspended: Swift.Bool {
+    get
+  }
+  public var isCancelled: Swift.Bool {
+    get
+  }
+  public var isFinished: Swift.Bool {
+    get
+  }
+  public typealias ProgressHandler = (Foundation.Progress) -> Swift.Void
+  final public let uploadProgress: Foundation.Progress
+  final public let downloadProgress: Foundation.Progress
+  public var uploadProgressHandler: (handler: RetenoNetworkProvider.Request.ProgressHandler, queue: Dispatch.DispatchQueue)? {
+    get
+  }
+  public var downloadProgressHandler: (handler: RetenoNetworkProvider.Request.ProgressHandler, queue: Dispatch.DispatchQueue)? {
+    get
+  }
+  public var redirectHandler: (any RetenoNetworkProvider.RedirectHandler)? {
+    get
+  }
+  public var cachedResponseHandler: (any RetenoNetworkProvider.CachedResponseHandler)? {
+    get
+  }
+  public var credential: Foundation.URLCredential? {
+    get
+  }
+  public var requests: [Foundation.URLRequest] {
+    get
+  }
+  public var firstRequest: Foundation.URLRequest? {
+    get
+  }
+  public var lastRequest: Foundation.URLRequest? {
+    get
+  }
+  public var request: Foundation.URLRequest? {
+    get
+  }
+  public var performedRequests: [Foundation.URLRequest] {
+    get
+  }
+  public var response: Foundation.HTTPURLResponse? {
+    get
+  }
+  public var tasks: [Foundation.URLSessionTask] {
+    get
+  }
+  public var firstTask: Foundation.URLSessionTask? {
+    get
+  }
+  public var lastTask: Foundation.URLSessionTask? {
+    get
+  }
+  public var task: Foundation.URLSessionTask? {
+    get
+  }
+  public var allMetrics: [Foundation.URLSessionTaskMetrics] {
+    get
+  }
+  public var firstMetrics: Foundation.URLSessionTaskMetrics? {
+    get
+  }
+  public var lastMetrics: Foundation.URLSessionTaskMetrics? {
+    get
+  }
+  public var metrics: Foundation.URLSessionTaskMetrics? {
+    get
+  }
+  public var retryCount: Swift.Int {
+    get
+  }
+  public var error: RetenoNetworkProvider.AFError? {
+    get
+  }
+  @discardableResult
+  public func cancel() -> Self
+  @discardableResult
+  public func suspend() -> Self
+  @discardableResult
+  public func resume() -> Self
+  @discardableResult
+  public func authenticate(username: Swift.String, password: Swift.String, persistence: Foundation.URLCredential.Persistence = .forSession) -> Self
+  @discardableResult
+  public func authenticate(with credential: Foundation.URLCredential) -> Self
+  @discardableResult
+  public func downloadProgress(queue: Dispatch.DispatchQueue = .main, closure: @escaping RetenoNetworkProvider.Request.ProgressHandler) -> Self
+  @discardableResult
+  public func uploadProgress(queue: Dispatch.DispatchQueue = .main, closure: @escaping RetenoNetworkProvider.Request.ProgressHandler) -> Self
+  @discardableResult
+  public func redirect(using handler: any RetenoNetworkProvider.RedirectHandler) -> Self
+  @discardableResult
+  public func cacheResponse(using handler: any RetenoNetworkProvider.CachedResponseHandler) -> Self
+  @discardableResult
+  public func cURLDescription(on queue: Dispatch.DispatchQueue, calling handler: @escaping (Swift.String) -> Swift.Void) -> Self
+  @discardableResult
+  public func cURLDescription(calling handler: @escaping (Swift.String) -> Swift.Void) -> Self
+  @discardableResult
+  public func onURLRequestCreation(on queue: Dispatch.DispatchQueue = .main, perform handler: @escaping (Foundation.URLRequest) -> Swift.Void) -> Self
+  @discardableResult
+  public func onURLSessionTaskCreation(on queue: Dispatch.DispatchQueue = .main, perform handler: @escaping (Foundation.URLSessionTask) -> Swift.Void) -> Self
+  @objc deinit
+}
+extension RetenoNetworkProvider.Request {
+  public enum ResponseDisposition {
+    case allow
+    case cancel
+    public static func == (a: RetenoNetworkProvider.Request.ResponseDisposition, b: RetenoNetworkProvider.Request.ResponseDisposition) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+}
+extension RetenoNetworkProvider.Request : Swift.Equatable {
+  public static func == (lhs: RetenoNetworkProvider.Request, rhs: RetenoNetworkProvider.Request) -> Swift.Bool
+}
+extension RetenoNetworkProvider.Request : Swift.Hashable {
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension RetenoNetworkProvider.Request : Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+}
+extension RetenoNetworkProvider.Request {
+  public func cURLDescription() -> Swift.String
+}
+public protocol RequestDelegate : AnyObject {
+  var sessionConfiguration: Foundation.URLSessionConfiguration { get }
+  var startImmediately: Swift.Bool { get }
+  func cleanup(after request: RetenoNetworkProvider.Request)
+  func retryResult(for request: RetenoNetworkProvider.Request, dueTo error: RetenoNetworkProvider.AFError, completion: @escaping (RetenoNetworkProvider.RetryResult) -> Swift.Void)
+  func retryRequest(_ request: RetenoNetworkProvider.Request, withDelay timeDelay: Foundation.TimeInterval?)
+}
+@objc open class SessionDelegate : ObjectiveC.NSObject {
+  public init(fileManager: Foundation.FileManager = .default)
+  @objc deinit
+}
+extension RetenoNetworkProvider.SessionDelegate : Foundation.URLSessionDelegate {
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, didBecomeInvalidWithError error: (any Swift.Error)?)
+}
+extension RetenoNetworkProvider.SessionDelegate : Foundation.URLSessionTaskDelegate {
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, didReceive challenge: Foundation.URLAuthenticationChallenge, completionHandler: @escaping (Foundation.URLSession.AuthChallengeDisposition, Foundation.URLCredential?) -> Swift.Void)
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, didSendBodyData bytesSent: Swift.Int64, totalBytesSent: Swift.Int64, totalBytesExpectedToSend: Swift.Int64)
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, needNewBodyStream completionHandler: @escaping (Foundation.InputStream?) -> Swift.Void)
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, willPerformHTTPRedirection response: Foundation.HTTPURLResponse, newRequest request: Foundation.URLRequest, completionHandler: @escaping (Foundation.URLRequest?) -> Swift.Void)
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, didFinishCollecting metrics: Foundation.URLSessionTaskMetrics)
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, didCompleteWithError error: (any Swift.Error)?)
+  @available(macOS 10.13, iOS 11.0, tvOS 11.0, watchOS 4.0, *)
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, taskIsWaitingForConnectivity task: Foundation.URLSessionTask)
+}
+extension RetenoNetworkProvider.SessionDelegate : Foundation.URLSessionDataDelegate {
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, dataTask: Foundation.URLSessionDataTask, didReceive response: Foundation.URLResponse, completionHandler: @escaping (Foundation.URLSession.ResponseDisposition) -> Swift.Void)
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, dataTask: Foundation.URLSessionDataTask, didReceive data: Foundation.Data)
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, dataTask: Foundation.URLSessionDataTask, willCacheResponse proposedResponse: Foundation.CachedURLResponse, completionHandler: @escaping (Foundation.CachedURLResponse?) -> Swift.Void)
+}
+@available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+extension RetenoNetworkProvider.SessionDelegate : Foundation.URLSessionWebSocketDelegate {
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, webSocketTask: Foundation.URLSessionWebSocketTask, didOpenWithProtocol protocol: Swift.String?)
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, webSocketTask: Foundation.URLSessionWebSocketTask, didCloseWith closeCode: Foundation.URLSessionWebSocketTask.CloseCode, reason: Foundation.Data?)
+}
+extension RetenoNetworkProvider.SessionDelegate : Foundation.URLSessionDownloadDelegate {
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, downloadTask: Foundation.URLSessionDownloadTask, didResumeAtOffset fileOffset: Swift.Int64, expectedTotalBytes: Swift.Int64)
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, downloadTask: Foundation.URLSessionDownloadTask, didWriteData bytesWritten: Swift.Int64, totalBytesWritten: Swift.Int64, totalBytesExpectedToWrite: Swift.Int64)
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, downloadTask: Foundation.URLSessionDownloadTask, didFinishDownloadingTo location: Foundation.URL)
+}
+open class RetryPolicy : RetenoNetworkProvider.RequestInterceptor {
+  public static let defaultRetryLimit: Swift.UInt
+  public static let defaultExponentialBackoffBase: Swift.UInt
+  public static let defaultExponentialBackoffScale: Swift.Double
+  public static let defaultRetryableHTTPMethods: Swift.Set<RetenoNetworkProvider.HTTPMethod>
+  public static let defaultRetryableHTTPStatusCodes: Swift.Set<Swift.Int>
+  public static let defaultRetryableURLErrorCodes: Swift.Set<Foundation.URLError.Code>
+  final public let retryLimit: Swift.UInt
+  final public let exponentialBackoffBase: Swift.UInt
+  final public let exponentialBackoffScale: Swift.Double
+  final public let retryableHTTPMethods: Swift.Set<RetenoNetworkProvider.HTTPMethod>
+  final public let retryableHTTPStatusCodes: Swift.Set<Swift.Int>
+  final public let retryableURLErrorCodes: Swift.Set<Foundation.URLError.Code>
+  public init(retryLimit: Swift.UInt = RetryPolicy.defaultRetryLimit, exponentialBackoffBase: Swift.UInt = RetryPolicy.defaultExponentialBackoffBase, exponentialBackoffScale: Swift.Double = RetryPolicy.defaultExponentialBackoffScale, retryableHTTPMethods: Swift.Set<RetenoNetworkProvider.HTTPMethod> = RetryPolicy.defaultRetryableHTTPMethods, retryableHTTPStatusCodes: Swift.Set<Swift.Int> = RetryPolicy.defaultRetryableHTTPStatusCodes, retryableURLErrorCodes: Swift.Set<Foundation.URLError.Code> = RetryPolicy.defaultRetryableURLErrorCodes)
+  open func retry(_ request: RetenoNetworkProvider.Request, for session: RetenoNetworkProvider.Session, dueTo error: any Swift.Error, completion: @escaping (RetenoNetworkProvider.RetryResult) -> Swift.Void)
+  open func shouldRetry(request: RetenoNetworkProvider.Request, dueTo error: any Swift.Error) -> Swift.Bool
+  @objc deinit
+}
+extension RetenoNetworkProvider.RequestInterceptor where Self == RetenoNetworkProvider.RetryPolicy {
+  public static var retryPolicy: RetenoNetworkProvider.RetryPolicy {
+    get
+  }
+  public static func retryPolicy(retryLimit: Swift.UInt = RetryPolicy.defaultRetryLimit, exponentialBackoffBase: Swift.UInt = RetryPolicy.defaultExponentialBackoffBase, exponentialBackoffScale: Swift.Double = RetryPolicy.defaultExponentialBackoffScale, retryableHTTPMethods: Swift.Set<RetenoNetworkProvider.HTTPMethod> = RetryPolicy.defaultRetryableHTTPMethods, retryableHTTPStatusCodes: Swift.Set<Swift.Int> = RetryPolicy.defaultRetryableHTTPStatusCodes, retryableURLErrorCodes: Swift.Set<Foundation.URLError.Code> = RetryPolicy.defaultRetryableURLErrorCodes) -> RetenoNetworkProvider.RetryPolicy
+}
+open class ConnectionLostRetryPolicy : RetenoNetworkProvider.RetryPolicy {
+  public init(retryLimit: Swift.UInt = RetryPolicy.defaultRetryLimit, exponentialBackoffBase: Swift.UInt = RetryPolicy.defaultExponentialBackoffBase, exponentialBackoffScale: Swift.Double = RetryPolicy.defaultExponentialBackoffScale, retryableHTTPMethods: Swift.Set<RetenoNetworkProvider.HTTPMethod> = RetryPolicy.defaultRetryableHTTPMethods)
+  @objc deinit
+}
+extension RetenoNetworkProvider.RequestInterceptor where Self == RetenoNetworkProvider.ConnectionLostRetryPolicy {
+  public static var connectionLostRetryPolicy: RetenoNetworkProvider.ConnectionLostRetryPolicy {
+    get
+  }
+  public static func connectionLostRetryPolicy(retryLimit: Swift.UInt = RetryPolicy.defaultRetryLimit, exponentialBackoffBase: Swift.UInt = RetryPolicy.defaultExponentialBackoffBase, exponentialBackoffScale: Swift.Double = RetryPolicy.defaultExponentialBackoffScale, retryableHTTPMethods: Swift.Set<RetenoNetworkProvider.HTTPMethod> = RetryPolicy.defaultRetryableHTTPMethods) -> RetenoNetworkProvider.ConnectionLostRetryPolicy
+}
+public protocol URLConvertible {
+  func asURL() throws -> Foundation.URL
+}
+extension Swift.String : RetenoNetworkProvider.URLConvertible {
+  public func asURL() throws -> Foundation.URL
+}
+extension Foundation.URL : RetenoNetworkProvider.URLConvertible {
+  public func asURL() throws -> Foundation.URL
+}
+extension Foundation.URLComponents : RetenoNetworkProvider.URLConvertible {
+  public func asURL() throws -> Foundation.URL
+}
+public protocol URLRequestConvertible {
+  func asURLRequest() throws -> Foundation.URLRequest
+}
+extension RetenoNetworkProvider.URLRequestConvertible {
+  public var urlRequest: Foundation.URLRequest? {
+    get
+  }
+}
+extension Foundation.URLRequest : RetenoNetworkProvider.URLRequestConvertible {
+  public func asURLRequest() throws -> Foundation.URLRequest
+}
+extension Foundation.URLRequest {
+  public init(url: any RetenoNetworkProvider.URLConvertible, method: RetenoNetworkProvider.HTTPMethod, headers: RetenoNetworkProvider.HTTPHeaders? = nil) throws
+}
+@available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
+public struct DataResponsePublisher<Value> : Combine.Publisher {
+  public typealias Output = RetenoNetworkProvider.DataResponse<Value, RetenoNetworkProvider.AFError>
+  public typealias Failure = Swift.Never
+  public init<Serializer>(_ request: RetenoNetworkProvider.DataRequest, queue: Dispatch.DispatchQueue, serializer: Serializer) where Value == Serializer.SerializedObject, Serializer : RetenoNetworkProvider.ResponseSerializer
+  public init<Serializer>(_ request: RetenoNetworkProvider.DataRequest, queue: Dispatch.DispatchQueue, serializer: Serializer) where Value == Serializer.SerializedObject, Serializer : RetenoNetworkProvider.DataResponseSerializerProtocol
+  public func result() -> Combine.AnyPublisher<Swift.Result<Value, RetenoNetworkProvider.AFError>, Swift.Never>
+  public func value() -> Combine.AnyPublisher<Value, RetenoNetworkProvider.AFError>
+  public func receive<S>(subscriber: S) where S : Combine.Subscriber, S.Failure == Swift.Never, S.Input == RetenoNetworkProvider.DataResponse<Value, RetenoNetworkProvider.AFError>
+}
+@available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
+extension RetenoNetworkProvider.DataResponsePublisher where Value == Foundation.Data? {
+  @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
+  public init(_ request: RetenoNetworkProvider.DataRequest, queue: Dispatch.DispatchQueue)
+}
+extension RetenoNetworkProvider.DataRequest {
+  @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
+  public func publishResponse<Serializer, T>(using serializer: Serializer, on queue: Dispatch.DispatchQueue = .main) -> RetenoNetworkProvider.DataResponsePublisher<T> where Serializer : RetenoNetworkProvider.ResponseSerializer, T == Serializer.SerializedObject
+  @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
+  public func publishData(queue: Dispatch.DispatchQueue = .main, preprocessor: any RetenoNetworkProvider.DataPreprocessor = DataResponseSerializer.defaultDataPreprocessor, emptyResponseCodes: Swift.Set<Swift.Int> = DataResponseSerializer.defaultEmptyResponseCodes, emptyRequestMethods: Swift.Set<RetenoNetworkProvider.HTTPMethod> = DataResponseSerializer.defaultEmptyRequestMethods) -> RetenoNetworkProvider.DataResponsePublisher<Foundation.Data>
+  @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
+  public func publishString(queue: Dispatch.DispatchQueue = .main, preprocessor: any RetenoNetworkProvider.DataPreprocessor = StringResponseSerializer.defaultDataPreprocessor, encoding: Swift.String.Encoding? = nil, emptyResponseCodes: Swift.Set<Swift.Int> = StringResponseSerializer.defaultEmptyResponseCodes, emptyRequestMethods: Swift.Set<RetenoNetworkProvider.HTTPMethod> = StringResponseSerializer.defaultEmptyRequestMethods) -> RetenoNetworkProvider.DataResponsePublisher<Swift.String>
+  @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
+  @available(*, deprecated, message: "Renamed publishDecodable(type:queue:preprocessor:decoder:emptyResponseCodes:emptyRequestMethods).")
+  @_disfavoredOverload public func publishDecodable<T>(type: T.Type = T.self, queue: Dispatch.DispatchQueue = .main, preprocessor: any RetenoNetworkProvider.DataPreprocessor = DecodableResponseSerializer<T>.defaultDataPreprocessor, decoder: any RetenoNetworkProvider.DataDecoder = JSONDecoder(), emptyResponseCodes: Swift.Set<Swift.Int> = DecodableResponseSerializer<T>.defaultEmptyResponseCodes, emptyResponseMethods: Swift.Set<RetenoNetworkProvider.HTTPMethod> = DecodableResponseSerializer<T>.defaultEmptyRequestMethods) -> RetenoNetworkProvider.DataResponsePublisher<T> where T : Swift.Decodable
+  @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
+  public func publishDecodable<T>(type: T.Type = T.self, queue: Dispatch.DispatchQueue = .main, preprocessor: any RetenoNetworkProvider.DataPreprocessor = DecodableResponseSerializer<T>.defaultDataPreprocessor, decoder: any RetenoNetworkProvider.DataDecoder = JSONDecoder(), emptyResponseCodes: Swift.Set<Swift.Int> = DecodableResponseSerializer<T>.defaultEmptyResponseCodes, emptyRequestMethods: Swift.Set<RetenoNetworkProvider.HTTPMethod> = DecodableResponseSerializer<T>.defaultEmptyRequestMethods) -> RetenoNetworkProvider.DataResponsePublisher<T> where T : Swift.Decodable
+  @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
+  public func publishUnserialized(queue: Dispatch.DispatchQueue = .main) -> RetenoNetworkProvider.DataResponsePublisher<Foundation.Data?>
+}
+@available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
+public struct DataStreamPublisher<Value> : Combine.Publisher {
+  public typealias Output = RetenoNetworkProvider.DataStreamRequest.Stream<Value, RetenoNetworkProvider.AFError>
+  public typealias Failure = Swift.Never
+  public init<Serializer>(_ request: RetenoNetworkProvider.DataStreamRequest, queue: Dispatch.DispatchQueue, serializer: Serializer) where Value == Serializer.SerializedObject, Serializer : RetenoNetworkProvider.DataStreamSerializer
+  public func result() -> Combine.AnyPublisher<Swift.Result<Value, RetenoNetworkProvider.AFError>, Swift.Never>
+  public func value() -> Combine.AnyPublisher<Value, RetenoNetworkProvider.AFError>
+  public func receive<S>(subscriber: S) where S : Combine.Subscriber, S.Failure == Swift.Never, S.Input == RetenoNetworkProvider.DataStreamRequest.Stream<Value, RetenoNetworkProvider.AFError>
+}
+extension RetenoNetworkProvider.DataStreamRequest {
+  @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
+  final public func publishStream<Serializer>(using serializer: Serializer, on queue: Dispatch.DispatchQueue = .main) -> RetenoNetworkProvider.DataStreamPublisher<Serializer.SerializedObject> where Serializer : RetenoNetworkProvider.DataStreamSerializer
+  @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
+  final public func publishData(queue: Dispatch.DispatchQueue = .main) -> RetenoNetworkProvider.DataStreamPublisher<Foundation.Data>
+  @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
+  final public func publishString(queue: Dispatch.DispatchQueue = .main) -> RetenoNetworkProvider.DataStreamPublisher<Swift.String>
+  @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
+  final public func publishDecodable<T>(type: T.Type = T.self, queue: Dispatch.DispatchQueue = .main, decoder: any RetenoNetworkProvider.DataDecoder = JSONDecoder(), preprocessor: any RetenoNetworkProvider.DataPreprocessor = PassthroughPreprocessor()) -> RetenoNetworkProvider.DataStreamPublisher<T> where T : Swift.Decodable
+}
+@available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
+public struct DownloadResponsePublisher<Value> : Combine.Publisher {
+  public typealias Output = RetenoNetworkProvider.DownloadResponse<Value, RetenoNetworkProvider.AFError>
+  public typealias Failure = Swift.Never
+  public init<Serializer>(_ request: RetenoNetworkProvider.DownloadRequest, queue: Dispatch.DispatchQueue, serializer: Serializer) where Value == Serializer.SerializedObject, Serializer : RetenoNetworkProvider.ResponseSerializer
+  @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
+  public init<Serializer>(_ request: RetenoNetworkProvider.DownloadRequest, queue: Dispatch.DispatchQueue, serializer: Serializer) where Value == Serializer.SerializedObject, Serializer : RetenoNetworkProvider.DownloadResponseSerializerProtocol
+  public func result() -> Combine.AnyPublisher<Swift.Result<Value, RetenoNetworkProvider.AFError>, Swift.Never>
+  public func value() -> Combine.AnyPublisher<Value, RetenoNetworkProvider.AFError>
+  public func receive<S>(subscriber: S) where S : Combine.Subscriber, S.Failure == Swift.Never, S.Input == RetenoNetworkProvider.DownloadResponse<Value, RetenoNetworkProvider.AFError>
+}
+extension RetenoNetworkProvider.DownloadRequest {
+  @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
+  final public func publishResponse<Serializer, T>(using serializer: Serializer, on queue: Dispatch.DispatchQueue = .main) -> RetenoNetworkProvider.DownloadResponsePublisher<T> where Serializer : RetenoNetworkProvider.ResponseSerializer, T == Serializer.SerializedObject
+  @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
+  final public func publishResponse<Serializer, T>(using serializer: Serializer, on queue: Dispatch.DispatchQueue = .main) -> RetenoNetworkProvider.DownloadResponsePublisher<T> where Serializer : RetenoNetworkProvider.DownloadResponseSerializerProtocol, T == Serializer.SerializedObject
+  @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
+  final public func publishURL(queue: Dispatch.DispatchQueue = .main) -> RetenoNetworkProvider.DownloadResponsePublisher<Foundation.URL>
+  @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
+  final public func publishData(queue: Dispatch.DispatchQueue = .main, preprocessor: any RetenoNetworkProvider.DataPreprocessor = DataResponseSerializer.defaultDataPreprocessor, emptyResponseCodes: Swift.Set<Swift.Int> = DataResponseSerializer.defaultEmptyResponseCodes, emptyRequestMethods: Swift.Set<RetenoNetworkProvider.HTTPMethod> = DataResponseSerializer.defaultEmptyRequestMethods) -> RetenoNetworkProvider.DownloadResponsePublisher<Foundation.Data>
+  @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
+  final public func publishString(queue: Dispatch.DispatchQueue = .main, preprocessor: any RetenoNetworkProvider.DataPreprocessor = StringResponseSerializer.defaultDataPreprocessor, encoding: Swift.String.Encoding? = nil, emptyResponseCodes: Swift.Set<Swift.Int> = StringResponseSerializer.defaultEmptyResponseCodes, emptyRequestMethods: Swift.Set<RetenoNetworkProvider.HTTPMethod> = StringResponseSerializer.defaultEmptyRequestMethods) -> RetenoNetworkProvider.DownloadResponsePublisher<Swift.String>
+  @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
+  @available(*, deprecated, message: "Renamed publishDecodable(type:queue:preprocessor:decoder:emptyResponseCodes:emptyRequestMethods).")
+  @_disfavoredOverload final public func publishDecodable<T>(type: T.Type = T.self, queue: Dispatch.DispatchQueue = .main, preprocessor: any RetenoNetworkProvider.DataPreprocessor = DecodableResponseSerializer<T>.defaultDataPreprocessor, decoder: any RetenoNetworkProvider.DataDecoder = JSONDecoder(), emptyResponseCodes: Swift.Set<Swift.Int> = DecodableResponseSerializer<T>.defaultEmptyResponseCodes, emptyResponseMethods: Swift.Set<RetenoNetworkProvider.HTTPMethod> = DecodableResponseSerializer<T>.defaultEmptyRequestMethods) -> RetenoNetworkProvider.DownloadResponsePublisher<T> where T : Swift.Decodable
+  @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
+  final public func publishDecodable<T>(type: T.Type = T.self, queue: Dispatch.DispatchQueue = .main, preprocessor: any RetenoNetworkProvider.DataPreprocessor = DecodableResponseSerializer<T>.defaultDataPreprocessor, decoder: any RetenoNetworkProvider.DataDecoder = JSONDecoder(), emptyResponseCodes: Swift.Set<Swift.Int> = DecodableResponseSerializer<T>.defaultEmptyResponseCodes, emptyRequestMethods: Swift.Set<RetenoNetworkProvider.HTTPMethod> = DecodableResponseSerializer<T>.defaultEmptyRequestMethods) -> RetenoNetworkProvider.DownloadResponsePublisher<T> where T : Swift.Decodable
+}
+@available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
+extension RetenoNetworkProvider.DownloadResponsePublisher where Value == Foundation.URL? {
+  @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
+  public init(_ request: RetenoNetworkProvider.DownloadRequest, queue: Dispatch.DispatchQueue)
+}
+extension RetenoNetworkProvider.DownloadRequest {
+  @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
+  final public func publishUnserialized(on queue: Dispatch.DispatchQueue = .main) -> RetenoNetworkProvider.DownloadResponsePublisher<Foundation.URL?>
+}
+open class MultipartFormData {
+  public static let encodingMemoryThreshold: Swift.UInt64
+  open var contentType: Swift.String {
+    get
+    set
+  }
+  public var contentLength: Swift.UInt64 {
+    get
+  }
+  final public let boundary: Swift.String
+  public init(fileManager: Foundation.FileManager = .default, boundary: Swift.String? = nil)
+  public func append(_ data: Foundation.Data, withName name: Swift.String, fileName: Swift.String? = nil, mimeType: Swift.String? = nil)
+  public func append(_ fileURL: Foundation.URL, withName name: Swift.String)
+  public func append(_ fileURL: Foundation.URL, withName name: Swift.String, fileName: Swift.String, mimeType: Swift.String)
+  public func append(_ stream: Foundation.InputStream, withLength length: Swift.UInt64, name: Swift.String, fileName: Swift.String, mimeType: Swift.String)
+  public func append(_ stream: Foundation.InputStream, withLength length: Swift.UInt64, headers: RetenoNetworkProvider.HTTPHeaders)
+  public func encode() throws -> Foundation.Data
+  public func writeEncodedData(to fileURL: Foundation.URL) throws
+  @objc deinit
+}
+@_spi(WebSocket) @_hasMissingDesignatedInitializers @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+final public class WebSocketRequest : RetenoNetworkProvider.Request {
+  @_spi(WebSocket) public struct Event<Success, Failure> where Failure : Swift.Error {
+    @_spi(WebSocket) public enum Kind {
+      @_spi(WebSocket) case connected(protocol: Swift.String?)
+      @_spi(WebSocket) case receivedMessage(Success)
+      @_spi(WebSocket) case serializerFailed(Failure)
+      @_spi(WebSocket) case disconnected(closeCode: Foundation.URLSessionWebSocketTask.CloseCode, reason: Foundation.Data?)
+      @_spi(WebSocket) case completed(RetenoNetworkProvider.WebSocketRequest.Completion)
+    }
+    @_spi(WebSocket) public let kind: RetenoNetworkProvider.WebSocketRequest.Event<Success, Failure>.Kind
+    @_spi(WebSocket) public var message: Success? {
+      @_spi(WebSocket) get
+    }
+    @_spi(WebSocket) public func close(sending closeCode: Foundation.URLSessionWebSocketTask.CloseCode, reason: Foundation.Data? = nil)
+    @_spi(WebSocket) public func cancel()
+    @_spi(WebSocket) public func sendPing(respondingOn queue: Dispatch.DispatchQueue = .main, onResponse: @escaping (RetenoNetworkProvider.WebSocketRequest.PingResponse) -> Swift.Void)
+  }
+  @_spi(WebSocket) public struct Completion {
+    @_spi(WebSocket) public let request: Foundation.URLRequest?
+    @_spi(WebSocket) public let response: Foundation.HTTPURLResponse?
+    @_spi(WebSocket) public let metrics: Foundation.URLSessionTaskMetrics?
+    @_spi(WebSocket) public let error: RetenoNetworkProvider.AFError?
+  }
+  @_spi(WebSocket) public struct Configuration {
+    @_spi(WebSocket) public static var `default`: RetenoNetworkProvider.WebSocketRequest.Configuration {
+      @_spi(WebSocket) get
+    }
+    @_spi(WebSocket) public static func `protocol`(_ protocol: Swift.String) -> RetenoNetworkProvider.WebSocketRequest.Configuration
+    @_spi(WebSocket) public static func maximumMessageSize(_ maximumMessageSize: Swift.Int) -> RetenoNetworkProvider.WebSocketRequest.Configuration
+    @_spi(WebSocket) public static func pingInterval(_ pingInterval: Foundation.TimeInterval) -> RetenoNetworkProvider.WebSocketRequest.Configuration
+    @_spi(WebSocket) public let `protocol`: Swift.String?
+    @_spi(WebSocket) public let maximumMessageSize: Swift.Int
+    @_spi(WebSocket) public let pingInterval: Foundation.TimeInterval?
+  }
+  @_spi(WebSocket) public enum PingResponse {
+    @_spi(WebSocket) public struct Pong {
+    }
+    @_spi(WebSocket) case pong(RetenoNetworkProvider.WebSocketRequest.PingResponse.Pong)
+    @_spi(WebSocket) case error(any Swift.Error)
+    @_spi(WebSocket) case unsent
+  }
+  @_spi(WebSocket) final public let convertible: any RetenoNetworkProvider.URLRequestConvertible
+  @_spi(WebSocket) final public let configuration: RetenoNetworkProvider.WebSocketRequest.Configuration
+  @_spi(WebSocket) @discardableResult
+  final public func close(sending closeCode: Foundation.URLSessionWebSocketTask.CloseCode, reason: Foundation.Data? = nil) -> Self
+  @_spi(WebSocket) @discardableResult
+  override final public func cancel() -> Self
+  @_spi(WebSocket) final public func sendPing(respondingOn queue: Dispatch.DispatchQueue = .main, onResponse: @escaping (RetenoNetworkProvider.WebSocketRequest.PingResponse) -> Swift.Void)
+  @_spi(WebSocket) @discardableResult
+  final public func streamSerializer<Serializer>(_ serializer: Serializer, on queue: Dispatch.DispatchQueue = .main, handler: @escaping (_ event: RetenoNetworkProvider.WebSocketRequest.Event<Serializer.Output, Serializer.Failure>) -> Swift.Void) -> Self where Serializer : RetenoNetworkProvider.WebSocketMessageSerializer, Serializer.Failure == any Swift.Error
+  @_spi(WebSocket) @discardableResult
+  final public func streamDecodableEvents<Value>(_ type: Value.Type = Value.self, on queue: Dispatch.DispatchQueue = .main, using decoder: any RetenoNetworkProvider.DataDecoder = JSONDecoder(), handler: @escaping (_ event: RetenoNetworkProvider.WebSocketRequest.Event<Value, any Swift.Error>) -> Swift.Void) -> Self where Value : Swift.Decodable
+  @_spi(WebSocket) @discardableResult
+  final public func streamDecodable<Value>(_ type: Value.Type = Value.self, on queue: Dispatch.DispatchQueue = .main, using decoder: any RetenoNetworkProvider.DataDecoder = JSONDecoder(), handler: @escaping (_ value: Value) -> Swift.Void) -> Self where Value : Swift.Decodable
+  @_spi(WebSocket) @discardableResult
+  final public func streamMessageEvents(on queue: Dispatch.DispatchQueue = .main, handler: @escaping (_ event: RetenoNetworkProvider.WebSocketRequest.Event<Foundation.URLSessionWebSocketTask.Message, Swift.Never>) -> Swift.Void) -> Self
+  @_spi(WebSocket) @discardableResult
+  final public func streamMessages(on queue: Dispatch.DispatchQueue = .main, handler: @escaping (_ message: Foundation.URLSessionWebSocketTask.Message) -> Swift.Void) -> Self
+  @_spi(WebSocket) final public func send(_ message: Foundation.URLSessionWebSocketTask.Message, queue: Dispatch.DispatchQueue = .main, completionHandler: @escaping (Swift.Result<Swift.Void, any Swift.Error>) -> Swift.Void)
+  @_spi(WebSocket) @objc deinit
+}
+#if compiler(>=5.3) && $PrimaryAssociatedTypes2
+@available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+public protocol WebSocketMessageSerializer<Output, Failure> {
+  associatedtype Output
+  associatedtype Failure : Swift.Error = any Swift.Error
+  func decode(_ message: Foundation.URLSessionWebSocketTask.Message) throws -> Self.Output
+}
+#else
+@available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+public protocol WebSocketMessageSerializer {
+  associatedtype Output
+  associatedtype Failure : Swift.Error = any Swift.Error
+  func decode(_ message: Foundation.URLSessionWebSocketTask.Message) throws -> Self.Output
+}
+#endif
+@available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+extension RetenoNetworkProvider.WebSocketMessageSerializer {
+  public static func json<Value>(decoding _: Value.Type = Value.self, using decoder: Foundation.JSONDecoder = JSONDecoder()) -> RetenoNetworkProvider.DecodableWebSocketMessageDecoder<Value> where Self == RetenoNetworkProvider.DecodableWebSocketMessageDecoder<Value>, Value : Swift.Decodable
+}
+@available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+public struct DecodableWebSocketMessageDecoder<Value> : RetenoNetworkProvider.WebSocketMessageSerializer where Value : Swift.Decodable {
+  public enum Error : Swift.Error {
+    case decoding(any Swift.Error)
+    case unknownMessage(description: Swift.String)
+  }
+  public let decoder: any RetenoNetworkProvider.DataDecoder
+  public init(decoder: any RetenoNetworkProvider.DataDecoder)
+  public func decode(_ message: Foundation.URLSessionWebSocketTask.Message) throws -> Value
+  public typealias Failure = any Swift.Error
+  public typealias Output = Value
+}
+public typealias AFDataResponse<Success> = RetenoNetworkProvider.DataResponse<Success, RetenoNetworkProvider.AFError>
+public typealias AFDownloadResponse<Success> = RetenoNetworkProvider.DownloadResponse<Success, RetenoNetworkProvider.AFError>
+public struct DataResponse<Success, Failure> where Failure : Swift.Error {
+  public let request: Foundation.URLRequest?
+  public let response: Foundation.HTTPURLResponse?
+  public let data: Foundation.Data?
+  public let metrics: Foundation.URLSessionTaskMetrics?
+  public let serializationDuration: Foundation.TimeInterval
+  public let result: Swift.Result<Success, Failure>
+  public var value: Success? {
+    get
+  }
+  public var error: Failure? {
+    get
+  }
+  public init(request: Foundation.URLRequest?, response: Foundation.HTTPURLResponse?, data: Foundation.Data?, metrics: Foundation.URLSessionTaskMetrics?, serializationDuration: Foundation.TimeInterval, result: Swift.Result<Success, Failure>)
+}
+extension RetenoNetworkProvider.DataResponse : Swift.CustomStringConvertible, Swift.CustomDebugStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+  public var debugDescription: Swift.String {
+    get
+  }
+}
+extension RetenoNetworkProvider.DataResponse {
+  public func map<NewSuccess>(_ transform: (Success) -> NewSuccess) -> RetenoNetworkProvider.DataResponse<NewSuccess, Failure>
+  public func tryMap<NewSuccess>(_ transform: (Success) throws -> NewSuccess) -> RetenoNetworkProvider.DataResponse<NewSuccess, any Swift.Error>
+  public func mapError<NewFailure>(_ transform: (Failure) -> NewFailure) -> RetenoNetworkProvider.DataResponse<Success, NewFailure> where NewFailure : Swift.Error
+  public func tryMapError<NewFailure>(_ transform: (Failure) throws -> NewFailure) -> RetenoNetworkProvider.DataResponse<Success, any Swift.Error> where NewFailure : Swift.Error
+}
+public struct DownloadResponse<Success, Failure> where Failure : Swift.Error {
+  public let request: Foundation.URLRequest?
+  public let response: Foundation.HTTPURLResponse?
+  public let fileURL: Foundation.URL?
+  public let resumeData: Foundation.Data?
+  public let metrics: Foundation.URLSessionTaskMetrics?
+  public let serializationDuration: Foundation.TimeInterval
+  public let result: Swift.Result<Success, Failure>
+  public var value: Success? {
+    get
+  }
+  public var error: Failure? {
+    get
+  }
+  public init(request: Foundation.URLRequest?, response: Foundation.HTTPURLResponse?, fileURL: Foundation.URL?, resumeData: Foundation.Data?, metrics: Foundation.URLSessionTaskMetrics?, serializationDuration: Foundation.TimeInterval, result: Swift.Result<Success, Failure>)
+}
+extension RetenoNetworkProvider.DownloadResponse : Swift.CustomStringConvertible, Swift.CustomDebugStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+  public var debugDescription: Swift.String {
+    get
+  }
+}
+extension RetenoNetworkProvider.DownloadResponse {
+  public func map<NewSuccess>(_ transform: (Success) -> NewSuccess) -> RetenoNetworkProvider.DownloadResponse<NewSuccess, Failure>
+  public func tryMap<NewSuccess>(_ transform: (Success) throws -> NewSuccess) -> RetenoNetworkProvider.DownloadResponse<NewSuccess, any Swift.Error>
+  public func mapError<NewFailure>(_ transform: (Failure) -> NewFailure) -> RetenoNetworkProvider.DownloadResponse<Success, NewFailure> where NewFailure : Swift.Error
+  public func tryMapError<NewFailure>(_ transform: (Failure) throws -> NewFailure) -> RetenoNetworkProvider.DownloadResponse<Success, any Swift.Error> where NewFailure : Swift.Error
+}
+public protocol ParameterEncoder {
+  func encode<Parameters>(_ parameters: Parameters?, into request: Foundation.URLRequest) throws -> Foundation.URLRequest where Parameters : Swift.Encodable
+}
+open class JSONParameterEncoder : RetenoNetworkProvider.ParameterEncoder {
+  public static var `default`: RetenoNetworkProvider.JSONParameterEncoder {
+    get
+  }
+  public static var prettyPrinted: RetenoNetworkProvider.JSONParameterEncoder {
+    get
+  }
+  @available(macOS 10.13, iOS 11.0, tvOS 11.0, watchOS 4.0, *)
+  public static var sortedKeys: RetenoNetworkProvider.JSONParameterEncoder {
+    get
+  }
+  final public let encoder: Foundation.JSONEncoder
+  public init(encoder: Foundation.JSONEncoder = JSONEncoder())
+  open func encode<Parameters>(_ parameters: Parameters?, into request: Foundation.URLRequest) throws -> Foundation.URLRequest where Parameters : Swift.Encodable
+  @objc deinit
+}
+extension RetenoNetworkProvider.ParameterEncoder where Self == RetenoNetworkProvider.JSONParameterEncoder {
+  public static var json: RetenoNetworkProvider.JSONParameterEncoder {
+    get
+  }
+  public static func json(encoder: Foundation.JSONEncoder = JSONEncoder()) -> RetenoNetworkProvider.JSONParameterEncoder
+}
+open class URLEncodedFormParameterEncoder : RetenoNetworkProvider.ParameterEncoder {
+  public enum Destination {
+    case methodDependent
+    case queryString
+    case httpBody
+    public static func == (a: RetenoNetworkProvider.URLEncodedFormParameterEncoder.Destination, b: RetenoNetworkProvider.URLEncodedFormParameterEncoder.Destination) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public static var `default`: RetenoNetworkProvider.URLEncodedFormParameterEncoder {
+    get
+  }
+  final public let encoder: RetenoNetworkProvider.URLEncodedFormEncoder
+  final public let destination: RetenoNetworkProvider.URLEncodedFormParameterEncoder.Destination
+  public init(encoder: RetenoNetworkProvider.URLEncodedFormEncoder = URLEncodedFormEncoder(), destination: RetenoNetworkProvider.URLEncodedFormParameterEncoder.Destination = .methodDependent)
+  open func encode<Parameters>(_ parameters: Parameters?, into request: Foundation.URLRequest) throws -> Foundation.URLRequest where Parameters : Swift.Encodable
+  @objc deinit
+}
+extension RetenoNetworkProvider.ParameterEncoder where Self == RetenoNetworkProvider.URLEncodedFormParameterEncoder {
+  public static var urlEncodedForm: RetenoNetworkProvider.URLEncodedFormParameterEncoder {
+    get
+  }
+  public static func urlEncodedForm(encoder: RetenoNetworkProvider.URLEncodedFormEncoder = URLEncodedFormEncoder(), destination: RetenoNetworkProvider.URLEncodedFormParameterEncoder.Destination = .methodDependent) -> RetenoNetworkProvider.URLEncodedFormParameterEncoder
+}
+#if compiler(>=5.3) && $PrimaryAssociatedTypes2
+public protocol DataResponseSerializerProtocol<SerializedObject> {
+  associatedtype SerializedObject
+  func serialize(request: Foundation.URLRequest?, response: Foundation.HTTPURLResponse?, data: Foundation.Data?, error: (any Swift.Error)?) throws -> Self.SerializedObject
+}
+#else
+public protocol DataResponseSerializerProtocol {
+  associatedtype SerializedObject
+  func serialize(request: Foundation.URLRequest?, response: Foundation.HTTPURLResponse?, data: Foundation.Data?, error: (any Swift.Error)?) throws -> Self.SerializedObject
+}
+#endif
+#if compiler(>=5.3) && $PrimaryAssociatedTypes2
+public protocol DownloadResponseSerializerProtocol<SerializedObject> {
+  associatedtype SerializedObject
+  func serializeDownload(request: Foundation.URLRequest?, response: Foundation.HTTPURLResponse?, fileURL: Foundation.URL?, error: (any Swift.Error)?) throws -> Self.SerializedObject
+}
+#else
+public protocol DownloadResponseSerializerProtocol {
+  associatedtype SerializedObject
+  func serializeDownload(request: Foundation.URLRequest?, response: Foundation.HTTPURLResponse?, fileURL: Foundation.URL?, error: (any Swift.Error)?) throws -> Self.SerializedObject
+}
+#endif
+#if compiler(>=5.3) && $PrimaryAssociatedTypes2
+public protocol ResponseSerializer<SerializedObject> : RetenoNetworkProvider.DataResponseSerializerProtocol, RetenoNetworkProvider.DownloadResponseSerializerProtocol {
+  var dataPreprocessor: any RetenoNetworkProvider.DataPreprocessor { get }
+  var emptyRequestMethods: Swift.Set<RetenoNetworkProvider.HTTPMethod> { get }
+  var emptyResponseCodes: Swift.Set<Swift.Int> { get }
+}
+#else
+public protocol ResponseSerializer : RetenoNetworkProvider.DataResponseSerializerProtocol, RetenoNetworkProvider.DownloadResponseSerializerProtocol {
+  var dataPreprocessor: any RetenoNetworkProvider.DataPreprocessor { get }
+  var emptyRequestMethods: Swift.Set<RetenoNetworkProvider.HTTPMethod> { get }
+  var emptyResponseCodes: Swift.Set<Swift.Int> { get }
+}
+#endif
+public protocol DataPreprocessor {
+  func preprocess(_ data: Foundation.Data) throws -> Foundation.Data
+}
+public struct PassthroughPreprocessor : RetenoNetworkProvider.DataPreprocessor {
+  public init()
+  public func preprocess(_ data: Foundation.Data) throws -> Foundation.Data
+}
+public struct GoogleXSSIPreprocessor : RetenoNetworkProvider.DataPreprocessor {
+  public init()
+  public func preprocess(_ data: Foundation.Data) throws -> Foundation.Data
+}
+extension RetenoNetworkProvider.DataPreprocessor where Self == RetenoNetworkProvider.PassthroughPreprocessor {
+  public static var passthrough: RetenoNetworkProvider.PassthroughPreprocessor {
+    get
+  }
+}
+extension RetenoNetworkProvider.DataPreprocessor where Self == RetenoNetworkProvider.GoogleXSSIPreprocessor {
+  public static var googleXSSI: RetenoNetworkProvider.GoogleXSSIPreprocessor {
+    get
+  }
+}
+extension RetenoNetworkProvider.ResponseSerializer {
+  public static var defaultDataPreprocessor: any RetenoNetworkProvider.DataPreprocessor {
+    get
+  }
+  public static var defaultEmptyRequestMethods: Swift.Set<RetenoNetworkProvider.HTTPMethod> {
+    get
+  }
+  public static var defaultEmptyResponseCodes: Swift.Set<Swift.Int> {
+    get
+  }
+  public var dataPreprocessor: any RetenoNetworkProvider.DataPreprocessor {
+    get
+  }
+  public var emptyRequestMethods: Swift.Set<RetenoNetworkProvider.HTTPMethod> {
+    get
+  }
+  public var emptyResponseCodes: Swift.Set<Swift.Int> {
+    get
+  }
+  public func requestAllowsEmptyResponseData(_ request: Foundation.URLRequest?) -> Swift.Bool?
+  public func responseAllowsEmptyResponseData(_ response: Foundation.HTTPURLResponse?) -> Swift.Bool?
+  public func emptyResponseAllowed(forRequest request: Foundation.URLRequest?, response: Foundation.HTTPURLResponse?) -> Swift.Bool
+}
+extension RetenoNetworkProvider.DownloadResponseSerializerProtocol where Self : RetenoNetworkProvider.DataResponseSerializerProtocol {
+  public func serializeDownload(request: Foundation.URLRequest?, response: Foundation.HTTPURLResponse?, fileURL: Foundation.URL?, error: (any Swift.Error)?) throws -> Self.SerializedObject
+}
+public struct URLResponseSerializer : RetenoNetworkProvider.DownloadResponseSerializerProtocol {
+  public init()
+  public func serializeDownload(request: Foundation.URLRequest?, response: Foundation.HTTPURLResponse?, fileURL: Foundation.URL?, error: (any Swift.Error)?) throws -> Foundation.URL
+  public typealias SerializedObject = Foundation.URL
+}
+extension RetenoNetworkProvider.DownloadResponseSerializerProtocol where Self == RetenoNetworkProvider.URLResponseSerializer {
+  public static var url: RetenoNetworkProvider.URLResponseSerializer {
+    get
+  }
+}
+final public class DataResponseSerializer : RetenoNetworkProvider.ResponseSerializer {
+  final public let dataPreprocessor: any RetenoNetworkProvider.DataPreprocessor
+  final public let emptyResponseCodes: Swift.Set<Swift.Int>
+  final public let emptyRequestMethods: Swift.Set<RetenoNetworkProvider.HTTPMethod>
+  public init(dataPreprocessor: any RetenoNetworkProvider.DataPreprocessor = DataResponseSerializer.defaultDataPreprocessor, emptyResponseCodes: Swift.Set<Swift.Int> = DataResponseSerializer.defaultEmptyResponseCodes, emptyRequestMethods: Swift.Set<RetenoNetworkProvider.HTTPMethod> = DataResponseSerializer.defaultEmptyRequestMethods)
+  final public func serialize(request: Foundation.URLRequest?, response: Foundation.HTTPURLResponse?, data: Foundation.Data?, error: (any Swift.Error)?) throws -> Foundation.Data
+  public typealias SerializedObject = Foundation.Data
+  @objc deinit
+}
+extension RetenoNetworkProvider.ResponseSerializer where Self == RetenoNetworkProvider.DataResponseSerializer {
+  public static var data: RetenoNetworkProvider.DataResponseSerializer {
+    get
+  }
+  public static func data(dataPreprocessor: any RetenoNetworkProvider.DataPreprocessor = DataResponseSerializer.defaultDataPreprocessor, emptyResponseCodes: Swift.Set<Swift.Int> = DataResponseSerializer.defaultEmptyResponseCodes, emptyRequestMethods: Swift.Set<RetenoNetworkProvider.HTTPMethod> = DataResponseSerializer.defaultEmptyRequestMethods) -> RetenoNetworkProvider.DataResponseSerializer
+}
+final public class StringResponseSerializer : RetenoNetworkProvider.ResponseSerializer {
+  final public let dataPreprocessor: any RetenoNetworkProvider.DataPreprocessor
+  final public let encoding: Swift.String.Encoding?
+  final public let emptyResponseCodes: Swift.Set<Swift.Int>
+  final public let emptyRequestMethods: Swift.Set<RetenoNetworkProvider.HTTPMethod>
+  public init(dataPreprocessor: any RetenoNetworkProvider.DataPreprocessor = StringResponseSerializer.defaultDataPreprocessor, encoding: Swift.String.Encoding? = nil, emptyResponseCodes: Swift.Set<Swift.Int> = StringResponseSerializer.defaultEmptyResponseCodes, emptyRequestMethods: Swift.Set<RetenoNetworkProvider.HTTPMethod> = StringResponseSerializer.defaultEmptyRequestMethods)
+  final public func serialize(request: Foundation.URLRequest?, response: Foundation.HTTPURLResponse?, data: Foundation.Data?, error: (any Swift.Error)?) throws -> Swift.String
+  public typealias SerializedObject = Swift.String
+  @objc deinit
+}
+extension RetenoNetworkProvider.ResponseSerializer where Self == RetenoNetworkProvider.StringResponseSerializer {
+  public static var string: RetenoNetworkProvider.StringResponseSerializer {
+    get
+  }
+  public static func string(dataPreprocessor: any RetenoNetworkProvider.DataPreprocessor = StringResponseSerializer.defaultDataPreprocessor, encoding: Swift.String.Encoding? = nil, emptyResponseCodes: Swift.Set<Swift.Int> = StringResponseSerializer.defaultEmptyResponseCodes, emptyRequestMethods: Swift.Set<RetenoNetworkProvider.HTTPMethod> = StringResponseSerializer.defaultEmptyRequestMethods) -> RetenoNetworkProvider.StringResponseSerializer
+}
+@available(*, deprecated, message: "JSONResponseSerializer deprecated and will be removed in Alamofire 6. Use DecodableResponseSerializer instead.")
+final public class JSONResponseSerializer : RetenoNetworkProvider.ResponseSerializer {
+  final public let dataPreprocessor: any RetenoNetworkProvider.DataPreprocessor
+  final public let emptyResponseCodes: Swift.Set<Swift.Int>
+  final public let emptyRequestMethods: Swift.Set<RetenoNetworkProvider.HTTPMethod>
+  final public let options: Foundation.JSONSerialization.ReadingOptions
+  public init(dataPreprocessor: any RetenoNetworkProvider.DataPreprocessor = JSONResponseSerializer.defaultDataPreprocessor, emptyResponseCodes: Swift.Set<Swift.Int> = JSONResponseSerializer.defaultEmptyResponseCodes, emptyRequestMethods: Swift.Set<RetenoNetworkProvider.HTTPMethod> = JSONResponseSerializer.defaultEmptyRequestMethods, options: Foundation.JSONSerialization.ReadingOptions = .allowFragments)
+  final public func serialize(request: Foundation.URLRequest?, response: Foundation.HTTPURLResponse?, data: Foundation.Data?, error: (any Swift.Error)?) throws -> Any
+  public typealias SerializedObject = Any
+  @objc deinit
+}
+public protocol EmptyResponse {
+  static func emptyValue() -> Self
+}
+public struct Empty : Swift.Codable, Swift.Sendable {
+  public static let value: RetenoNetworkProvider.Empty
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension RetenoNetworkProvider.Empty : RetenoNetworkProvider.EmptyResponse {
+  public static func emptyValue() -> RetenoNetworkProvider.Empty
+}
+public protocol DataDecoder {
+  func decode<D>(_ type: D.Type, from data: Foundation.Data) throws -> D where D : Swift.Decodable
+}
+extension Foundation.JSONDecoder : RetenoNetworkProvider.DataDecoder {
+}
+extension Foundation.PropertyListDecoder : RetenoNetworkProvider.DataDecoder {
+}
+final public class DecodableResponseSerializer<T> : RetenoNetworkProvider.ResponseSerializer where T : Swift.Decodable {
+  final public let dataPreprocessor: any RetenoNetworkProvider.DataPreprocessor
+  final public let decoder: any RetenoNetworkProvider.DataDecoder
+  final public let emptyResponseCodes: Swift.Set<Swift.Int>
+  final public let emptyRequestMethods: Swift.Set<RetenoNetworkProvider.HTTPMethod>
+  public init(dataPreprocessor: any RetenoNetworkProvider.DataPreprocessor = DecodableResponseSerializer.defaultDataPreprocessor, decoder: any RetenoNetworkProvider.DataDecoder = JSONDecoder(), emptyResponseCodes: Swift.Set<Swift.Int> = DecodableResponseSerializer.defaultEmptyResponseCodes, emptyRequestMethods: Swift.Set<RetenoNetworkProvider.HTTPMethod> = DecodableResponseSerializer.defaultEmptyRequestMethods)
+  final public func serialize(request: Foundation.URLRequest?, response: Foundation.HTTPURLResponse?, data: Foundation.Data?, error: (any Swift.Error)?) throws -> T
+  public typealias SerializedObject = T
+  @objc deinit
+}
+extension RetenoNetworkProvider.ResponseSerializer {
+  public static func decodable<T>(of type: T.Type, dataPreprocessor: any RetenoNetworkProvider.DataPreprocessor = DecodableResponseSerializer<T>.defaultDataPreprocessor, decoder: any RetenoNetworkProvider.DataDecoder = JSONDecoder(), emptyResponseCodes: Swift.Set<Swift.Int> = DecodableResponseSerializer<T>.defaultEmptyResponseCodes, emptyRequestMethods: Swift.Set<RetenoNetworkProvider.HTTPMethod> = DecodableResponseSerializer<T>.defaultEmptyRequestMethods) -> RetenoNetworkProvider.DecodableResponseSerializer<T> where Self == RetenoNetworkProvider.DecodableResponseSerializer<T>, T : Swift.Decodable
+}
+public struct RequestAdapterState {
+  public let requestID: Foundation.UUID
+  public let session: RetenoNetworkProvider.Session
+}
+public protocol RequestAdapter {
+  func adapt(_ urlRequest: Foundation.URLRequest, for session: RetenoNetworkProvider.Session, completion: @escaping (Swift.Result<Foundation.URLRequest, any Swift.Error>) -> Swift.Void)
+  func adapt(_ urlRequest: Foundation.URLRequest, using state: RetenoNetworkProvider.RequestAdapterState, completion: @escaping (Swift.Result<Foundation.URLRequest, any Swift.Error>) -> Swift.Void)
+}
+extension RetenoNetworkProvider.RequestAdapter {
+  public func adapt(_ urlRequest: Foundation.URLRequest, using state: RetenoNetworkProvider.RequestAdapterState, completion: @escaping (Swift.Result<Foundation.URLRequest, any Swift.Error>) -> Swift.Void)
+}
+public enum RetryResult {
+  case retry
+  case retryWithDelay(Foundation.TimeInterval)
+  case doNotRetry
+  case doNotRetryWithError(any Swift.Error)
+}
+public protocol RequestRetrier {
+  func retry(_ request: RetenoNetworkProvider.Request, for session: RetenoNetworkProvider.Session, dueTo error: any Swift.Error, completion: @escaping (RetenoNetworkProvider.RetryResult) -> Swift.Void)
+}
+public protocol RequestInterceptor : RetenoNetworkProvider.RequestAdapter, RetenoNetworkProvider.RequestRetrier {
+}
+extension RetenoNetworkProvider.RequestInterceptor {
+  public func adapt(_ urlRequest: Foundation.URLRequest, for session: RetenoNetworkProvider.Session, completion: @escaping (Swift.Result<Foundation.URLRequest, any Swift.Error>) -> Swift.Void)
+  public func retry(_ request: RetenoNetworkProvider.Request, for session: RetenoNetworkProvider.Session, dueTo error: any Swift.Error, completion: @escaping (RetenoNetworkProvider.RetryResult) -> Swift.Void)
+}
+public typealias AdaptHandler = (Foundation.URLRequest, RetenoNetworkProvider.Session, _ completion: @escaping (Swift.Result<Foundation.URLRequest, any Swift.Error>) -> Swift.Void) -> Swift.Void
+public typealias RetryHandler = (RetenoNetworkProvider.Request, RetenoNetworkProvider.Session, any Swift.Error, _ completion: @escaping (RetenoNetworkProvider.RetryResult) -> Swift.Void) -> Swift.Void
+open class Adapter : RetenoNetworkProvider.RequestInterceptor {
+  public init(_ adaptHandler: @escaping RetenoNetworkProvider.AdaptHandler)
+  open func adapt(_ urlRequest: Foundation.URLRequest, for session: RetenoNetworkProvider.Session, completion: @escaping (Swift.Result<Foundation.URLRequest, any Swift.Error>) -> Swift.Void)
+  open func adapt(_ urlRequest: Foundation.URLRequest, using state: RetenoNetworkProvider.RequestAdapterState, completion: @escaping (Swift.Result<Foundation.URLRequest, any Swift.Error>) -> Swift.Void)
+  @objc deinit
+}
+extension RetenoNetworkProvider.RequestAdapter where Self == RetenoNetworkProvider.Adapter {
+  public static func adapter(using closure: @escaping RetenoNetworkProvider.AdaptHandler) -> RetenoNetworkProvider.Adapter
+}
+open class Retrier : RetenoNetworkProvider.RequestInterceptor {
+  public init(_ retryHandler: @escaping RetenoNetworkProvider.RetryHandler)
+  open func retry(_ request: RetenoNetworkProvider.Request, for session: RetenoNetworkProvider.Session, dueTo error: any Swift.Error, completion: @escaping (RetenoNetworkProvider.RetryResult) -> Swift.Void)
+  @objc deinit
+}
+extension RetenoNetworkProvider.RequestRetrier where Self == RetenoNetworkProvider.Retrier {
+  public static func retrier(using closure: @escaping RetenoNetworkProvider.RetryHandler) -> RetenoNetworkProvider.Retrier
+}
+open class Interceptor : RetenoNetworkProvider.RequestInterceptor {
+  final public let adapters: [any RetenoNetworkProvider.RequestAdapter]
+  final public let retriers: [any RetenoNetworkProvider.RequestRetrier]
+  public init(adaptHandler: @escaping RetenoNetworkProvider.AdaptHandler, retryHandler: @escaping RetenoNetworkProvider.RetryHandler)
+  public init(adapter: any RetenoNetworkProvider.RequestAdapter, retrier: any RetenoNetworkProvider.RequestRetrier)
+  public init(adapters: [any RetenoNetworkProvider.RequestAdapter] = [], retriers: [any RetenoNetworkProvider.RequestRetrier] = [], interceptors: [any RetenoNetworkProvider.RequestInterceptor] = [])
+  open func adapt(_ urlRequest: Foundation.URLRequest, for session: RetenoNetworkProvider.Session, completion: @escaping (Swift.Result<Foundation.URLRequest, any Swift.Error>) -> Swift.Void)
+  open func adapt(_ urlRequest: Foundation.URLRequest, using state: RetenoNetworkProvider.RequestAdapterState, completion: @escaping (Swift.Result<Foundation.URLRequest, any Swift.Error>) -> Swift.Void)
+  open func retry(_ request: RetenoNetworkProvider.Request, for session: RetenoNetworkProvider.Session, dueTo error: any Swift.Error, completion: @escaping (RetenoNetworkProvider.RetryResult) -> Swift.Void)
+  @objc deinit
+}
+extension RetenoNetworkProvider.RequestInterceptor where Self == RetenoNetworkProvider.Interceptor {
+  public static func interceptor(adapter: @escaping RetenoNetworkProvider.AdaptHandler, retrier: @escaping RetenoNetworkProvider.RetryHandler) -> RetenoNetworkProvider.Interceptor
+  public static func interceptor(adapter: any RetenoNetworkProvider.RequestAdapter, retrier: any RetenoNetworkProvider.RequestRetrier) -> RetenoNetworkProvider.Interceptor
+  public static func interceptor(adapters: [any RetenoNetworkProvider.RequestAdapter] = [], retriers: [any RetenoNetworkProvider.RequestRetrier] = [], interceptors: [any RetenoNetworkProvider.RequestInterceptor] = []) -> RetenoNetworkProvider.Interceptor
+}
+@_hasMissingDesignatedInitializers final public class DownloadRequest : RetenoNetworkProvider.Request {
+  public struct Options : Swift.OptionSet {
+    public static let createIntermediateDirectories: RetenoNetworkProvider.DownloadRequest.Options
+    public static let removePreviousFile: RetenoNetworkProvider.DownloadRequest.Options
+    public let rawValue: Swift.Int
+    public init(rawValue: Swift.Int)
+    public typealias ArrayLiteralElement = RetenoNetworkProvider.DownloadRequest.Options
+    public typealias Element = RetenoNetworkProvider.DownloadRequest.Options
+    public typealias RawValue = Swift.Int
+  }
+  public typealias Destination = (_ temporaryURL: Foundation.URL, _ response: Foundation.HTTPURLResponse) -> (destinationURL: Foundation.URL, options: RetenoNetworkProvider.DownloadRequest.Options)
+  final public class func suggestedDownloadDestination(for directory: Foundation.FileManager.SearchPathDirectory = .documentDirectory, in domain: Foundation.FileManager.SearchPathDomainMask = .userDomainMask, options: RetenoNetworkProvider.DownloadRequest.Options = []) -> RetenoNetworkProvider.DownloadRequest.Destination
+  public enum Downloadable {
+    case request(any RetenoNetworkProvider.URLRequestConvertible)
+    case resumeData(Foundation.Data)
+  }
+  final public var resumeData: Foundation.Data? {
+    get
+  }
+  final public var fileURL: Foundation.URL? {
+    get
+  }
+  final public let downloadable: RetenoNetworkProvider.DownloadRequest.Downloadable
+  final public func task(forResumeData data: Foundation.Data, using session: Foundation.URLSession) -> Foundation.URLSessionTask
+  @discardableResult
+  override final public func cancel() -> Self
+  @discardableResult
+  final public func cancel(producingResumeData shouldProduceResumeData: Swift.Bool) -> Self
+  @discardableResult
+  final public func cancel(byProducingResumeData completionHandler: @escaping (_ data: Foundation.Data?) -> Swift.Void) -> Self
+  @discardableResult
+  final public func validate(_ validation: @escaping RetenoNetworkProvider.DownloadRequest.Validation) -> Self
+  @discardableResult
+  final public func response(queue: Dispatch.DispatchQueue = .main, completionHandler: @escaping (RetenoNetworkProvider.AFDownloadResponse<Foundation.URL?>) -> Swift.Void) -> Self
+  @discardableResult
+  final public func response<Serializer>(queue: Dispatch.DispatchQueue = .main, responseSerializer: Serializer, completionHandler: @escaping (RetenoNetworkProvider.AFDownloadResponse<Serializer.SerializedObject>) -> Swift.Void) -> Self where Serializer : RetenoNetworkProvider.DownloadResponseSerializerProtocol
+  @discardableResult
+  final public func response<Serializer>(queue: Dispatch.DispatchQueue = .main, responseSerializer: Serializer, completionHandler: @escaping (RetenoNetworkProvider.AFDownloadResponse<Serializer.SerializedObject>) -> Swift.Void) -> Self where Serializer : RetenoNetworkProvider.ResponseSerializer
+  @discardableResult
+  final public func responseURL(queue: Dispatch.DispatchQueue = .main, completionHandler: @escaping (RetenoNetworkProvider.AFDownloadResponse<Foundation.URL>) -> Swift.Void) -> Self
+  @discardableResult
+  final public func responseData(queue: Dispatch.DispatchQueue = .main, dataPreprocessor: any RetenoNetworkProvider.DataPreprocessor = DataResponseSerializer.defaultDataPreprocessor, emptyResponseCodes: Swift.Set<Swift.Int> = DataResponseSerializer.defaultEmptyResponseCodes, emptyRequestMethods: Swift.Set<RetenoNetworkProvider.HTTPMethod> = DataResponseSerializer.defaultEmptyRequestMethods, completionHandler: @escaping (RetenoNetworkProvider.AFDownloadResponse<Foundation.Data>) -> Swift.Void) -> Self
+  @discardableResult
+  final public func responseString(queue: Dispatch.DispatchQueue = .main, dataPreprocessor: any RetenoNetworkProvider.DataPreprocessor = StringResponseSerializer.defaultDataPreprocessor, encoding: Swift.String.Encoding? = nil, emptyResponseCodes: Swift.Set<Swift.Int> = StringResponseSerializer.defaultEmptyResponseCodes, emptyRequestMethods: Swift.Set<RetenoNetworkProvider.HTTPMethod> = StringResponseSerializer.defaultEmptyRequestMethods, completionHandler: @escaping (RetenoNetworkProvider.AFDownloadResponse<Swift.String>) -> Swift.Void) -> Self
+  @available(*, deprecated, message: "responseJSON deprecated and will be removed in Alamofire 6. Use responseDecodable instead.")
+  @discardableResult
+  final public func responseJSON(queue: Dispatch.DispatchQueue = .main, dataPreprocessor: any RetenoNetworkProvider.DataPreprocessor = JSONResponseSerializer.defaultDataPreprocessor, emptyResponseCodes: Swift.Set<Swift.Int> = JSONResponseSerializer.defaultEmptyResponseCodes, emptyRequestMethods: Swift.Set<RetenoNetworkProvider.HTTPMethod> = JSONResponseSerializer.defaultEmptyRequestMethods, options: Foundation.JSONSerialization.ReadingOptions = .allowFragments, completionHandler: @escaping (RetenoNetworkProvider.AFDownloadResponse<Any>) -> Swift.Void) -> Self
+  @discardableResult
+  final public func responseDecodable<T>(of type: T.Type = T.self, queue: Dispatch.DispatchQueue = .main, dataPreprocessor: any RetenoNetworkProvider.DataPreprocessor = DecodableResponseSerializer<T>.defaultDataPreprocessor, decoder: any RetenoNetworkProvider.DataDecoder = JSONDecoder(), emptyResponseCodes: Swift.Set<Swift.Int> = DecodableResponseSerializer<T>.defaultEmptyResponseCodes, emptyRequestMethods: Swift.Set<RetenoNetworkProvider.HTTPMethod> = DecodableResponseSerializer<T>.defaultEmptyRequestMethods, completionHandler: @escaping (RetenoNetworkProvider.AFDownloadResponse<T>) -> Swift.Void) -> Self where T : Swift.Decodable
+  @objc deinit
+}
+extension RetenoNetworkProvider.Request {
+  public typealias ValidationResult = Swift.Result<Swift.Void, any Swift.Error>
+}
+extension RetenoNetworkProvider.DataRequest {
+  public typealias Validation = (Foundation.URLRequest?, Foundation.HTTPURLResponse, Foundation.Data?) -> RetenoNetworkProvider.DataRequest.ValidationResult
+  @discardableResult
+  public func validate<S>(statusCode acceptableStatusCodes: S) -> Self where S : Swift.Sequence, S.Element == Swift.Int
+  @discardableResult
+  public func validate<S>(contentType acceptableContentTypes: @autoclosure @escaping () -> S) -> Self where S : Swift.Sequence, S.Element == Swift.String
+  @discardableResult
+  public func validate() -> Self
+}
+extension RetenoNetworkProvider.DataStreamRequest {
+  public typealias Validation = (_ request: Foundation.URLRequest?, _ response: Foundation.HTTPURLResponse) -> RetenoNetworkProvider.DataStreamRequest.ValidationResult
+  @discardableResult
+  final public func validate<S>(statusCode acceptableStatusCodes: S) -> Self where S : Swift.Sequence, S.Element == Swift.Int
+  @discardableResult
+  final public func validate<S>(contentType acceptableContentTypes: @autoclosure @escaping () -> S) -> Self where S : Swift.Sequence, S.Element == Swift.String
+  @discardableResult
+  final public func validate() -> Self
+}
+extension RetenoNetworkProvider.DownloadRequest {
+  public typealias Validation = (_ request: Foundation.URLRequest?, _ response: Foundation.HTTPURLResponse, _ fileURL: Foundation.URL?) -> RetenoNetworkProvider.DownloadRequest.ValidationResult
+  @discardableResult
+  final public func validate<S>(statusCode acceptableStatusCodes: S) -> Self where S : Swift.Sequence, S.Element == Swift.Int
+  @discardableResult
+  final public func validate<S>(contentType acceptableContentTypes: @autoclosure @escaping () -> S) -> Self where S : Swift.Sequence, S.Element == Swift.String
+  @discardableResult
+  final public func validate() -> Self
+}
+@available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+public struct DeflateRequestCompressor : RetenoNetworkProvider.RequestInterceptor {
+  public enum DuplicateHeaderBehavior {
+    case error
+    case replace
+    case skip
+    public static func == (a: RetenoNetworkProvider.DeflateRequestCompressor.DuplicateHeaderBehavior, b: RetenoNetworkProvider.DeflateRequestCompressor.DuplicateHeaderBehavior) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public struct DuplicateHeaderError : Swift.Error {
+  }
+  public let duplicateHeaderBehavior: RetenoNetworkProvider.DeflateRequestCompressor.DuplicateHeaderBehavior
+  public let shouldCompressBodyData: (_ bodyData: Foundation.Data) -> Swift.Bool
+  public init(duplicateHeaderBehavior: RetenoNetworkProvider.DeflateRequestCompressor.DuplicateHeaderBehavior = .error, shouldCompressBodyData: @escaping (_ bodyData: Foundation.Data) -> Swift.Bool = { _ in true })
+  public func adapt(_ urlRequest: Foundation.URLRequest, for session: RetenoNetworkProvider.Session, completion: @escaping (Swift.Result<Foundation.URLRequest, any Swift.Error>) -> Swift.Void)
+}
+@available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+extension RetenoNetworkProvider.RequestInterceptor where Self == RetenoNetworkProvider.DeflateRequestCompressor {
+  public static var deflateCompressor: RetenoNetworkProvider.DeflateRequestCompressor {
+    get
+  }
+  public static func deflateCompressor(duplicateHeaderBehavior: RetenoNetworkProvider.DeflateRequestCompressor.DuplicateHeaderBehavior = .error, shouldCompressBodyData: @escaping (_ bodyData: Foundation.Data) -> Swift.Bool = { _ in true }) -> RetenoNetworkProvider.DeflateRequestCompressor
+}
+public protocol CachedResponseHandler {
+  func dataTask(_ task: Foundation.URLSessionDataTask, willCacheResponse response: Foundation.CachedURLResponse, completion: @escaping (Foundation.CachedURLResponse?) -> Swift.Void)
+}
+public struct ResponseCacher {
+  public enum Behavior {
+    case cache
+    case doNotCache
+    case modify((Foundation.URLSessionDataTask, Foundation.CachedURLResponse) -> Foundation.CachedURLResponse?)
+  }
+  public static let cache: RetenoNetworkProvider.ResponseCacher
+  public static let doNotCache: RetenoNetworkProvider.ResponseCacher
+  public let behavior: RetenoNetworkProvider.ResponseCacher.Behavior
+  public init(behavior: RetenoNetworkProvider.ResponseCacher.Behavior)
+}
+extension RetenoNetworkProvider.ResponseCacher : RetenoNetworkProvider.CachedResponseHandler {
+  public func dataTask(_ task: Foundation.URLSessionDataTask, willCacheResponse response: Foundation.CachedURLResponse, completion: @escaping (Foundation.CachedURLResponse?) -> Swift.Void)
+}
+extension RetenoNetworkProvider.CachedResponseHandler where Self == RetenoNetworkProvider.ResponseCacher {
+  public static var cache: RetenoNetworkProvider.ResponseCacher {
+    get
+  }
+  public static var doNotCache: RetenoNetworkProvider.ResponseCacher {
+    get
+  }
+  public static func modify(using closure: @escaping ((Foundation.URLSessionDataTask, Foundation.CachedURLResponse) -> Foundation.CachedURLResponse?)) -> RetenoNetworkProvider.ResponseCacher
+}
+public struct HTTPMethod : Swift.RawRepresentable, Swift.Equatable, Swift.Hashable {
+  public static let connect: RetenoNetworkProvider.HTTPMethod
+  public static let delete: RetenoNetworkProvider.HTTPMethod
+  public static let get: RetenoNetworkProvider.HTTPMethod
+  public static let head: RetenoNetworkProvider.HTTPMethod
+  public static let options: RetenoNetworkProvider.HTTPMethod
+  public static let patch: RetenoNetworkProvider.HTTPMethod
+  public static let post: RetenoNetworkProvider.HTTPMethod
+  public static let put: RetenoNetworkProvider.HTTPMethod
+  public static let query: RetenoNetworkProvider.HTTPMethod
+  public static let trace: RetenoNetworkProvider.HTTPMethod
+  public let rawValue: Swift.String
+  public init(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+}
+public protocol RedirectHandler {
+  func task(_ task: Foundation.URLSessionTask, willBeRedirectedTo request: Foundation.URLRequest, for response: Foundation.HTTPURLResponse, completion: @escaping (Foundation.URLRequest?) -> Swift.Void)
+}
+public struct Redirector {
+  public enum Behavior {
+    case follow
+    case doNotFollow
+    case modify((Foundation.URLSessionTask, Foundation.URLRequest, Foundation.HTTPURLResponse) -> Foundation.URLRequest?)
+  }
+  public static let follow: RetenoNetworkProvider.Redirector
+  public static let doNotFollow: RetenoNetworkProvider.Redirector
+  public let behavior: RetenoNetworkProvider.Redirector.Behavior
+  public init(behavior: RetenoNetworkProvider.Redirector.Behavior)
+}
+extension RetenoNetworkProvider.Redirector : RetenoNetworkProvider.RedirectHandler {
+  public func task(_ task: Foundation.URLSessionTask, willBeRedirectedTo request: Foundation.URLRequest, for response: Foundation.HTTPURLResponse, completion: @escaping (Foundation.URLRequest?) -> Swift.Void)
+}
+extension RetenoNetworkProvider.RedirectHandler where Self == RetenoNetworkProvider.Redirector {
+  public static var follow: RetenoNetworkProvider.Redirector {
+    get
+  }
+  public static var doNotFollow: RetenoNetworkProvider.Redirector {
+    get
+  }
+  public static func modify(using closure: @escaping (Foundation.URLSessionTask, Foundation.URLRequest, Foundation.HTTPURLResponse) -> Foundation.URLRequest?) -> RetenoNetworkProvider.Redirector
+}
+@available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+extension RetenoNetworkProvider.Request {
+  #if compiler(>=5.3) && $RethrowsProtocol
+  public func uploadProgress(bufferingPolicy: RetenoNetworkProvider.StreamOf<Foundation.Progress>.BufferingPolicy = .unbounded) -> RetenoNetworkProvider.StreamOf<Foundation.Progress>
+  #endif
+  #if compiler(>=5.3) && $RethrowsProtocol
+  public func downloadProgress(bufferingPolicy: RetenoNetworkProvider.StreamOf<Foundation.Progress>.BufferingPolicy = .unbounded) -> RetenoNetworkProvider.StreamOf<Foundation.Progress>
+  #endif
+  #if compiler(>=5.3) && $RethrowsProtocol
+  public func urlRequests(bufferingPolicy: RetenoNetworkProvider.StreamOf<Foundation.URLRequest>.BufferingPolicy = .unbounded) -> RetenoNetworkProvider.StreamOf<Foundation.URLRequest>
+  #endif
+  #if compiler(>=5.3) && $RethrowsProtocol
+  public func urlSessionTasks(bufferingPolicy: RetenoNetworkProvider.StreamOf<Foundation.URLSessionTask>.BufferingPolicy = .unbounded) -> RetenoNetworkProvider.StreamOf<Foundation.URLSessionTask>
+  #endif
+  #if compiler(>=5.3) && $RethrowsProtocol
+  public func cURLDescriptions(bufferingPolicy: RetenoNetworkProvider.StreamOf<Swift.String>.BufferingPolicy = .unbounded) -> RetenoNetworkProvider.StreamOf<Swift.String>
+  #endif
+}
+@available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+public struct DataTask<Value> {
+  #if compiler(>=5.3) && $EffectfulProp
+  public var response: RetenoNetworkProvider.DataResponse<Value, RetenoNetworkProvider.AFError> {
+    get async
+  }
+  #endif
+  #if compiler(>=5.3) && $EffectfulProp
+  public var result: Swift.Result<Value, RetenoNetworkProvider.AFError> {
+    get async
+  }
+  #endif
+  #if compiler(>=5.3) && $EffectfulProp
+  public var value: Value {
+    get async throws
+  }
+  #endif
+  public func cancel()
+  public func resume()
+  public func suspend()
+}
+@available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+extension RetenoNetworkProvider.DataRequest {
+  #if compiler(>=5.3) && $RethrowsProtocol
+  public func httpResponses(bufferingPolicy: RetenoNetworkProvider.StreamOf<Foundation.HTTPURLResponse>.BufferingPolicy = .unbounded) -> RetenoNetworkProvider.StreamOf<Foundation.HTTPURLResponse>
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait && $Sendable
+  @discardableResult
+  @_disfavoredOverload public func onHTTPResponse(perform handler: @escaping @Sendable (_ response: Foundation.HTTPURLResponse) async -> RetenoNetworkProvider.Request.ResponseDisposition) -> Self
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait && $Sendable
+  @discardableResult
+  public func onHTTPResponse(perform handler: @escaping @Sendable (_ response: Foundation.HTTPURLResponse) async -> Swift.Void) -> Self
+  #endif
+  public func serializingData(automaticallyCancelling shouldAutomaticallyCancel: Swift.Bool = true, dataPreprocessor: any RetenoNetworkProvider.DataPreprocessor = DataResponseSerializer.defaultDataPreprocessor, emptyResponseCodes: Swift.Set<Swift.Int> = DataResponseSerializer.defaultEmptyResponseCodes, emptyRequestMethods: Swift.Set<RetenoNetworkProvider.HTTPMethod> = DataResponseSerializer.defaultEmptyRequestMethods) -> RetenoNetworkProvider.DataTask<Foundation.Data>
+  public func serializingDecodable<Value>(_ type: Value.Type = Value.self, automaticallyCancelling shouldAutomaticallyCancel: Swift.Bool = true, dataPreprocessor: any RetenoNetworkProvider.DataPreprocessor = DecodableResponseSerializer<Value>.defaultDataPreprocessor, decoder: any RetenoNetworkProvider.DataDecoder = JSONDecoder(), emptyResponseCodes: Swift.Set<Swift.Int> = DecodableResponseSerializer<Value>.defaultEmptyResponseCodes, emptyRequestMethods: Swift.Set<RetenoNetworkProvider.HTTPMethod> = DecodableResponseSerializer<Value>.defaultEmptyRequestMethods) -> RetenoNetworkProvider.DataTask<Value> where Value : Swift.Decodable
+  public func serializingString(automaticallyCancelling shouldAutomaticallyCancel: Swift.Bool = true, dataPreprocessor: any RetenoNetworkProvider.DataPreprocessor = StringResponseSerializer.defaultDataPreprocessor, encoding: Swift.String.Encoding? = nil, emptyResponseCodes: Swift.Set<Swift.Int> = StringResponseSerializer.defaultEmptyResponseCodes, emptyRequestMethods: Swift.Set<RetenoNetworkProvider.HTTPMethod> = StringResponseSerializer.defaultEmptyRequestMethods) -> RetenoNetworkProvider.DataTask<Swift.String>
+  public func serializingResponse<Serializer>(using serializer: Serializer, automaticallyCancelling shouldAutomaticallyCancel: Swift.Bool = true) -> RetenoNetworkProvider.DataTask<Serializer.SerializedObject> where Serializer : RetenoNetworkProvider.ResponseSerializer
+  public func serializingResponse<Serializer>(using serializer: Serializer, automaticallyCancelling shouldAutomaticallyCancel: Swift.Bool = true) -> RetenoNetworkProvider.DataTask<Serializer.SerializedObject> where Serializer : RetenoNetworkProvider.DataResponseSerializerProtocol
+}
+@available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+public struct DownloadTask<Value> {
+  #if compiler(>=5.3) && $EffectfulProp
+  public var response: RetenoNetworkProvider.DownloadResponse<Value, RetenoNetworkProvider.AFError> {
+    get async
+  }
+  #endif
+  #if compiler(>=5.3) && $EffectfulProp
+  public var result: Swift.Result<Value, RetenoNetworkProvider.AFError> {
+    get async
+  }
+  #endif
+  #if compiler(>=5.3) && $EffectfulProp
+  public var value: Value {
+    get async throws
+  }
+  #endif
+  public func cancel()
+  public func resume()
+  public func suspend()
+}
+@available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+extension RetenoNetworkProvider.DownloadRequest {
+  final public func serializingData(automaticallyCancelling shouldAutomaticallyCancel: Swift.Bool = true, dataPreprocessor: any RetenoNetworkProvider.DataPreprocessor = DataResponseSerializer.defaultDataPreprocessor, emptyResponseCodes: Swift.Set<Swift.Int> = DataResponseSerializer.defaultEmptyResponseCodes, emptyRequestMethods: Swift.Set<RetenoNetworkProvider.HTTPMethod> = DataResponseSerializer.defaultEmptyRequestMethods) -> RetenoNetworkProvider.DownloadTask<Foundation.Data>
+  final public func serializingDecodable<Value>(_ type: Value.Type = Value.self, automaticallyCancelling shouldAutomaticallyCancel: Swift.Bool = true, dataPreprocessor: any RetenoNetworkProvider.DataPreprocessor = DecodableResponseSerializer<Value>.defaultDataPreprocessor, decoder: any RetenoNetworkProvider.DataDecoder = JSONDecoder(), emptyResponseCodes: Swift.Set<Swift.Int> = DecodableResponseSerializer<Value>.defaultEmptyResponseCodes, emptyRequestMethods: Swift.Set<RetenoNetworkProvider.HTTPMethod> = DecodableResponseSerializer<Value>.defaultEmptyRequestMethods) -> RetenoNetworkProvider.DownloadTask<Value> where Value : Swift.Decodable
+  final public func serializingDownloadedFileURL(automaticallyCancelling shouldAutomaticallyCancel: Swift.Bool = true) -> RetenoNetworkProvider.DownloadTask<Foundation.URL>
+  final public func serializingString(automaticallyCancelling shouldAutomaticallyCancel: Swift.Bool = true, dataPreprocessor: any RetenoNetworkProvider.DataPreprocessor = StringResponseSerializer.defaultDataPreprocessor, encoding: Swift.String.Encoding? = nil, emptyResponseCodes: Swift.Set<Swift.Int> = StringResponseSerializer.defaultEmptyResponseCodes, emptyRequestMethods: Swift.Set<RetenoNetworkProvider.HTTPMethod> = StringResponseSerializer.defaultEmptyRequestMethods) -> RetenoNetworkProvider.DownloadTask<Swift.String>
+  final public func serializingDownload<Serializer>(using serializer: Serializer, automaticallyCancelling shouldAutomaticallyCancel: Swift.Bool = true) -> RetenoNetworkProvider.DownloadTask<Serializer.SerializedObject> where Serializer : RetenoNetworkProvider.ResponseSerializer
+  final public func serializingDownload<Serializer>(using serializer: Serializer, automaticallyCancelling shouldAutomaticallyCancel: Swift.Bool = true) -> RetenoNetworkProvider.DownloadTask<Serializer.SerializedObject> where Serializer : RetenoNetworkProvider.DownloadResponseSerializerProtocol
+}
+@available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+public struct DataStreamTask {
+  #if compiler(>=5.3) && $RethrowsProtocol
+  public typealias Stream<Success, Failure> = RetenoNetworkProvider.StreamOf<RetenoNetworkProvider.DataStreamRequest.Stream<Success, Failure>> where Failure : Swift.Error
+  #endif
+  #if compiler(>=5.3) && $RethrowsProtocol
+  public func streamingData(automaticallyCancelling shouldAutomaticallyCancel: Swift.Bool = true, bufferingPolicy: RetenoNetworkProvider.DataStreamTask.Stream<Foundation.Data, Swift.Never>.BufferingPolicy = .unbounded) -> RetenoNetworkProvider.DataStreamTask.Stream<Foundation.Data, Swift.Never>
+  #endif
+  #if compiler(>=5.3) && $RethrowsProtocol
+  public func streamingStrings(automaticallyCancelling shouldAutomaticallyCancel: Swift.Bool = true, bufferingPolicy: RetenoNetworkProvider.DataStreamTask.Stream<Swift.String, Swift.Never>.BufferingPolicy = .unbounded) -> RetenoNetworkProvider.DataStreamTask.Stream<Swift.String, Swift.Never>
+  #endif
+  #if compiler(>=5.3) && $RethrowsProtocol
+  public func streamingDecodables<T>(_ type: T.Type = T.self, automaticallyCancelling shouldAutomaticallyCancel: Swift.Bool = true, bufferingPolicy: RetenoNetworkProvider.DataStreamTask.Stream<T, RetenoNetworkProvider.AFError>.BufferingPolicy = .unbounded) -> RetenoNetworkProvider.DataStreamTask.Stream<T, RetenoNetworkProvider.AFError> where T : Swift.Decodable
+  #endif
+  #if compiler(>=5.3) && $RethrowsProtocol
+  public func streamingResponses<Serializer>(serializedUsing serializer: Serializer, automaticallyCancelling shouldAutomaticallyCancel: Swift.Bool = true, bufferingPolicy: RetenoNetworkProvider.DataStreamTask.Stream<Serializer.SerializedObject, RetenoNetworkProvider.AFError>.BufferingPolicy = .unbounded) -> RetenoNetworkProvider.DataStreamTask.Stream<Serializer.SerializedObject, RetenoNetworkProvider.AFError> where Serializer : RetenoNetworkProvider.DataStreamSerializer
+  #endif
+  public func cancel()
+  public func resume()
+  public func suspend()
+}
+@available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+extension RetenoNetworkProvider.DataStreamRequest {
+  #if compiler(>=5.3) && $RethrowsProtocol
+  final public func httpResponses(bufferingPolicy: RetenoNetworkProvider.StreamOf<Foundation.HTTPURLResponse>.BufferingPolicy = .unbounded) -> RetenoNetworkProvider.StreamOf<Foundation.HTTPURLResponse>
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait && $Sendable
+  @discardableResult
+  @_disfavoredOverload final public func onHTTPResponse(perform handler: @escaping @Sendable (Foundation.HTTPURLResponse) async -> RetenoNetworkProvider.Request.ResponseDisposition) -> Self
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait && $Sendable
+  @discardableResult
+  final public func onHTTPResponse(perform handler: @escaping @Sendable (Foundation.HTTPURLResponse) async -> Swift.Void) -> Self
+  #endif
+  final public func streamTask() -> RetenoNetworkProvider.DataStreamTask
+}
+@_spi(WebSocket) @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+public struct WebSocketTask {
+  #if compiler(>=5.3) && $RethrowsProtocol
+  @_spi(WebSocket) public typealias EventStreamOf<Success, Failure> = RetenoNetworkProvider.StreamOf<RetenoNetworkProvider.WebSocketRequest.Event<Success, Failure>> where Failure : Swift.Error
+  #endif
+  #if compiler(>=5.3) && $RethrowsProtocol
+  @_spi(WebSocket) public func streamingMessageEvents(automaticallyCancelling shouldAutomaticallyCancel: Swift.Bool = true, bufferingPolicy: RetenoNetworkProvider.WebSocketTask.EventStreamOf<Foundation.URLSessionWebSocketTask.Message, Swift.Never>.BufferingPolicy = .unbounded) -> RetenoNetworkProvider.WebSocketTask.EventStreamOf<Foundation.URLSessionWebSocketTask.Message, Swift.Never>
+  #endif
+  #if compiler(>=5.3) && $RethrowsProtocol
+  @_spi(WebSocket) public func streamingMessages(automaticallyCancelling shouldAutomaticallyCancel: Swift.Bool = true, bufferingPolicy: RetenoNetworkProvider.StreamOf<Foundation.URLSessionWebSocketTask.Message>.BufferingPolicy = .unbounded) -> RetenoNetworkProvider.StreamOf<Foundation.URLSessionWebSocketTask.Message>
+  #endif
+  #if compiler(>=5.3) && $RethrowsProtocol
+  @_spi(WebSocket) public func streamingDecodableEvents<Value>(_ type: Value.Type = Value.self, automaticallyCancelling shouldAutomaticallyCancel: Swift.Bool = true, using decoder: any RetenoNetworkProvider.DataDecoder = JSONDecoder(), bufferingPolicy: RetenoNetworkProvider.WebSocketTask.EventStreamOf<Value, any Swift.Error>.BufferingPolicy = .unbounded) -> RetenoNetworkProvider.WebSocketTask.EventStreamOf<Value, any Swift.Error> where Value : Swift.Decodable
+  #endif
+  #if compiler(>=5.3) && $RethrowsProtocol
+  @_spi(WebSocket) public func streamingDecodable<Value>(_ type: Value.Type = Value.self, automaticallyCancelling shouldAutomaticallyCancel: Swift.Bool = true, using decoder: any RetenoNetworkProvider.DataDecoder = JSONDecoder(), bufferingPolicy: RetenoNetworkProvider.StreamOf<Value>.BufferingPolicy = .unbounded) -> RetenoNetworkProvider.StreamOf<Value> where Value : Swift.Decodable
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @_spi(WebSocket) public func send(_ message: Foundation.URLSessionWebSocketTask.Message) async throws
+  #endif
+  @_spi(WebSocket) public func close(sending closeCode: Foundation.URLSessionWebSocketTask.CloseCode, reason: Foundation.Data? = nil)
+  @_spi(WebSocket) public func cancel()
+  @_spi(WebSocket) public func resume()
+  @_spi(WebSocket) public func suspend()
+}
+@_spi(WebSocket) @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+extension RetenoNetworkProvider.WebSocketRequest {
+  @_spi(WebSocket) final public func webSocketTask() -> RetenoNetworkProvider.WebSocketTask
+}
+#if compiler(>=5.3) && $RethrowsProtocol
+@available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+public struct StreamOf<Element> : _Concurrency.AsyncSequence {
+  public typealias AsyncIterator = RetenoNetworkProvider.StreamOf<Element>.Iterator
+  public typealias BufferingPolicy = _Concurrency.AsyncStream<Element>.Continuation.BufferingPolicy
+  public func makeAsyncIterator() -> RetenoNetworkProvider.StreamOf<Element>.Iterator
+  public struct Iterator : _Concurrency.AsyncIteratorProtocol {
+    #if compiler(>=5.3) && $AsyncAwait
+    public mutating func next() async -> Element?
+    #endif
+  }
+}
+#endif
+public protocol EventMonitor {
+  var queue: Dispatch.DispatchQueue { get }
+  func urlSession(_ session: Foundation.URLSession, didBecomeInvalidWithError error: (any Swift.Error)?)
+  func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, didReceive challenge: Foundation.URLAuthenticationChallenge)
+  func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, didSendBodyData bytesSent: Swift.Int64, totalBytesSent: Swift.Int64, totalBytesExpectedToSend: Swift.Int64)
+  func urlSession(_ session: Foundation.URLSession, taskNeedsNewBodyStream task: Foundation.URLSessionTask)
+  func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, willPerformHTTPRedirection response: Foundation.HTTPURLResponse, newRequest request: Foundation.URLRequest)
+  func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, didFinishCollecting metrics: Foundation.URLSessionTaskMetrics)
+  func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, didCompleteWithError error: (any Swift.Error)?)
+  func urlSession(_ session: Foundation.URLSession, taskIsWaitingForConnectivity task: Foundation.URLSessionTask)
+  func urlSession(_ session: Foundation.URLSession, dataTask: Foundation.URLSessionDataTask, didReceive response: Foundation.URLResponse)
+  func urlSession(_ session: Foundation.URLSession, dataTask: Foundation.URLSessionDataTask, didReceive data: Foundation.Data)
+  func urlSession(_ session: Foundation.URLSession, dataTask: Foundation.URLSessionDataTask, willCacheResponse proposedResponse: Foundation.CachedURLResponse)
+  func urlSession(_ session: Foundation.URLSession, downloadTask: Foundation.URLSessionDownloadTask, didResumeAtOffset fileOffset: Swift.Int64, expectedTotalBytes: Swift.Int64)
+  func urlSession(_ session: Foundation.URLSession, downloadTask: Foundation.URLSessionDownloadTask, didWriteData bytesWritten: Swift.Int64, totalBytesWritten: Swift.Int64, totalBytesExpectedToWrite: Swift.Int64)
+  func urlSession(_ session: Foundation.URLSession, downloadTask: Foundation.URLSessionDownloadTask, didFinishDownloadingTo location: Foundation.URL)
+  func request(_ request: RetenoNetworkProvider.Request, didCreateInitialURLRequest urlRequest: Foundation.URLRequest)
+  func request(_ request: RetenoNetworkProvider.Request, didFailToCreateURLRequestWithError error: RetenoNetworkProvider.AFError)
+  func request(_ request: RetenoNetworkProvider.Request, didAdaptInitialRequest initialRequest: Foundation.URLRequest, to adaptedRequest: Foundation.URLRequest)
+  func request(_ request: RetenoNetworkProvider.Request, didFailToAdaptURLRequest initialRequest: Foundation.URLRequest, withError error: RetenoNetworkProvider.AFError)
+  func request(_ request: RetenoNetworkProvider.Request, didCreateURLRequest urlRequest: Foundation.URLRequest)
+  func request(_ request: RetenoNetworkProvider.Request, didCreateTask task: Foundation.URLSessionTask)
+  func request(_ request: RetenoNetworkProvider.Request, didGatherMetrics metrics: Foundation.URLSessionTaskMetrics)
+  func request(_ request: RetenoNetworkProvider.Request, didFailTask task: Foundation.URLSessionTask, earlyWithError error: RetenoNetworkProvider.AFError)
+  func request(_ request: RetenoNetworkProvider.Request, didCompleteTask task: Foundation.URLSessionTask, with error: RetenoNetworkProvider.AFError?)
+  func requestIsRetrying(_ request: RetenoNetworkProvider.Request)
+  func requestDidFinish(_ request: RetenoNetworkProvider.Request)
+  func requestDidResume(_ request: RetenoNetworkProvider.Request)
+  func request(_ request: RetenoNetworkProvider.Request, didResumeTask task: Foundation.URLSessionTask)
+  func requestDidSuspend(_ request: RetenoNetworkProvider.Request)
+  func request(_ request: RetenoNetworkProvider.Request, didSuspendTask task: Foundation.URLSessionTask)
+  func requestDidCancel(_ request: RetenoNetworkProvider.Request)
+  func request(_ request: RetenoNetworkProvider.Request, didCancelTask task: Foundation.URLSessionTask)
+  func request(_ request: RetenoNetworkProvider.DataRequest, didValidateRequest urlRequest: Foundation.URLRequest?, response: Foundation.HTTPURLResponse, data: Foundation.Data?, withResult result: RetenoNetworkProvider.Request.ValidationResult)
+  func request(_ request: RetenoNetworkProvider.DataRequest, didParseResponse response: RetenoNetworkProvider.DataResponse<Foundation.Data?, RetenoNetworkProvider.AFError>)
+  func request<Value>(_ request: RetenoNetworkProvider.DataRequest, didParseResponse response: RetenoNetworkProvider.DataResponse<Value, RetenoNetworkProvider.AFError>)
+  func request(_ request: RetenoNetworkProvider.DataStreamRequest, didValidateRequest urlRequest: Foundation.URLRequest?, response: Foundation.HTTPURLResponse, withResult result: RetenoNetworkProvider.Request.ValidationResult)
+  func request<Value>(_ request: RetenoNetworkProvider.DataStreamRequest, didParseStream result: Swift.Result<Value, RetenoNetworkProvider.AFError>)
+  func request(_ request: RetenoNetworkProvider.UploadRequest, didCreateUploadable uploadable: RetenoNetworkProvider.UploadRequest.Uploadable)
+  func request(_ request: RetenoNetworkProvider.UploadRequest, didFailToCreateUploadableWithError error: RetenoNetworkProvider.AFError)
+  func request(_ request: RetenoNetworkProvider.UploadRequest, didProvideInputStream stream: Foundation.InputStream)
+  func request(_ request: RetenoNetworkProvider.DownloadRequest, didFinishDownloadingUsing task: Foundation.URLSessionTask, with result: Swift.Result<Foundation.URL, RetenoNetworkProvider.AFError>)
+  func request(_ request: RetenoNetworkProvider.DownloadRequest, didCreateDestinationURL url: Foundation.URL)
+  func request(_ request: RetenoNetworkProvider.DownloadRequest, didValidateRequest urlRequest: Foundation.URLRequest?, response: Foundation.HTTPURLResponse, fileURL: Foundation.URL?, withResult result: RetenoNetworkProvider.Request.ValidationResult)
+  func request(_ request: RetenoNetworkProvider.DownloadRequest, didParseResponse response: RetenoNetworkProvider.DownloadResponse<Foundation.URL?, RetenoNetworkProvider.AFError>)
+  func request<Value>(_ request: RetenoNetworkProvider.DownloadRequest, didParseResponse response: RetenoNetworkProvider.DownloadResponse<Value, RetenoNetworkProvider.AFError>)
+}
+extension RetenoNetworkProvider.EventMonitor {
+  public var queue: Dispatch.DispatchQueue {
+    get
+  }
+  public func urlSession(_ session: Foundation.URLSession, didBecomeInvalidWithError error: (any Swift.Error)?)
+  public func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, didReceive challenge: Foundation.URLAuthenticationChallenge)
+  public func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, didSendBodyData bytesSent: Swift.Int64, totalBytesSent: Swift.Int64, totalBytesExpectedToSend: Swift.Int64)
+  public func urlSession(_ session: Foundation.URLSession, taskNeedsNewBodyStream task: Foundation.URLSessionTask)
+  public func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, willPerformHTTPRedirection response: Foundation.HTTPURLResponse, newRequest request: Foundation.URLRequest)
+  public func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, didFinishCollecting metrics: Foundation.URLSessionTaskMetrics)
+  public func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, didCompleteWithError error: (any Swift.Error)?)
+  public func urlSession(_ session: Foundation.URLSession, taskIsWaitingForConnectivity task: Foundation.URLSessionTask)
+  public func urlSession(_ session: Foundation.URLSession, dataTask: Foundation.URLSessionDataTask, didReceive response: Foundation.URLResponse)
+  public func urlSession(_ session: Foundation.URLSession, dataTask: Foundation.URLSessionDataTask, didReceive data: Foundation.Data)
+  public func urlSession(_ session: Foundation.URLSession, dataTask: Foundation.URLSessionDataTask, willCacheResponse proposedResponse: Foundation.CachedURLResponse)
+  public func urlSession(_ session: Foundation.URLSession, downloadTask: Foundation.URLSessionDownloadTask, didResumeAtOffset fileOffset: Swift.Int64, expectedTotalBytes: Swift.Int64)
+  public func urlSession(_ session: Foundation.URLSession, downloadTask: Foundation.URLSessionDownloadTask, didWriteData bytesWritten: Swift.Int64, totalBytesWritten: Swift.Int64, totalBytesExpectedToWrite: Swift.Int64)
+  public func urlSession(_ session: Foundation.URLSession, downloadTask: Foundation.URLSessionDownloadTask, didFinishDownloadingTo location: Foundation.URL)
+  public func request(_ request: RetenoNetworkProvider.Request, didCreateInitialURLRequest urlRequest: Foundation.URLRequest)
+  public func request(_ request: RetenoNetworkProvider.Request, didFailToCreateURLRequestWithError error: RetenoNetworkProvider.AFError)
+  public func request(_ request: RetenoNetworkProvider.Request, didAdaptInitialRequest initialRequest: Foundation.URLRequest, to adaptedRequest: Foundation.URLRequest)
+  public func request(_ request: RetenoNetworkProvider.Request, didFailToAdaptURLRequest initialRequest: Foundation.URLRequest, withError error: RetenoNetworkProvider.AFError)
+  public func request(_ request: RetenoNetworkProvider.Request, didCreateURLRequest urlRequest: Foundation.URLRequest)
+  public func request(_ request: RetenoNetworkProvider.Request, didCreateTask task: Foundation.URLSessionTask)
+  public func request(_ request: RetenoNetworkProvider.Request, didGatherMetrics metrics: Foundation.URLSessionTaskMetrics)
+  public func request(_ request: RetenoNetworkProvider.Request, didFailTask task: Foundation.URLSessionTask, earlyWithError error: RetenoNetworkProvider.AFError)
+  public func request(_ request: RetenoNetworkProvider.Request, didCompleteTask task: Foundation.URLSessionTask, with error: RetenoNetworkProvider.AFError?)
+  public func requestIsRetrying(_ request: RetenoNetworkProvider.Request)
+  public func requestDidFinish(_ request: RetenoNetworkProvider.Request)
+  public func requestDidResume(_ request: RetenoNetworkProvider.Request)
+  public func request(_ request: RetenoNetworkProvider.Request, didResumeTask task: Foundation.URLSessionTask)
+  public func requestDidSuspend(_ request: RetenoNetworkProvider.Request)
+  public func request(_ request: RetenoNetworkProvider.Request, didSuspendTask task: Foundation.URLSessionTask)
+  public func requestDidCancel(_ request: RetenoNetworkProvider.Request)
+  public func request(_ request: RetenoNetworkProvider.Request, didCancelTask task: Foundation.URLSessionTask)
+  public func request(_ request: RetenoNetworkProvider.DataRequest, didValidateRequest urlRequest: Foundation.URLRequest?, response: Foundation.HTTPURLResponse, data: Foundation.Data?, withResult result: RetenoNetworkProvider.Request.ValidationResult)
+  public func request(_ request: RetenoNetworkProvider.DataRequest, didParseResponse response: RetenoNetworkProvider.DataResponse<Foundation.Data?, RetenoNetworkProvider.AFError>)
+  public func request<Value>(_ request: RetenoNetworkProvider.DataRequest, didParseResponse response: RetenoNetworkProvider.DataResponse<Value, RetenoNetworkProvider.AFError>)
+  public func request(_ request: RetenoNetworkProvider.DataStreamRequest, didValidateRequest urlRequest: Foundation.URLRequest?, response: Foundation.HTTPURLResponse, withResult result: RetenoNetworkProvider.Request.ValidationResult)
+  public func request<Value>(_ request: RetenoNetworkProvider.DataStreamRequest, didParseStream result: Swift.Result<Value, RetenoNetworkProvider.AFError>)
+  public func request(_ request: RetenoNetworkProvider.UploadRequest, didCreateUploadable uploadable: RetenoNetworkProvider.UploadRequest.Uploadable)
+  public func request(_ request: RetenoNetworkProvider.UploadRequest, didFailToCreateUploadableWithError error: RetenoNetworkProvider.AFError)
+  public func request(_ request: RetenoNetworkProvider.UploadRequest, didProvideInputStream stream: Foundation.InputStream)
+  public func request(_ request: RetenoNetworkProvider.DownloadRequest, didFinishDownloadingUsing task: Foundation.URLSessionTask, with result: Swift.Result<Foundation.URL, RetenoNetworkProvider.AFError>)
+  public func request(_ request: RetenoNetworkProvider.DownloadRequest, didCreateDestinationURL url: Foundation.URL)
+  public func request(_ request: RetenoNetworkProvider.DownloadRequest, didValidateRequest urlRequest: Foundation.URLRequest?, response: Foundation.HTTPURLResponse, fileURL: Foundation.URL?, withResult result: RetenoNetworkProvider.Request.ValidationResult)
+  public func request(_ request: RetenoNetworkProvider.DownloadRequest, didParseResponse response: RetenoNetworkProvider.DownloadResponse<Foundation.URL?, RetenoNetworkProvider.AFError>)
+  public func request<Value>(_ request: RetenoNetworkProvider.DownloadRequest, didParseResponse response: RetenoNetworkProvider.DownloadResponse<Value, RetenoNetworkProvider.AFError>)
+}
+@_hasMissingDesignatedInitializers final public class CompositeEventMonitor : RetenoNetworkProvider.EventMonitor {
+  final public let queue: Dispatch.DispatchQueue
+  final public func urlSession(_ session: Foundation.URLSession, didBecomeInvalidWithError error: (any Swift.Error)?)
+  final public func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, didReceive challenge: Foundation.URLAuthenticationChallenge)
+  final public func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, didSendBodyData bytesSent: Swift.Int64, totalBytesSent: Swift.Int64, totalBytesExpectedToSend: Swift.Int64)
+  final public func urlSession(_ session: Foundation.URLSession, taskNeedsNewBodyStream task: Foundation.URLSessionTask)
+  final public func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, willPerformHTTPRedirection response: Foundation.HTTPURLResponse, newRequest request: Foundation.URLRequest)
+  final public func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, didFinishCollecting metrics: Foundation.URLSessionTaskMetrics)
+  final public func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, didCompleteWithError error: (any Swift.Error)?)
+  @available(macOS 10.13, iOS 11.0, tvOS 11.0, watchOS 4.0, *)
+  final public func urlSession(_ session: Foundation.URLSession, taskIsWaitingForConnectivity task: Foundation.URLSessionTask)
+  final public func urlSession(_ session: Foundation.URLSession, dataTask: Foundation.URLSessionDataTask, didReceive response: Foundation.URLResponse)
+  final public func urlSession(_ session: Foundation.URLSession, dataTask: Foundation.URLSessionDataTask, didReceive data: Foundation.Data)
+  final public func urlSession(_ session: Foundation.URLSession, dataTask: Foundation.URLSessionDataTask, willCacheResponse proposedResponse: Foundation.CachedURLResponse)
+  final public func urlSession(_ session: Foundation.URLSession, downloadTask: Foundation.URLSessionDownloadTask, didResumeAtOffset fileOffset: Swift.Int64, expectedTotalBytes: Swift.Int64)
+  final public func urlSession(_ session: Foundation.URLSession, downloadTask: Foundation.URLSessionDownloadTask, didWriteData bytesWritten: Swift.Int64, totalBytesWritten: Swift.Int64, totalBytesExpectedToWrite: Swift.Int64)
+  final public func urlSession(_ session: Foundation.URLSession, downloadTask: Foundation.URLSessionDownloadTask, didFinishDownloadingTo location: Foundation.URL)
+  final public func request(_ request: RetenoNetworkProvider.Request, didCreateInitialURLRequest urlRequest: Foundation.URLRequest)
+  final public func request(_ request: RetenoNetworkProvider.Request, didFailToCreateURLRequestWithError error: RetenoNetworkProvider.AFError)
+  final public func request(_ request: RetenoNetworkProvider.Request, didAdaptInitialRequest initialRequest: Foundation.URLRequest, to adaptedRequest: Foundation.URLRequest)
+  final public func request(_ request: RetenoNetworkProvider.Request, didFailToAdaptURLRequest initialRequest: Foundation.URLRequest, withError error: RetenoNetworkProvider.AFError)
+  final public func request(_ request: RetenoNetworkProvider.Request, didCreateURLRequest urlRequest: Foundation.URLRequest)
+  final public func request(_ request: RetenoNetworkProvider.Request, didCreateTask task: Foundation.URLSessionTask)
+  final public func request(_ request: RetenoNetworkProvider.Request, didGatherMetrics metrics: Foundation.URLSessionTaskMetrics)
+  final public func request(_ request: RetenoNetworkProvider.Request, didFailTask task: Foundation.URLSessionTask, earlyWithError error: RetenoNetworkProvider.AFError)
+  final public func request(_ request: RetenoNetworkProvider.Request, didCompleteTask task: Foundation.URLSessionTask, with error: RetenoNetworkProvider.AFError?)
+  final public func requestIsRetrying(_ request: RetenoNetworkProvider.Request)
+  final public func requestDidFinish(_ request: RetenoNetworkProvider.Request)
+  final public func requestDidResume(_ request: RetenoNetworkProvider.Request)
+  final public func request(_ request: RetenoNetworkProvider.Request, didResumeTask task: Foundation.URLSessionTask)
+  final public func requestDidSuspend(_ request: RetenoNetworkProvider.Request)
+  final public func request(_ request: RetenoNetworkProvider.Request, didSuspendTask task: Foundation.URLSessionTask)
+  final public func requestDidCancel(_ request: RetenoNetworkProvider.Request)
+  final public func request(_ request: RetenoNetworkProvider.Request, didCancelTask task: Foundation.URLSessionTask)
+  final public func request(_ request: RetenoNetworkProvider.DataRequest, didValidateRequest urlRequest: Foundation.URLRequest?, response: Foundation.HTTPURLResponse, data: Foundation.Data?, withResult result: RetenoNetworkProvider.Request.ValidationResult)
+  final public func request(_ request: RetenoNetworkProvider.DataRequest, didParseResponse response: RetenoNetworkProvider.DataResponse<Foundation.Data?, RetenoNetworkProvider.AFError>)
+  final public func request<Value>(_ request: RetenoNetworkProvider.DataRequest, didParseResponse response: RetenoNetworkProvider.DataResponse<Value, RetenoNetworkProvider.AFError>)
+  final public func request(_ request: RetenoNetworkProvider.DataStreamRequest, didValidateRequest urlRequest: Foundation.URLRequest?, response: Foundation.HTTPURLResponse, withResult result: RetenoNetworkProvider.Request.ValidationResult)
+  final public func request<Value>(_ request: RetenoNetworkProvider.DataStreamRequest, didParseStream result: Swift.Result<Value, RetenoNetworkProvider.AFError>)
+  final public func request(_ request: RetenoNetworkProvider.UploadRequest, didCreateUploadable uploadable: RetenoNetworkProvider.UploadRequest.Uploadable)
+  final public func request(_ request: RetenoNetworkProvider.UploadRequest, didFailToCreateUploadableWithError error: RetenoNetworkProvider.AFError)
+  final public func request(_ request: RetenoNetworkProvider.UploadRequest, didProvideInputStream stream: Foundation.InputStream)
+  final public func request(_ request: RetenoNetworkProvider.DownloadRequest, didFinishDownloadingUsing task: Foundation.URLSessionTask, with result: Swift.Result<Foundation.URL, RetenoNetworkProvider.AFError>)
+  final public func request(_ request: RetenoNetworkProvider.DownloadRequest, didCreateDestinationURL url: Foundation.URL)
+  final public func request(_ request: RetenoNetworkProvider.DownloadRequest, didValidateRequest urlRequest: Foundation.URLRequest?, response: Foundation.HTTPURLResponse, fileURL: Foundation.URL?, withResult result: RetenoNetworkProvider.Request.ValidationResult)
+  final public func request(_ request: RetenoNetworkProvider.DownloadRequest, didParseResponse response: RetenoNetworkProvider.DownloadResponse<Foundation.URL?, RetenoNetworkProvider.AFError>)
+  final public func request<Value>(_ request: RetenoNetworkProvider.DownloadRequest, didParseResponse response: RetenoNetworkProvider.DownloadResponse<Value, RetenoNetworkProvider.AFError>)
+  @objc deinit
+}
+open class ClosureEventMonitor : RetenoNetworkProvider.EventMonitor {
+  open var sessionDidBecomeInvalidWithError: ((Foundation.URLSession, (any Swift.Error)?) -> Swift.Void)?
+  open var taskDidReceiveChallenge: ((Foundation.URLSession, Foundation.URLSessionTask, Foundation.URLAuthenticationChallenge) -> Swift.Void)?
+  open var taskDidSendBodyData: ((Foundation.URLSession, Foundation.URLSessionTask, Swift.Int64, Swift.Int64, Swift.Int64) -> Swift.Void)?
+  open var taskNeedNewBodyStream: ((Foundation.URLSession, Foundation.URLSessionTask) -> Swift.Void)?
+  open var taskWillPerformHTTPRedirection: ((Foundation.URLSession, Foundation.URLSessionTask, Foundation.HTTPURLResponse, Foundation.URLRequest) -> Swift.Void)?
+  open var taskDidFinishCollectingMetrics: ((Foundation.URLSession, Foundation.URLSessionTask, Foundation.URLSessionTaskMetrics) -> Swift.Void)?
+  open var taskDidComplete: ((Foundation.URLSession, Foundation.URLSessionTask, (any Swift.Error)?) -> Swift.Void)?
+  open var taskIsWaitingForConnectivity: ((Foundation.URLSession, Foundation.URLSessionTask) -> Swift.Void)?
+  open var dataTaskDidReceiveResponse: ((Foundation.URLSession, Foundation.URLSessionDataTask, Foundation.URLResponse) -> Swift.Void)?
+  open var dataTaskDidReceiveData: ((Foundation.URLSession, Foundation.URLSessionDataTask, Foundation.Data) -> Swift.Void)?
+  open var dataTaskWillCacheResponse: ((Foundation.URLSession, Foundation.URLSessionDataTask, Foundation.CachedURLResponse) -> Swift.Void)?
+  open var downloadTaskDidFinishDownloadingToURL: ((Foundation.URLSession, Foundation.URLSessionDownloadTask, Foundation.URL) -> Swift.Void)?
+  open var downloadTaskDidWriteData: ((Foundation.URLSession, Foundation.URLSessionDownloadTask, Swift.Int64, Swift.Int64, Swift.Int64) -> Swift.Void)?
+  open var downloadTaskDidResumeAtOffset: ((Foundation.URLSession, Foundation.URLSessionDownloadTask, Swift.Int64, Swift.Int64) -> Swift.Void)?
+  open var requestDidCreateInitialURLRequest: ((RetenoNetworkProvider.Request, Foundation.URLRequest) -> Swift.Void)?
+  open var requestDidFailToCreateURLRequestWithError: ((RetenoNetworkProvider.Request, RetenoNetworkProvider.AFError) -> Swift.Void)?
+  open var requestDidAdaptInitialRequestToAdaptedRequest: ((RetenoNetworkProvider.Request, Foundation.URLRequest, Foundation.URLRequest) -> Swift.Void)?
+  open var requestDidFailToAdaptURLRequestWithError: ((RetenoNetworkProvider.Request, Foundation.URLRequest, RetenoNetworkProvider.AFError) -> Swift.Void)?
+  open var requestDidCreateURLRequest: ((RetenoNetworkProvider.Request, Foundation.URLRequest) -> Swift.Void)?
+  open var requestDidCreateTask: ((RetenoNetworkProvider.Request, Foundation.URLSessionTask) -> Swift.Void)?
+  open var requestDidGatherMetrics: ((RetenoNetworkProvider.Request, Foundation.URLSessionTaskMetrics) -> Swift.Void)?
+  open var requestDidFailTaskEarlyWithError: ((RetenoNetworkProvider.Request, Foundation.URLSessionTask, RetenoNetworkProvider.AFError) -> Swift.Void)?
+  open var requestDidCompleteTaskWithError: ((RetenoNetworkProvider.Request, Foundation.URLSessionTask, RetenoNetworkProvider.AFError?) -> Swift.Void)?
+  open var requestIsRetrying: ((RetenoNetworkProvider.Request) -> Swift.Void)?
+  open var requestDidFinish: ((RetenoNetworkProvider.Request) -> Swift.Void)?
+  open var requestDidResume: ((RetenoNetworkProvider.Request) -> Swift.Void)?
+  open var requestDidResumeTask: ((RetenoNetworkProvider.Request, Foundation.URLSessionTask) -> Swift.Void)?
+  open var requestDidSuspend: ((RetenoNetworkProvider.Request) -> Swift.Void)?
+  open var requestDidSuspendTask: ((RetenoNetworkProvider.Request, Foundation.URLSessionTask) -> Swift.Void)?
+  open var requestDidCancel: ((RetenoNetworkProvider.Request) -> Swift.Void)?
+  open var requestDidCancelTask: ((RetenoNetworkProvider.Request, Foundation.URLSessionTask) -> Swift.Void)?
+  open var requestDidValidateRequestResponseDataWithResult: ((RetenoNetworkProvider.DataRequest, Foundation.URLRequest?, Foundation.HTTPURLResponse, Foundation.Data?, RetenoNetworkProvider.Request.ValidationResult) -> Swift.Void)?
+  open var requestDidParseResponse: ((RetenoNetworkProvider.DataRequest, RetenoNetworkProvider.DataResponse<Foundation.Data?, RetenoNetworkProvider.AFError>) -> Swift.Void)?
+  open var requestDidValidateRequestResponseWithResult: ((RetenoNetworkProvider.DataStreamRequest, Foundation.URLRequest?, Foundation.HTTPURLResponse, RetenoNetworkProvider.Request.ValidationResult) -> Swift.Void)?
+  open var requestDidCreateUploadable: ((RetenoNetworkProvider.UploadRequest, RetenoNetworkProvider.UploadRequest.Uploadable) -> Swift.Void)?
+  open var requestDidFailToCreateUploadableWithError: ((RetenoNetworkProvider.UploadRequest, RetenoNetworkProvider.AFError) -> Swift.Void)?
+  open var requestDidProvideInputStream: ((RetenoNetworkProvider.UploadRequest, Foundation.InputStream) -> Swift.Void)?
+  open var requestDidFinishDownloadingUsingTaskWithResult: ((RetenoNetworkProvider.DownloadRequest, Foundation.URLSessionTask, Swift.Result<Foundation.URL, RetenoNetworkProvider.AFError>) -> Swift.Void)?
+  open var requestDidCreateDestinationURL: ((RetenoNetworkProvider.DownloadRequest, Foundation.URL) -> Swift.Void)?
+  open var requestDidValidateRequestResponseFileURLWithResult: ((RetenoNetworkProvider.DownloadRequest, Foundation.URLRequest?, Foundation.HTTPURLResponse, Foundation.URL?, RetenoNetworkProvider.Request.ValidationResult) -> Swift.Void)?
+  open var requestDidParseDownloadResponse: ((RetenoNetworkProvider.DownloadRequest, RetenoNetworkProvider.DownloadResponse<Foundation.URL?, RetenoNetworkProvider.AFError>) -> Swift.Void)?
+  final public let queue: Dispatch.DispatchQueue
+  public init(queue: Dispatch.DispatchQueue = .main)
+  open func urlSession(_ session: Foundation.URLSession, didBecomeInvalidWithError error: (any Swift.Error)?)
+  open func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, didReceive challenge: Foundation.URLAuthenticationChallenge)
+  open func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, didSendBodyData bytesSent: Swift.Int64, totalBytesSent: Swift.Int64, totalBytesExpectedToSend: Swift.Int64)
+  open func urlSession(_ session: Foundation.URLSession, taskNeedsNewBodyStream task: Foundation.URLSessionTask)
+  open func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, willPerformHTTPRedirection response: Foundation.HTTPURLResponse, newRequest request: Foundation.URLRequest)
+  open func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, didFinishCollecting metrics: Foundation.URLSessionTaskMetrics)
+  open func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, didCompleteWithError error: (any Swift.Error)?)
+  @available(macOS 10.13, iOS 11.0, tvOS 11.0, watchOS 4.0, *)
+  open func urlSession(_ session: Foundation.URLSession, taskIsWaitingForConnectivity task: Foundation.URLSessionTask)
+  open func urlSession(_ session: Foundation.URLSession, dataTask: Foundation.URLSessionDataTask, didReceive response: Foundation.URLResponse)
+  open func urlSession(_ session: Foundation.URLSession, dataTask: Foundation.URLSessionDataTask, didReceive data: Foundation.Data)
+  open func urlSession(_ session: Foundation.URLSession, dataTask: Foundation.URLSessionDataTask, willCacheResponse proposedResponse: Foundation.CachedURLResponse)
+  open func urlSession(_ session: Foundation.URLSession, downloadTask: Foundation.URLSessionDownloadTask, didResumeAtOffset fileOffset: Swift.Int64, expectedTotalBytes: Swift.Int64)
+  open func urlSession(_ session: Foundation.URLSession, downloadTask: Foundation.URLSessionDownloadTask, didWriteData bytesWritten: Swift.Int64, totalBytesWritten: Swift.Int64, totalBytesExpectedToWrite: Swift.Int64)
+  open func urlSession(_ session: Foundation.URLSession, downloadTask: Foundation.URLSessionDownloadTask, didFinishDownloadingTo location: Foundation.URL)
+  open func request(_ request: RetenoNetworkProvider.Request, didCreateInitialURLRequest urlRequest: Foundation.URLRequest)
+  open func request(_ request: RetenoNetworkProvider.Request, didFailToCreateURLRequestWithError error: RetenoNetworkProvider.AFError)
+  open func request(_ request: RetenoNetworkProvider.Request, didAdaptInitialRequest initialRequest: Foundation.URLRequest, to adaptedRequest: Foundation.URLRequest)
+  open func request(_ request: RetenoNetworkProvider.Request, didFailToAdaptURLRequest initialRequest: Foundation.URLRequest, withError error: RetenoNetworkProvider.AFError)
+  open func request(_ request: RetenoNetworkProvider.Request, didCreateURLRequest urlRequest: Foundation.URLRequest)
+  open func request(_ request: RetenoNetworkProvider.Request, didCreateTask task: Foundation.URLSessionTask)
+  open func request(_ request: RetenoNetworkProvider.Request, didGatherMetrics metrics: Foundation.URLSessionTaskMetrics)
+  open func request(_ request: RetenoNetworkProvider.Request, didFailTask task: Foundation.URLSessionTask, earlyWithError error: RetenoNetworkProvider.AFError)
+  open func request(_ request: RetenoNetworkProvider.Request, didCompleteTask task: Foundation.URLSessionTask, with error: RetenoNetworkProvider.AFError?)
+  open func requestIsRetrying(_ request: RetenoNetworkProvider.Request)
+  open func requestDidFinish(_ request: RetenoNetworkProvider.Request)
+  open func requestDidResume(_ request: RetenoNetworkProvider.Request)
+  public func request(_ request: RetenoNetworkProvider.Request, didResumeTask task: Foundation.URLSessionTask)
+  open func requestDidSuspend(_ request: RetenoNetworkProvider.Request)
+  public func request(_ request: RetenoNetworkProvider.Request, didSuspendTask task: Foundation.URLSessionTask)
+  open func requestDidCancel(_ request: RetenoNetworkProvider.Request)
+  public func request(_ request: RetenoNetworkProvider.Request, didCancelTask task: Foundation.URLSessionTask)
+  open func request(_ request: RetenoNetworkProvider.DataRequest, didValidateRequest urlRequest: Foundation.URLRequest?, response: Foundation.HTTPURLResponse, data: Foundation.Data?, withResult result: RetenoNetworkProvider.Request.ValidationResult)
+  open func request(_ request: RetenoNetworkProvider.DataRequest, didParseResponse response: RetenoNetworkProvider.DataResponse<Foundation.Data?, RetenoNetworkProvider.AFError>)
+  public func request(_ request: RetenoNetworkProvider.DataStreamRequest, didValidateRequest urlRequest: Foundation.URLRequest?, response: Foundation.HTTPURLResponse, withResult result: RetenoNetworkProvider.Request.ValidationResult)
+  open func request(_ request: RetenoNetworkProvider.UploadRequest, didCreateUploadable uploadable: RetenoNetworkProvider.UploadRequest.Uploadable)
+  open func request(_ request: RetenoNetworkProvider.UploadRequest, didFailToCreateUploadableWithError error: RetenoNetworkProvider.AFError)
+  open func request(_ request: RetenoNetworkProvider.UploadRequest, didProvideInputStream stream: Foundation.InputStream)
+  open func request(_ request: RetenoNetworkProvider.DownloadRequest, didFinishDownloadingUsing task: Foundation.URLSessionTask, with result: Swift.Result<Foundation.URL, RetenoNetworkProvider.AFError>)
+  open func request(_ request: RetenoNetworkProvider.DownloadRequest, didCreateDestinationURL url: Foundation.URL)
+  open func request(_ request: RetenoNetworkProvider.DownloadRequest, didValidateRequest urlRequest: Foundation.URLRequest?, response: Foundation.HTTPURLResponse, fileURL: Foundation.URL?, withResult result: RetenoNetworkProvider.Request.ValidationResult)
+  open func request(_ request: RetenoNetworkProvider.DownloadRequest, didParseResponse response: RetenoNetworkProvider.DownloadResponse<Foundation.URL?, RetenoNetworkProvider.AFError>)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers final public class UploadRequest : RetenoNetworkProvider.DataRequest {
+  public enum Uploadable {
+    case data(Foundation.Data)
+    case file(Foundation.URL, shouldRemove: Swift.Bool)
+    case stream(Foundation.InputStream)
+  }
+  final public let upload: any RetenoNetworkProvider.UploadableConvertible
+  final public let fileManager: Foundation.FileManager
+  final public var uploadable: RetenoNetworkProvider.UploadRequest.Uploadable?
+  final public func cleanup()
+  @objc deinit
+}
+public protocol UploadableConvertible {
+  func createUploadable() throws -> RetenoNetworkProvider.UploadRequest.Uploadable
+}
+extension RetenoNetworkProvider.UploadRequest.Uploadable : RetenoNetworkProvider.UploadableConvertible {
+  public func createUploadable() throws -> RetenoNetworkProvider.UploadRequest.Uploadable
+}
+public protocol UploadConvertible : RetenoNetworkProvider.URLRequestConvertible, RetenoNetworkProvider.UploadableConvertible {
+}
+public struct HTTPHeaders {
+  public init()
+  public init(_ headers: [RetenoNetworkProvider.HTTPHeader])
+  public init(_ dictionary: [Swift.String : Swift.String])
+  public mutating func add(name: Swift.String, value: Swift.String)
+  public mutating func add(_ header: RetenoNetworkProvider.HTTPHeader)
+  public mutating func update(name: Swift.String, value: Swift.String)
+  public mutating func update(_ header: RetenoNetworkProvider.HTTPHeader)
+  public mutating func remove(name: Swift.String)
+  public mutating func sort()
+  public func sorted() -> RetenoNetworkProvider.HTTPHeaders
+  public func value(for name: Swift.String) -> Swift.String?
+  public subscript(name: Swift.String) -> Swift.String? {
+    get
+    set
+  }
+  public var dictionary: [Swift.String : Swift.String] {
+    get
+  }
+}
+extension RetenoNetworkProvider.HTTPHeaders : Swift.ExpressibleByDictionaryLiteral {
+  public init(dictionaryLiteral elements: (Swift.String, Swift.String)...)
+  public typealias Key = Swift.String
+  public typealias Value = Swift.String
+}
+extension RetenoNetworkProvider.HTTPHeaders : Swift.ExpressibleByArrayLiteral {
+  public init(arrayLiteral elements: RetenoNetworkProvider.HTTPHeader...)
+  public typealias ArrayLiteralElement = RetenoNetworkProvider.HTTPHeader
+}
+extension RetenoNetworkProvider.HTTPHeaders : Swift.Sequence {
+  public func makeIterator() -> Swift.IndexingIterator<[RetenoNetworkProvider.HTTPHeader]>
+}
+extension RetenoNetworkProvider.HTTPHeaders : Swift.Collection {
+  public var startIndex: Swift.Int {
+    get
+  }
+  public var endIndex: Swift.Int {
+    get
+  }
+  public subscript(position: Swift.Int) -> RetenoNetworkProvider.HTTPHeader {
+    get
+  }
+  public func index(after i: Swift.Int) -> Swift.Int
+  public typealias Element = RetenoNetworkProvider.HTTPHeader
+  public typealias Index = Swift.Int
+  public typealias Indices = Swift.DefaultIndices<RetenoNetworkProvider.HTTPHeaders>
+  public typealias Iterator = Swift.IndexingIterator<[RetenoNetworkProvider.HTTPHeader]>
+  public typealias SubSequence = Swift.Slice<RetenoNetworkProvider.HTTPHeaders>
+}
+extension RetenoNetworkProvider.HTTPHeaders : Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+}
+public struct HTTPHeader : Swift.Hashable {
+  public let name: Swift.String
+  public let value: Swift.String
+  public init(name: Swift.String, value: Swift.String)
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: RetenoNetworkProvider.HTTPHeader, b: RetenoNetworkProvider.HTTPHeader) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension RetenoNetworkProvider.HTTPHeader : Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+}
+extension RetenoNetworkProvider.HTTPHeader {
+  public static func accept(_ value: Swift.String) -> RetenoNetworkProvider.HTTPHeader
+  public static func acceptCharset(_ value: Swift.String) -> RetenoNetworkProvider.HTTPHeader
+  public static func acceptLanguage(_ value: Swift.String) -> RetenoNetworkProvider.HTTPHeader
+  public static func acceptEncoding(_ value: Swift.String) -> RetenoNetworkProvider.HTTPHeader
+  public static func authorization(username: Swift.String, password: Swift.String) -> RetenoNetworkProvider.HTTPHeader
+  public static func authorization(bearerToken: Swift.String) -> RetenoNetworkProvider.HTTPHeader
+  public static func authorization(_ value: Swift.String) -> RetenoNetworkProvider.HTTPHeader
+  public static func contentDisposition(_ value: Swift.String) -> RetenoNetworkProvider.HTTPHeader
+  public static func contentEncoding(_ value: Swift.String) -> RetenoNetworkProvider.HTTPHeader
+  public static func contentType(_ value: Swift.String) -> RetenoNetworkProvider.HTTPHeader
+  public static func userAgent(_ value: Swift.String) -> RetenoNetworkProvider.HTTPHeader
+  public static func websocketProtocol(_ value: Swift.String) -> RetenoNetworkProvider.HTTPHeader
+}
+extension RetenoNetworkProvider.HTTPHeaders {
+  public static let `default`: RetenoNetworkProvider.HTTPHeaders
+}
+extension RetenoNetworkProvider.HTTPHeader {
+  public static let defaultAcceptEncoding: RetenoNetworkProvider.HTTPHeader
+  public static let defaultAcceptLanguage: RetenoNetworkProvider.HTTPHeader
+  public static let defaultUserAgent: RetenoNetworkProvider.HTTPHeader
+}
+extension Foundation.URLRequest {
+  public var headers: RetenoNetworkProvider.HTTPHeaders {
+    get
+    set
+  }
+}
+extension Foundation.HTTPURLResponse {
+  public var headers: RetenoNetworkProvider.HTTPHeaders {
+    get
+  }
+}
+extension Foundation.URLSessionConfiguration {
+  public var headers: RetenoNetworkProvider.HTTPHeaders {
+    get
+    set
+  }
+}
+open class ServerTrustManager {
+  final public let allHostsMustBeEvaluated: Swift.Bool
+  final public let evaluators: [Swift.String : any RetenoNetworkProvider.ServerTrustEvaluating]
+  public init(allHostsMustBeEvaluated: Swift.Bool = true, evaluators: [Swift.String : any RetenoNetworkProvider.ServerTrustEvaluating])
+  open func serverTrustEvaluator(forHost host: Swift.String) throws -> (any RetenoNetworkProvider.ServerTrustEvaluating)?
+  @objc deinit
+}
+public protocol ServerTrustEvaluating {
+  func evaluate(_ trust: Security.SecTrust, forHost host: Swift.String) throws
+}
+final public class DefaultTrustEvaluator : RetenoNetworkProvider.ServerTrustEvaluating {
+  public init(validateHost: Swift.Bool = true)
+  final public func evaluate(_ trust: Security.SecTrust, forHost host: Swift.String) throws
+  @objc deinit
+}
+final public class RevocationTrustEvaluator : RetenoNetworkProvider.ServerTrustEvaluating {
+  public struct Options : Swift.OptionSet {
+    public static let crl: RetenoNetworkProvider.RevocationTrustEvaluator.Options
+    public static let networkAccessDisabled: RetenoNetworkProvider.RevocationTrustEvaluator.Options
+    public static let ocsp: RetenoNetworkProvider.RevocationTrustEvaluator.Options
+    public static let preferCRL: RetenoNetworkProvider.RevocationTrustEvaluator.Options
+    public static let requirePositiveResponse: RetenoNetworkProvider.RevocationTrustEvaluator.Options
+    public static let any: RetenoNetworkProvider.RevocationTrustEvaluator.Options
+    public let rawValue: CoreFoundation.CFOptionFlags
+    public init(rawValue: CoreFoundation.CFOptionFlags)
+    public typealias ArrayLiteralElement = RetenoNetworkProvider.RevocationTrustEvaluator.Options
+    public typealias Element = RetenoNetworkProvider.RevocationTrustEvaluator.Options
+    public typealias RawValue = CoreFoundation.CFOptionFlags
+  }
+  public init(performDefaultValidation: Swift.Bool = true, validateHost: Swift.Bool = true, options: RetenoNetworkProvider.RevocationTrustEvaluator.Options = .any)
+  final public func evaluate(_ trust: Security.SecTrust, forHost host: Swift.String) throws
+  @objc deinit
+}
+extension RetenoNetworkProvider.ServerTrustEvaluating where Self == RetenoNetworkProvider.RevocationTrustEvaluator {
+  public static var revocationChecking: RetenoNetworkProvider.RevocationTrustEvaluator {
+    get
+  }
+  public static func revocationChecking(performDefaultValidation: Swift.Bool = true, validateHost: Swift.Bool = true, options: RetenoNetworkProvider.RevocationTrustEvaluator.Options = .any) -> RetenoNetworkProvider.RevocationTrustEvaluator
+}
+final public class PinnedCertificatesTrustEvaluator : RetenoNetworkProvider.ServerTrustEvaluating {
+  public init(certificates: [Security.SecCertificate] = Bundle.main.af.certificates, acceptSelfSignedCertificates: Swift.Bool = false, performDefaultValidation: Swift.Bool = true, validateHost: Swift.Bool = true)
+  final public func evaluate(_ trust: Security.SecTrust, forHost host: Swift.String) throws
+  @objc deinit
+}
+extension RetenoNetworkProvider.ServerTrustEvaluating where Self == RetenoNetworkProvider.PinnedCertificatesTrustEvaluator {
+  public static var pinnedCertificates: RetenoNetworkProvider.PinnedCertificatesTrustEvaluator {
+    get
+  }
+  public static func pinnedCertificates(certificates: [Security.SecCertificate] = Bundle.main.af.certificates, acceptSelfSignedCertificates: Swift.Bool = false, performDefaultValidation: Swift.Bool = true, validateHost: Swift.Bool = true) -> RetenoNetworkProvider.PinnedCertificatesTrustEvaluator
+}
+final public class PublicKeysTrustEvaluator : RetenoNetworkProvider.ServerTrustEvaluating {
+  public init(keys: [Security.SecKey] = Bundle.main.af.publicKeys, performDefaultValidation: Swift.Bool = true, validateHost: Swift.Bool = true)
+  final public func evaluate(_ trust: Security.SecTrust, forHost host: Swift.String) throws
+  @objc deinit
+}
+extension RetenoNetworkProvider.ServerTrustEvaluating where Self == RetenoNetworkProvider.PublicKeysTrustEvaluator {
+  public static var publicKeys: RetenoNetworkProvider.PublicKeysTrustEvaluator {
+    get
+  }
+  public static func publicKeys(keys: [Security.SecKey] = Bundle.main.af.publicKeys, performDefaultValidation: Swift.Bool = true, validateHost: Swift.Bool = true) -> RetenoNetworkProvider.PublicKeysTrustEvaluator
+}
+final public class CompositeTrustEvaluator : RetenoNetworkProvider.ServerTrustEvaluating {
+  public init(evaluators: [any RetenoNetworkProvider.ServerTrustEvaluating])
+  final public func evaluate(_ trust: Security.SecTrust, forHost host: Swift.String) throws
+  @objc deinit
+}
+extension RetenoNetworkProvider.ServerTrustEvaluating where Self == RetenoNetworkProvider.CompositeTrustEvaluator {
+  public static func composite(evaluators: [any RetenoNetworkProvider.ServerTrustEvaluating]) -> RetenoNetworkProvider.CompositeTrustEvaluator
+}
+@available(*, deprecated, renamed: "DisabledTrustEvaluator", message: "DisabledEvaluator has been renamed DisabledTrustEvaluator.")
+public typealias DisabledEvaluator = RetenoNetworkProvider.DisabledTrustEvaluator
+final public class DisabledTrustEvaluator : RetenoNetworkProvider.ServerTrustEvaluating {
+  public init()
+  final public func evaluate(_ trust: Security.SecTrust, forHost host: Swift.String) throws
+  @objc deinit
+}
+extension Swift.Array where Element == any RetenoNetworkProvider.ServerTrustEvaluating {
+  public func evaluate(_ trust: Security.SecTrust, forHost host: Swift.String) throws
+}
+extension Foundation.Bundle : RetenoNetworkProvider.AlamofireExtended {
+  public typealias ExtendedType = Foundation.Bundle
+}
+extension RetenoNetworkProvider.AlamofireExtension where ExtendedType : Foundation.Bundle {
+  public var certificates: [Security.SecCertificate] {
+    get
+  }
+  public var publicKeys: [Security.SecKey] {
+    get
+  }
+  public func paths(forResourcesOfTypes types: [Swift.String]) -> [Swift.String]
+}
+extension Security.SecTrust : RetenoNetworkProvider.AlamofireExtended {
+  public typealias ExtendedType = Security.SecTrust
+}
+extension RetenoNetworkProvider.AlamofireExtension where ExtendedType == Security.SecTrust {
+  @available(iOS 12, macOS 10.14, tvOS 12, watchOS 5, *)
+  public func evaluate(afterApplying policy: Security.SecPolicy) throws
+  @available(iOS, introduced: 10, deprecated: 12, renamed: "evaluate(afterApplying:)")
+  @available(macOS, introduced: 10.12, deprecated: 10.14, renamed: "evaluate(afterApplying:)")
+  @available(tvOS, introduced: 10, deprecated: 12, renamed: "evaluate(afterApplying:)")
+  @available(watchOS, introduced: 3, deprecated: 5, renamed: "evaluate(afterApplying:)")
+  public func validate(policy: Security.SecPolicy, errorProducer: (_ status: Darwin.OSStatus, _ result: Security.SecTrustResultType) -> any Swift.Error) throws
+  public func apply(policy: Security.SecPolicy) throws -> Security.SecTrust
+  @available(iOS 12, macOS 10.14, tvOS 12, watchOS 5, *)
+  public func evaluate() throws
+  @available(iOS, introduced: 10, deprecated: 12, renamed: "evaluate()")
+  @available(macOS, introduced: 10.12, deprecated: 10.14, renamed: "evaluate()")
+  @available(tvOS, introduced: 10, deprecated: 12, renamed: "evaluate()")
+  @available(watchOS, introduced: 3, deprecated: 5, renamed: "evaluate()")
+  public func validate(errorProducer: (_ status: Darwin.OSStatus, _ result: Security.SecTrustResultType) -> any Swift.Error) throws
+  public func setAnchorCertificates(_ certificates: [Security.SecCertificate]) throws
+  public var publicKeys: [Security.SecKey] {
+    get
+  }
+  public var certificates: [Security.SecCertificate] {
+    get
+  }
+  public var certificateData: [Foundation.Data] {
+    get
+  }
+  public func performDefaultValidation(forHost host: Swift.String) throws
+  public func performValidation(forHost host: Swift.String) throws
+}
+extension Security.SecPolicy : RetenoNetworkProvider.AlamofireExtended {
+  public typealias ExtendedType = Security.SecPolicy
+}
+extension RetenoNetworkProvider.AlamofireExtension where ExtendedType == Security.SecPolicy {
+  public static let `default`: Security.SecPolicy
+  public static func hostname(_ hostname: Swift.String) -> Security.SecPolicy
+  public static func revocation(options: RetenoNetworkProvider.RevocationTrustEvaluator.Options) throws -> Security.SecPolicy
+}
+extension Swift.Array : RetenoNetworkProvider.AlamofireExtended {
+  public typealias ExtendedType = Swift.Array<Element>
+}
+extension RetenoNetworkProvider.AlamofireExtension where ExtendedType == [Security.SecCertificate] {
+  public var data: [Foundation.Data] {
+    get
+  }
+  public var publicKeys: [Security.SecKey] {
+    get
+  }
+}
+extension Security.SecCertificate : RetenoNetworkProvider.AlamofireExtended {
+  public typealias ExtendedType = Security.SecCertificate
+}
+extension RetenoNetworkProvider.AlamofireExtension where ExtendedType == Security.SecCertificate {
+  public var publicKey: Security.SecKey? {
+    get
+  }
+}
+extension Swift.Int32 : RetenoNetworkProvider.AlamofireExtended {
+  public typealias ExtendedType = Swift.Int32
+}
+extension RetenoNetworkProvider.AlamofireExtension where ExtendedType == Swift.Int32 {
+  public var isSuccess: Swift.Bool {
+    get
+  }
+}
+extension Security.SecTrustResultType : RetenoNetworkProvider.AlamofireExtended {
+  public typealias ExtendedType = Security.SecTrustResultType
+}
+extension RetenoNetworkProvider.AlamofireExtension where ExtendedType == Security.SecTrustResultType {
+  public var isSuccess: Swift.Bool {
+    get
+  }
+}
+public enum AFError : Swift.Error {
+  public enum MultipartEncodingFailureReason {
+    case bodyPartURLInvalid(url: Foundation.URL)
+    case bodyPartFilenameInvalid(in: Foundation.URL)
+    case bodyPartFileNotReachable(at: Foundation.URL)
+    case bodyPartFileNotReachableWithError(atURL: Foundation.URL, error: any Swift.Error)
+    case bodyPartFileIsDirectory(at: Foundation.URL)
+    case bodyPartFileSizeNotAvailable(at: Foundation.URL)
+    case bodyPartFileSizeQueryFailedWithError(forURL: Foundation.URL, error: any Swift.Error)
+    case bodyPartInputStreamCreationFailed(for: Foundation.URL)
+    case outputStreamCreationFailed(for: Foundation.URL)
+    case outputStreamFileAlreadyExists(at: Foundation.URL)
+    case outputStreamURLInvalid(url: Foundation.URL)
+    case outputStreamWriteFailed(error: any Swift.Error)
+    case inputStreamReadFailed(error: any Swift.Error)
+  }
+  public struct UnexpectedInputStreamLength : Swift.Error {
+    public var bytesExpected: Swift.UInt64
+    public var bytesRead: Swift.UInt64
+  }
+  public enum ParameterEncodingFailureReason {
+    case missingURL
+    case jsonEncodingFailed(error: any Swift.Error)
+    case customEncodingFailed(error: any Swift.Error)
+  }
+  public enum ParameterEncoderFailureReason {
+    public enum RequiredComponent {
+      case url
+      case httpMethod(rawValue: Swift.String)
+    }
+    case missingRequiredComponent(RetenoNetworkProvider.AFError.ParameterEncoderFailureReason.RequiredComponent)
+    case encoderFailed(error: any Swift.Error)
+  }
+  public enum ResponseValidationFailureReason {
+    case dataFileNil
+    case dataFileReadFailed(at: Foundation.URL)
+    case missingContentType(acceptableContentTypes: [Swift.String])
+    case unacceptableContentType(acceptableContentTypes: [Swift.String], responseContentType: Swift.String)
+    case unacceptableStatusCode(code: Swift.Int)
+    case customValidationFailed(error: any Swift.Error)
+  }
+  public enum ResponseSerializationFailureReason {
+    case inputDataNilOrZeroLength
+    case inputFileNil
+    case inputFileReadFailed(at: Foundation.URL)
+    case stringSerializationFailed(encoding: Swift.String.Encoding)
+    case jsonSerializationFailed(error: any Swift.Error)
+    case decodingFailed(error: any Swift.Error)
+    case customSerializationFailed(error: any Swift.Error)
+    case invalidEmptyResponse(type: Swift.String)
+  }
+  public enum ServerTrustFailureReason {
+    public struct Output {
+      public let host: Swift.String
+      public let trust: Security.SecTrust
+      public let status: Darwin.OSStatus
+      public let result: Security.SecTrustResultType
+    }
+    case noRequiredEvaluator(host: Swift.String)
+    case noCertificatesFound
+    case noPublicKeysFound
+    case policyApplicationFailed(trust: Security.SecTrust, policy: Security.SecPolicy, status: Darwin.OSStatus)
+    case settingAnchorCertificatesFailed(status: Darwin.OSStatus, certificates: [Security.SecCertificate])
+    case revocationPolicyCreationFailed
+    case trustEvaluationFailed(error: (any Swift.Error)?)
+    case defaultEvaluationFailed(output: RetenoNetworkProvider.AFError.ServerTrustFailureReason.Output)
+    case hostValidationFailed(output: RetenoNetworkProvider.AFError.ServerTrustFailureReason.Output)
+    case revocationCheckFailed(output: RetenoNetworkProvider.AFError.ServerTrustFailureReason.Output, options: RetenoNetworkProvider.RevocationTrustEvaluator.Options)
+    case certificatePinningFailed(host: Swift.String, trust: Security.SecTrust, pinnedCertificates: [Security.SecCertificate], serverCertificates: [Security.SecCertificate])
+    case publicKeyPinningFailed(host: Swift.String, trust: Security.SecTrust, pinnedKeys: [Security.SecKey], serverKeys: [Security.SecKey])
+    case customEvaluationFailed(error: any Swift.Error)
+  }
+  public enum URLRequestValidationFailureReason {
+    case bodyDataInGETRequest(Foundation.Data)
+  }
+  case createUploadableFailed(error: any Swift.Error)
+  case createURLRequestFailed(error: any Swift.Error)
+  case downloadedFileMoveFailed(error: any Swift.Error, source: Foundation.URL, destination: Foundation.URL)
+  case explicitlyCancelled
+  case invalidURL(url: any RetenoNetworkProvider.URLConvertible)
+  case multipartEncodingFailed(reason: RetenoNetworkProvider.AFError.MultipartEncodingFailureReason)
+  case parameterEncodingFailed(reason: RetenoNetworkProvider.AFError.ParameterEncodingFailureReason)
+  case parameterEncoderFailed(reason: RetenoNetworkProvider.AFError.ParameterEncoderFailureReason)
+  case requestAdaptationFailed(error: any Swift.Error)
+  case requestRetryFailed(retryError: any Swift.Error, originalError: any Swift.Error)
+  case responseValidationFailed(reason: RetenoNetworkProvider.AFError.ResponseValidationFailureReason)
+  case responseSerializationFailed(reason: RetenoNetworkProvider.AFError.ResponseSerializationFailureReason)
+  case serverTrustEvaluationFailed(reason: RetenoNetworkProvider.AFError.ServerTrustFailureReason)
+  case sessionDeinitialized
+  case sessionInvalidated(error: (any Swift.Error)?)
+  case sessionTaskFailed(error: any Swift.Error)
+  case urlRequestValidationFailed(reason: RetenoNetworkProvider.AFError.URLRequestValidationFailureReason)
+}
+extension Swift.Error {
+  public var asAFError: RetenoNetworkProvider.AFError? {
+    get
+  }
+  public func asAFError(orFailWith message: @autoclosure () -> Swift.String, file: Swift.StaticString = #file, line: Swift.UInt = #line) -> RetenoNetworkProvider.AFError
+}
+extension RetenoNetworkProvider.AFError {
+  public var isSessionDeinitializedError: Swift.Bool {
+    get
+  }
+  public var isSessionInvalidatedError: Swift.Bool {
+    get
+  }
+  public var isExplicitlyCancelledError: Swift.Bool {
+    get
+  }
+  public var isInvalidURLError: Swift.Bool {
+    get
+  }
+  public var isParameterEncodingError: Swift.Bool {
+    get
+  }
+  public var isParameterEncoderError: Swift.Bool {
+    get
+  }
+  public var isMultipartEncodingError: Swift.Bool {
+    get
+  }
+  public var isRequestAdaptationError: Swift.Bool {
+    get
+  }
+  public var isResponseValidationError: Swift.Bool {
+    get
+  }
+  public var isResponseSerializationError: Swift.Bool {
+    get
+  }
+  public var isServerTrustEvaluationError: Swift.Bool {
+    get
+  }
+  public var isRequestRetryError: Swift.Bool {
+    get
+  }
+  public var isCreateUploadableError: Swift.Bool {
+    get
+  }
+  public var isCreateURLRequestError: Swift.Bool {
+    get
+  }
+  public var isDownloadedFileMoveError: Swift.Bool {
+    get
+  }
+  public var isSessionTaskError: Swift.Bool {
+    get
+  }
+}
+extension RetenoNetworkProvider.AFError {
+  public var urlConvertible: (any RetenoNetworkProvider.URLConvertible)? {
+    get
+  }
+  public var url: Foundation.URL? {
+    get
+  }
+  public var underlyingError: (any Swift.Error)? {
+    get
+  }
+  public var acceptableContentTypes: [Swift.String]? {
+    get
+  }
+  public var responseContentType: Swift.String? {
+    get
+  }
+  public var responseCode: Swift.Int? {
+    get
+  }
+  public var failedStringEncoding: Swift.String.Encoding? {
+    get
+  }
+  public var sourceURL: Foundation.URL? {
+    get
+  }
+  public var destinationURL: Foundation.URL? {
+    get
+  }
+  public var downloadResumeData: Foundation.Data? {
+    get
+  }
+}
+extension RetenoNetworkProvider.AFError : Foundation.LocalizedError {
+  public var errorDescription: Swift.String? {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class DataRequest : RetenoNetworkProvider.Request {
+  final public let convertible: any RetenoNetworkProvider.URLRequestConvertible
+  public var data: Foundation.Data? {
+    get
+  }
+  @discardableResult
+  public func validate(_ validation: @escaping RetenoNetworkProvider.DataRequest.Validation) -> Self
+  @discardableResult
+  @_disfavoredOverload public func onHTTPResponse(on queue: Dispatch.DispatchQueue = .main, perform handler: @escaping (_ response: Foundation.HTTPURLResponse, _ completionHandler: @escaping (RetenoNetworkProvider.Request.ResponseDisposition) -> Swift.Void) -> Swift.Void) -> Self
+  @discardableResult
+  public func onHTTPResponse(on queue: Dispatch.DispatchQueue = .main, perform handler: @escaping (Foundation.HTTPURLResponse) -> Swift.Void) -> Self
+  @discardableResult
+  public func response(queue: Dispatch.DispatchQueue = .main, completionHandler: @escaping (RetenoNetworkProvider.AFDataResponse<Foundation.Data?>) -> Swift.Void) -> Self
+  @discardableResult
+  public func response<Serializer>(queue: Dispatch.DispatchQueue = .main, responseSerializer: Serializer, completionHandler: @escaping (RetenoNetworkProvider.AFDataResponse<Serializer.SerializedObject>) -> Swift.Void) -> Self where Serializer : RetenoNetworkProvider.DataResponseSerializerProtocol
+  @discardableResult
+  public func response<Serializer>(queue: Dispatch.DispatchQueue = .main, responseSerializer: Serializer, completionHandler: @escaping (RetenoNetworkProvider.AFDataResponse<Serializer.SerializedObject>) -> Swift.Void) -> Self where Serializer : RetenoNetworkProvider.ResponseSerializer
+  @discardableResult
+  public func responseData(queue: Dispatch.DispatchQueue = .main, dataPreprocessor: any RetenoNetworkProvider.DataPreprocessor = DataResponseSerializer.defaultDataPreprocessor, emptyResponseCodes: Swift.Set<Swift.Int> = DataResponseSerializer.defaultEmptyResponseCodes, emptyRequestMethods: Swift.Set<RetenoNetworkProvider.HTTPMethod> = DataResponseSerializer.defaultEmptyRequestMethods, completionHandler: @escaping (RetenoNetworkProvider.AFDataResponse<Foundation.Data>) -> Swift.Void) -> Self
+  @discardableResult
+  public func responseString(queue: Dispatch.DispatchQueue = .main, dataPreprocessor: any RetenoNetworkProvider.DataPreprocessor = StringResponseSerializer.defaultDataPreprocessor, encoding: Swift.String.Encoding? = nil, emptyResponseCodes: Swift.Set<Swift.Int> = StringResponseSerializer.defaultEmptyResponseCodes, emptyRequestMethods: Swift.Set<RetenoNetworkProvider.HTTPMethod> = StringResponseSerializer.defaultEmptyRequestMethods, completionHandler: @escaping (RetenoNetworkProvider.AFDataResponse<Swift.String>) -> Swift.Void) -> Self
+  @available(*, deprecated, message: "responseJSON deprecated and will be removed in Alamofire 6. Use responseDecodable instead.")
+  @discardableResult
+  public func responseJSON(queue: Dispatch.DispatchQueue = .main, dataPreprocessor: any RetenoNetworkProvider.DataPreprocessor = JSONResponseSerializer.defaultDataPreprocessor, emptyResponseCodes: Swift.Set<Swift.Int> = JSONResponseSerializer.defaultEmptyResponseCodes, emptyRequestMethods: Swift.Set<RetenoNetworkProvider.HTTPMethod> = JSONResponseSerializer.defaultEmptyRequestMethods, options: Foundation.JSONSerialization.ReadingOptions = .allowFragments, completionHandler: @escaping (RetenoNetworkProvider.AFDataResponse<Any>) -> Swift.Void) -> Self
+  @discardableResult
+  public func responseDecodable<T>(of type: T.Type = T.self, queue: Dispatch.DispatchQueue = .main, dataPreprocessor: any RetenoNetworkProvider.DataPreprocessor = DecodableResponseSerializer<T>.defaultDataPreprocessor, decoder: any RetenoNetworkProvider.DataDecoder = JSONDecoder(), emptyResponseCodes: Swift.Set<Swift.Int> = DecodableResponseSerializer<T>.defaultEmptyResponseCodes, emptyRequestMethods: Swift.Set<RetenoNetworkProvider.HTTPMethod> = DecodableResponseSerializer<T>.defaultEmptyRequestMethods, completionHandler: @escaping (RetenoNetworkProvider.AFDataResponse<T>) -> Swift.Void) -> Self where T : Swift.Decodable
+  @objc deinit
+}
+extension Foundation.URLRequest {
+  public var method: RetenoNetworkProvider.HTTPMethod? {
+    get
+    set
+  }
+  public func validate() throws
+}
+public typealias AFResult<Success> = Swift.Result<Success, RetenoNetworkProvider.AFError>
+extension RetenoNetworkProvider.URLEncoding.Destination : Swift.Equatable {}
+extension RetenoNetworkProvider.URLEncoding.Destination : Swift.Hashable {}
+extension RetenoNetworkProvider.URLEncoding.BoolEncoding : Swift.Equatable {}
+extension RetenoNetworkProvider.URLEncoding.BoolEncoding : Swift.Hashable {}
+extension RetenoNetworkProvider.JSONEncoding.Error : Swift.Equatable {}
+extension RetenoNetworkProvider.JSONEncoding.Error : Swift.Hashable {}
+extension RetenoNetworkProvider.URLEncodedFormEncoder.BoolEncoding : Swift.Equatable {}
+extension RetenoNetworkProvider.URLEncodedFormEncoder.BoolEncoding : Swift.Hashable {}
+extension RetenoNetworkProvider.URLEncodedFormEncoder.SpaceEncoding : Swift.Equatable {}
+extension RetenoNetworkProvider.URLEncodedFormEncoder.SpaceEncoding : Swift.Hashable {}
+extension RetenoNetworkProvider.NetworkReachabilityManager.NetworkReachabilityStatus.ConnectionType : Swift.Equatable {}
+extension RetenoNetworkProvider.NetworkReachabilityManager.NetworkReachabilityStatus.ConnectionType : Swift.Hashable {}
+extension RetenoNetworkProvider.AuthenticationError : Swift.Equatable {}
+extension RetenoNetworkProvider.AuthenticationError : Swift.Hashable {}
+extension RetenoNetworkProvider.Request.State : Swift.Equatable {}
+extension RetenoNetworkProvider.Request.State : Swift.Hashable {}
+extension RetenoNetworkProvider.Request.ResponseDisposition : Swift.Equatable {}
+extension RetenoNetworkProvider.Request.ResponseDisposition : Swift.Hashable {}
+extension RetenoNetworkProvider.URLEncodedFormParameterEncoder.Destination : Swift.Equatable {}
+extension RetenoNetworkProvider.URLEncodedFormParameterEncoder.Destination : Swift.Hashable {}
+@available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+extension RetenoNetworkProvider.DeflateRequestCompressor.DuplicateHeaderBehavior : Swift.Equatable {}
+@available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+extension RetenoNetworkProvider.DeflateRequestCompressor.DuplicateHeaderBehavior : Swift.Hashable {}
